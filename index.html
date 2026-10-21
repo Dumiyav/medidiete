@@ -136,8 +136,9 @@
                         <i class="fa-regular fa-comment-dots text-amber-300"></i>
                         <span>Intake Msg</span>
                     </button>
-                    <button onclick="resetPatientForm()" class="bg-white/10 active:bg-white/25 text-white text-[11px] font-bold p-2 rounded-xl border border-white/15" title="Reset New Patient">
-                        <i class="fa-solid fa-rotate-left"></i>
+                    <button onclick="resetPatientForm()" class="bg-emerald-500/25 active:bg-emerald-500/40 text-emerald-200 text-[11px] font-extrabold px-2.5 py-2 rounded-xl border border-emerald-400/30 flex items-center gap-1" title="Start Brand New Patient File">
+                        <i class="fa-solid fa-user-plus text-xs"></i>
+                        <span>New</span>
                     </button>
                 </div>
             </div>
@@ -169,6 +170,20 @@
             <!-- VIEW 1: PATIENT BIOMETRICS, CASE ID, METABOLIC RISK & INPUT -->
             <section id="tabViewInput" class="space-y-3 no-print">
 
+                <!-- Editing Existing Patient Indicator Banner (Prevents accidental overwrite of same-name patients) -->
+                <div id="editingModeBanner" class="hidden bg-amber-500 text-slate-950 rounded-2xl px-3.5 py-2.5 shadow-sm flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-sm"></i>
+                        <div>
+                            <p class="text-[11px] font-extrabold leading-tight">Editing Existing File: <span id="editingCaseLabel" class="font-mono underline">#MD-2026</span></p>
+                            <p class="text-[10px] font-semibold">Changes will update this patient. Tap "+ New Patient" for a different person.</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="resetPatientForm()" class="bg-slate-950 text-amber-300 text-[10px] font-extrabold px-2.5 py-1.5 rounded-xl shrink-0">
+                        + New Patient
+                    </button>
+                </div>
+
                 <!-- Quick WhatsApp Reply Paste Parser -->
                 <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-200/90">
                     <div class="flex items-center justify-between mb-1.5">
@@ -186,7 +201,7 @@
                     <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                         <div class="flex items-center gap-1.5">
                             <span class="w-5 h-5 rounded-md bg-medinavy text-white text-[11px] font-extrabold flex items-center justify-center">1</span>
-                            <h2 class="font-extrabold text-slate-800 text-xs uppercase tracking-wider">Patient Clinical File</h2>
+                            <h2 id="fileModeTitle" class="font-extrabold text-slate-800 text-xs uppercase tracking-wider">New Patient Clinical File</h2>
                         </div>
                         <div class="flex items-center gap-1">
                             <span id="caseIdPill" class="text-[10px] font-mono font-extrabold text-medinavy bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">#MD-2026-841</span>
@@ -216,7 +231,7 @@
                         </div>
                         <div class="col-span-5">
                             <label class="block text-[11px] font-bold text-slate-600 mb-1">WhatsApp No</label>
-                            <input type="tel" id="waPhoneInput" placeholder="077xxxxxxx" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-800 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-medinavy outline-none">
+                            <input type="tel" id="waPhoneInput" placeholder="077xxxxxxx" oninput="recalculateAll()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-800 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-medinavy outline-none">
                         </div>
                     </div>
 
@@ -289,7 +304,7 @@
                         </div>
                     </div>
 
-                    <!-- NEW: PAST MEDICAL HISTORY & MEDICATIONS -->
+                    <!-- PAST MEDICAL HISTORY & MEDICATIONS -->
                     <div class="pt-2 border-t border-slate-100 space-y-2">
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-extrabold text-medinavy flex items-center gap-1.5">
@@ -309,7 +324,7 @@
                         <input type="text" id="pastMedicalInput" oninput="recalculateAll()" placeholder="උදා: Gastritis, Thyroxine ගන්නවා (නැත්නම් හිස්ව තියන්න)" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold sinhala-font bg-slate-50/70 focus:bg-white outline-none focus:ring-2 focus:ring-medinavy">
                     </div>
 
-                    <!-- NEW: FOOD ALLERGIES & INTOLERANCES -->
+                    <!-- FOOD ALLERGIES & INTOLERANCES -->
                     <div class="pt-2 border-t border-slate-100 space-y-2">
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-extrabold text-medinavy flex items-center gap-1.5">
@@ -366,9 +381,9 @@
                             <option value="Paid">✅ Paid</option>
                         </select>
 
-                        <button type="button" onclick="saveClientToDatabase()" class="flex-1 bg-medinavy active:scale-[0.98] text-white text-xs font-extrabold py-3 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition">
+                        <button type="button" id="saveFileBtn" onclick="saveClientToDatabase()" class="flex-1 bg-medinavy active:scale-[0.98] text-white text-xs font-extrabold py-3 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition">
                             <i class="fa-solid fa-database text-amber-300"></i>
-                            <span>Save File</span>
+                            <span id="saveFileBtnText">Save New File</span>
                         </button>
 
                         <button type="button" onclick="switchMobileTab('scripts')" class="bg-medigreen active:scale-[0.98] text-white text-xs font-extrabold py-3 px-3.5 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition">
@@ -417,7 +432,7 @@
             <!-- VIEW 2: WHATSAPP FUNNEL SCRIPTS & AI MASTER PROMPT -->
             <section id="tabViewScripts" class="space-y-3 hidden">
 
-                <!-- 9 Scenario Touch Selector -->
+                <!-- 10 Scenario Touch Selector -->
                 <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-200/90">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
@@ -693,7 +708,7 @@
                                     <h2 class="text-xs font-extrabold text-slate-800">Google Sheets Cloud DB</h2>
                                     <span id="cloudConnPill" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Not Linked</span>
                                 </div>
-                                <p class="text-[10px] text-slate-500">Syncs Past History, Allergies & Biometrics</p>
+                                <p class="text-[10px] text-slate-500">100% Safe for Old Sheet Data • Auto-Migrates Legacy Rows</p>
                             </div>
                         </div>
                         <button type="button" onclick="toggleCloudSetupModal()" class="text-[11px] font-extrabold bg-slate-100 hover:bg-slate-200 text-medinavy px-2.5 py-1.5 rounded-xl">
@@ -711,14 +726,14 @@
 
                     <div id="cloudSetupBox" class="hidden pt-2 border-t border-slate-100 space-y-2 text-[11px] text-slate-600">
                         <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-2.5 space-y-1.5">
-                            <p class="font-extrabold text-medinavy text-xs">🚀 Google Sheet Apps Script (Updated for Allergies & Medical History):</p>
+                            <p class="font-extrabold text-medinavy text-xs">🛡️ Safe Legacy Migration Apps Script (පරණ Data 100%ක් ආරක්ෂිතයි):</p>
                             <ol class="list-decimal list-inside space-y-1 text-[11px] sinhala-font">
-                                <li>Google Sheet එකේ <b>Extensions → Apps Script</b> වෙත යන්න.</li>
-                                <li>පහත <b>"Copy Apps Script Code"</b> ඔබා අලුත් කෝඩ් එක Paste කර <b>Deploy → New deployment (Web app / Anyone)</b> දෙන්න.</li>
+                                <li>මේ කෝඩ් එකෙන් ඔයාගේ Sheet එකේ දැනට ඉන්න පරණ Clients ලාට කිසිම හානියක් වෙන්නේ නෑ (Columns 15 හෝ 17 තිබ්බ පරණ Rows ඉබේම අලුත් Case ID එකක් එක්ක App එකට ගන්නවා).</li>
+                                <li>Apps Script එකේ මේ කෝඩ් එක Paste කරලා <b>Deploy → Manage deployments → Edit (✏️) → Version: New version → Deploy</b> දෙන්න (එතකොට පරණ URL එකම වැඩ කරනවා!).</li>
                             </ol>
                             <button type="button" onclick="copyGoogleAppsScriptCode()" class="w-full mt-1 py-2 bg-medinavy text-white rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 shadow">
                                 <i class="fa-regular fa-copy text-emerald-300"></i>
-                                <span>Copy Updated Apps Script Code</span>
+                                <span>Copy Backward-Compatible Apps Script</span>
                             </button>
                         </div>
                     </div>
@@ -758,7 +773,7 @@
                 <div class="flex items-center gap-2">
                     <div class="relative flex-1">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
-                        <input type="text" id="crmSearchInput" oninput="renderCrmCards()" placeholder="Search patient, condition, allergy..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold outline-none">
+                        <input type="text" id="crmSearchInput" oninput="renderCrmCards()" placeholder="Search patient, Case ID, phone, allergy..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold outline-none">
                     </div>
                     <button type="button" onclick="clearAllCrmClients()" class="px-3 py-2.5 rounded-xl bg-rose-50 text-rose-600 text-xs font-bold border border-rose-200">
                         <i class="fa-regular fa-trash-can"></i>
@@ -825,21 +840,53 @@
 
 මේ දත්ත එවූ පසු අපේ Medical Team එක ඔයාගේ Clinical Case File එක Open කරලා BMI සහ Calorie Assessment එක එවයි.</textarea>
 
-    <!-- Hidden textarea for Google Apps Script Backend Code -->
+    <!-- Hidden textarea for Google Apps Script Backend Code (100% BACKWARD COMPATIBLE with old 15-col and 17-col sheets!) -->
     <textarea id="hiddenAppsScriptCode" class="hidden">function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var headers = ["ID", "SavedAt", "Name", "Phone", "Status", "Price", "Age", "Gender", "Height_cm", "Weight_kg", "BMI", "CalorieTarget", "Condition", "DietPref", "SelectedIdsJSON", "PastMedical", "FoodAllergies", "CaseRef", "PaidTimestamp"];
+  
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(["ID", "SavedAt", "Name", "Phone", "Status", "Price", "Age", "Gender", "Height_cm", "Weight_kg", "BMI", "CalorieTarget", "Condition", "DietPref", "SelectedIdsJSON", "PastMedical", "FoodAllergies", "CaseRef", "PaidTimestamp"]);
+    sheet.appendRow(headers);
+  } else {
+    // Automatically upgrade header row if old sheet had only 15 or 17 columns
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   }
+
   var data = JSON.parse(e.postData.contents);
   
   if (data.action === "upsert") {
     var c = data.client;
     var values = sheet.getDataRange().getValues();
     var updated = false;
-    var rowData = [c.id, c.savedAt, c.name, c.phone, c.status, c.price, c.age, c.gender, c.height, c.weight, c.bmi, c.calorieTarget, c.condition, c.dietPref, JSON.stringify(c.selectedIds || []), c.pastMedical || "", c.foodAllergies || "", c.caseRef || "", c.paidTimestamp || ""];
+    var rowData = [
+      c.id || ("legacy-" + new Date().getTime()),
+      c.savedAt || "",
+      c.name || "",
+      c.phone || "",
+      c.status || "Pending",
+      c.price || "3,500",
+      c.age || 30,
+      c.gender || "Female",
+      c.height || 160,
+      c.weight || 70,
+      c.bmi || "27.3",
+      c.calorieTarget || 1300,
+      c.condition || "",
+      c.dietPref || "",
+      JSON.stringify(c.selectedIds || ["belly"]),
+      c.pastMedical || "",
+      c.foodAllergies || "",
+      c.caseRef || ("#MD-2026-" + Math.floor(100 + Math.random() * 900)),
+      c.paidTimestamp || ""
+    ];
+
     for (var i = 1; i < values.length; i++) {
-      if (String(values[i][0]) === String(c.id) || (values[i][2] && String(values[i][2]).toLowerCase() === String(c.name).toLowerCase())) {
+      var rowId = String(values[i][0] || "");
+      var rowCaseRef = values[i].length > 17 ? String(values[i][17] || "") : "";
+      var isLegacyRow = String(c.id || "").indexOf("legacy-row-") === 0 && (i + 1) === Number(String(c.id).replace("legacy-row-", ""));
+
+      // Match by ID, CaseRef, or exact Legacy Row number (Never overwrites a different person with the same name!)
+      if ((rowId && rowId === String(c.id)) || (c.caseRef && rowCaseRef && rowCaseRef === String(c.caseRef)) || isLegacyRow) {
         sheet.getRange(i + 1, 1, 1, 19).setValues([rowData]);
         updated = true;
         break;
@@ -859,13 +906,19 @@ function doGet(e) {
   var clients = [];
   for (var i = 1; i < rows.length; i++) {
     var r = rows[i];
-    if (!r[2]) continue;
+    if (!r[2]) continue; // Skip empty rows
     var sIds = ["belly"];
     try { sIds = JSON.parse(r[14] || '["belly"]'); } catch(err) {}
+    
+    // Safe fallback for old rows that had 15 or 17 columns
+    var safeId = r[0] ? String(r[0]) : ("legacy-row-" + (i + 1));
+    var safeCaseRef = (r.length > 17 && r[17]) ? String(r[17]) : ("#MD-2026-" + (100 + i));
+    var safePaidTs = (r.length > 18 && r[18]) ? Number(r[18]) : 0;
+
     clients.push({
-      id: String(r[0]),
-      savedAt: String(r[1]),
-      name: String(r[2]),
+      id: safeId,
+      savedAt: String(r[1] || ""),
+      name: String(r[2] || ""),
       phone: String(r[3] || ""),
       status: String(r[4] || "Pending"),
       price: String(r[5] || "3,500"),
@@ -879,10 +932,10 @@ function doGet(e) {
       dietPref: String(r[13] || ""),
       activity: "1.2",
       selectedIds: sIds,
-      pastMedical: String(r[15] || ""),
-      foodAllergies: String(r[16] || ""),
-      caseRef: String(r[17] || "#MD-2026-841"),
-      paidTimestamp: Number(r[18] || 0)
+      pastMedical: (r.length > 15 && r[15]) ? String(r[15]) : "",
+      foodAllergies: (r.length > 16 && r[16]) ? String(r[16]) : "",
+      caseRef: safeCaseRef,
+      paidTimestamp: safePaidTs
     });
   }
   return ContentService.createTextOutput(JSON.stringify({ status: "ok", clients: clients.reverse() })).setMimeType(ContentService.MimeType.JSON);
@@ -907,6 +960,7 @@ function doGet(e) {
         let sqliteDb = null;
         let SQL_ENGINE = null;
         let activeScenario = 1;
+        let currentEditingClientId = null; // Tracks if user explicitly clicked "Edit" on an existing record
         let currentCaseId = '#MD-2026-' + Math.floor(100 + Math.random() * 900);
         let showOnlyDueReviews = false;
 
@@ -945,10 +999,67 @@ function doGet(e) {
             try { window.localStorage.setItem(key, value); } catch (e) {}
         }
 
+        // Automatically normalizes any legacy/old records from localStorage or Google Sheets
+        function normalizeLegacyClients(list) {
+            if (!Array.isArray(list)) return [];
+            const seenIds = new Set();
+            return list.map((c, idx) => {
+                let safeId = c.id ? String(c.id) : (`legacy-${ idx + 1 }-${ Date.now() }`);
+                if (seenIds.has(safeId)) {
+                    safeId = `${safeId}-${idx}`;
+                }
+                seenIds.add(safeId);
+
+                const safeCaseRef = c.caseRef
+                    ? String(c.caseRef)
+                    : (`#MD-2026-${100 + idx}`);
+
+                return {
+                    ...c,
+                    id: safeId,
+                    caseRef: safeCaseRef,
+                    pastMedical: c.pastMedical || '',
+                    foodAllergies: c.foodAllergies || '',
+                    paidTimestamp: Number(c.paidTimestamp || 0),
+                    selectedIds: Array.isArray(c.selectedIds) && c.selectedIds.length > 0 ? c.selectedIds : ['belly']
+                };
+            });
+        }
+
+        function generateUniqueCaseId() {
+            let candidate = '';
+            let attempts = 0;
+            do {
+                candidate = '#MD-2026-' + Math.floor(100 + Math.random() * 900);
+                attempts++;
+            } while (crmClients.some(c => c.caseRef === candidate) && attempts < 50);
+            return candidate;
+        }
+
+        function updateEditingModeUI() {
+            const banner = document.getElementById('editingModeBanner');
+            const caseLabel = document.getElementById('editingCaseLabel');
+            const fileModeTitle = document.getElementById('fileModeTitle');
+            const saveBtnText = document.getElementById('saveFileBtnText');
+
+            if (currentEditingClientId) {
+                banner.classList.remove('hidden');
+                caseLabel.textContent = `${currentCaseId} (${calculatedState.rawNameOnly || 'Patient'})`;
+                fileModeTitle.textContent = 'Editing Patient Clinical File';
+                saveBtnText.textContent = 'Update File';
+            } else {
+                banner.classList.add('hidden');
+                fileModeTitle.textContent = 'New Patient Clinical File';
+                saveBtnText.textContent = 'Save New File';
+            }
+        }
+
         function regenerateCaseId() {
-            currentCaseId = '#MD-2026-' + Math.floor(100 + Math.random() * 900);
+            currentEditingClientId = null;
+            currentCaseId = generateUniqueCaseId();
             document.getElementById('headerCaseBadge').textContent = currentCaseId;
             document.getElementById('caseIdPill').textContent = currentCaseId;
+            updateEditingModeUI();
             recalculateAll();
             showToast(`New Clinical Case ID: ${currentCaseId}`);
         }
@@ -1094,7 +1205,6 @@ function doGet(e) {
                 renderConditionChips();
             }
 
-            // Detect Past Medical History keywords
             const medKeywords = [];
             if (lower.includes('gastritis') || text.includes('ගැස්ට්‍රයිටිස්')) medKeywords.push('Gastritis (ගැස්ට්‍රයිටිස්)');
             if (lower.includes('thyroid') || lower.includes('thyroxine') || text.includes('තයිරොයිඩ්')) medKeywords.push('Thyroid / Thyroxine');
@@ -1105,7 +1215,6 @@ function doGet(e) {
                 document.getElementById('pastMedicalInput').value = medKeywords.join(', ');
             }
 
-            // Detect Allergy keywords
             const allergyKeywords = [];
             if (lower.includes('prawn') || lower.includes('shrimp') || lower.includes('seafood') || text.includes('ඉස්සෝ') || text.includes('දැල්ලෝ')) {
                 allergyKeywords.push('ඉස්සෝ / දැල්ලෝ (Seafood Allergy)');
@@ -1175,7 +1284,6 @@ function doGet(e) {
             }
             badge.textContent = shortCat;
 
-            // Idea #2: Dynamic Metabolic & Visceral Fat Warning Calculation
             const hasMetabolicCond = selectedConditionIds.some(id => ['belly', 'pcos', 'fattyliver', 'diabetes', 'cholesterol'].includes(id));
             let visceralRiskLevel = 'Moderate Risk';
             let visceralRiskNote = '';
@@ -1252,6 +1360,7 @@ function doGet(e) {
             document.getElementById('metricCalories').textContent = prescribedCalories.toLocaleString();
             document.getElementById('tdeeSubtext').textContent = `TDEE: ${Math.round(tdee)} kcal (-450)`;
 
+            updateEditingModeUI();
             renderScenarioOutput();
             renderLiveClinicalPdf();
         }
@@ -1717,6 +1826,8 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
         }
 
         function resetPatientForm() {
+            currentEditingClientId = null;
+            currentCaseId = generateUniqueCaseId();
             document.getElementById('clientName').value = '';
             document.getElementById('waPhoneInput').value = '';
             document.getElementById('clientAge').value = 30;
@@ -1732,10 +1843,11 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
             document.getElementById('dietPreference').selectedIndex = 0;
             document.getElementById('packagePrice').value = '3,500';
             document.getElementById('clientStatusSelect').value = 'Pending';
+            updateEditingModeUI();
             selectScenario(1);
             recalculateAll();
             switchMobileTab('input');
-            showToast('Ready for New Patient!');
+            showToast(`New Patient File Opened (${currentCaseId})`);
         }
 
         async function initSqliteDatabase() {
@@ -1755,28 +1867,6 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                         sqliteDb = new SQL_ENGINE.Database(bytes);
                     } else {
                         sqliteDb = new SQL_ENGINE.Database();
-                        sqliteDb.run(`
-                            CREATE TABLE IF NOT EXISTS patients (
-                                id TEXT PRIMARY KEY,
-                                name TEXT,
-                                phone TEXT,
-                                age INTEGER,
-                                gender TEXT,
-                                height REAL,
-                                weight REAL,
-                                activity TEXT,
-                                condition TEXT,
-                                selectedIds TEXT,
-                                dietPref TEXT,
-                                price TEXT,
-                                bmi TEXT,
-                                calorieTarget INTEGER,
-                                status TEXT,
-                                savedAt TEXT,
-                                pastMedical TEXT,
-                                foodAllergies TEXT
-                            );
-                        `);
                         syncJsonArrayToSqlite();
                     }
                 }
@@ -1817,19 +1907,24 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                         status TEXT,
                         savedAt TEXT,
                         pastMedical TEXT,
-                        foodAllergies TEXT
+                        foodAllergies TEXT,
+                        caseRef TEXT,
+                        paidTimestamp INTEGER
                     );
                 `);
+                try { sqliteDb.run('ALTER TABLE patients ADD COLUMN caseRef TEXT;'); } catch (e) {}
+                try { sqliteDb.run('ALTER TABLE patients ADD COLUMN paidTimestamp INTEGER;'); } catch (e) {}
+
                 sqliteDb.run('DELETE FROM patients;');
                 const stmt = sqliteDb.prepare(`
-                    INSERT INTO patients VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                    INSERT INTO patients VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 `);
                 crmClients.forEach(c => {
                     stmt.run([
                         c.id, c.name, c.phone || '', c.age, c.gender, c.height, c.weight,
                         String(c.activity), c.condition, JSON.stringify(c.selectedIds || ['belly']),
                         c.dietPref, c.price, c.bmi, c.calorieTarget, c.status, c.savedAt || '',
-                        c.pastMedical || '', c.foodAllergies || ''
+                        c.pastMedical || '', c.foodAllergies || '', c.caseRef || '#MD-2026', Number(c.paidTimestamp || 0)
                     ]);
                 });
                 stmt.free();
@@ -1838,10 +1933,16 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
         }
 
         function loadCrmClients() {
-            const raw = safeGetStorage(STORAGE_KEY_CRM_JSON) || safeGetStorage('medidiet_sl_crm_json_v3');
+            // Checks v4, v3, v2, and v1 keys so no old local browser data is ever lost
+            const raw = safeGetStorage(STORAGE_KEY_CRM_JSON)
+                || safeGetStorage('medidiet_sl_crm_json_v3')
+                || safeGetStorage('medidiet_sl_crm_json_v2')
+                || safeGetStorage('medidiet_sl_crm_json_v1');
+
             if (raw) {
                 try {
-                    crmClients = JSON.parse(raw);
+                    crmClients = normalizeLegacyClients(JSON.parse(raw));
+                    safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
                 } catch (e) {
                     crmClients = [];
                 }
@@ -1880,15 +1981,26 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
             const status = document.getElementById('clientStatusSelect').value;
             const clientName = s.rawNameOnly || 'Unnamed Patient';
 
-            const existingIndex = crmClients.findIndex(c => c.name.toLowerCase() === clientName.toLowerCase());
+            // Match ONLY if we are explicitly editing an existing patient ID or same CaseRef!
+            let existingIndex = -1;
+            if (currentEditingClientId) {
+                existingIndex = crmClients.findIndex(c => c.id === currentEditingClientId);
+            } else {
+                existingIndex = crmClients.findIndex(c => c.caseRef === currentCaseId);
+            }
+
             let paidTs = status === 'Paid' ? Date.now() : 0;
             if (existingIndex > -1 && crmClients[existingIndex].paidTimestamp && status === 'Paid') {
                 paidTs = crmClients[existingIndex].paidTimestamp;
             }
 
+            const recordId = existingIndex > -1
+                ? crmClients[existingIndex].id
+                : ('cli-' + Date.now() + '-' + Math.floor(100 + Math.random() * 900));
+
             const newEntry = {
-                id: existingIndex > -1 ? crmClients[existingIndex].id : ('cli-' + Date.now()),
-                caseRef: s.caseRef || currentCaseId,
+                id: recordId,
+                caseRef: currentCaseId,
                 name: clientName,
                 phone: s.phone || '',
                 age: s.age,
@@ -1909,23 +2021,32 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                 paidTimestamp: paidTs
             };
 
-            if (existingIndex > -1) {
+            const wasUpdate = existingIndex > -1;
+            if (wasUpdate) {
                 crmClients[existingIndex] = newEntry;
             } else {
                 crmClients.unshift(newEntry);
             }
 
+            // Lock into editing mode for this saved patient until user taps "+ New" or generates a new Case ID
+            currentEditingClientId = recordId;
+            updateEditingModeUI();
+
             safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
             syncJsonArrayToSqlite();
             renderCrmCards();
             pushClientToGoogleSheet(newEntry);
-            showToast(`Saved ${newEntry.caseRef} (${clientName}) to DB!`);
+
+            showToast(wasUpdate
+                ? `Updated ${newEntry.caseRef} (${clientName})!`
+                : `Saved New File ${newEntry.caseRef} (${clientName})!`);
         }
 
         function loadWebhookUrl() {
-            const url = safeGetStorage(STORAGE_KEY_GSHEET_URL);
+            const url = safeGetStorage(STORAGE_KEY_GSHEET_URL) || safeGetStorage('medidiet_sl_gsheet_url_v2') || safeGetStorage('medidiet_sl_gsheet_url_v1');
             if (url) {
                 document.getElementById('googleSheetWebhookInput').value = url;
+                safeSetStorage(STORAGE_KEY_GSHEET_URL, url);
                 updateCloudStatusUI(true);
             } else {
                 updateCloudStatusUI(false);
@@ -1963,7 +2084,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
             el.setSelectionRange(0, 99999);
             try {
                 document.execCommand('copy');
-                showToast('Updated Google Apps Script Copied!');
+                showToast('Backward-Compatible Apps Script Copied!');
             } catch (e) {
                 showToast('Copy failed');
             }
@@ -1997,11 +2118,12 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                 const res = await fetch(webhookUrl);
                 const data = await res.json();
                 if (data && Array.isArray(data.clients)) {
-                    crmClients = data.clients;
+                    // Normalizes any old 15-col or 17-col sheet rows automatically so nothing breaks!
+                    crmClients = normalizeLegacyClients(data.clients);
                     safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
                     syncJsonArrayToSqlite();
                     renderCrmCards();
-                    showToast(`Synced ${crmClients.length} clients from Google Cloud!`);
+                    showToast(`Synced ${crmClients.length} clients safely!`);
                 }
             } catch (err) {
                 showToast('Cloud Sync Error — Check URL permissions');
@@ -2014,7 +2136,8 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
             const c = crmClients.find(item => item.id === id);
             if (!c) return;
 
-            currentCaseId = c.caseRef || ('#MD-2026-' + Math.floor(100 + Math.random() * 900));
+            currentEditingClientId = c.id;
+            currentCaseId = c.caseRef || generateUniqueCaseId();
             document.getElementById('clientName').value = c.name;
             document.getElementById('waPhoneInput').value = c.phone || '';
             document.getElementById('clientAge').value = c.age;
@@ -2034,6 +2157,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                 selectedConditionIds = ['belly'];
             }
             renderConditionChips();
+            updateEditingModeUI();
             recalculateAll();
 
             if (goToScript) {
@@ -2071,6 +2195,10 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
         }
 
         function deleteCrmClient(id) {
+            if (currentEditingClientId === id) {
+                currentEditingClientId = null;
+                updateEditingModeUI();
+            }
             crmClients = crmClients.filter(item => item.id !== id);
             safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
             syncJsonArrayToSqlite();
@@ -2079,9 +2207,11 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
         }
 
         function clearAllCrmClients() {
+            currentEditingClientId = null;
             crmClients = [];
             safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
             syncJsonArrayToSqlite();
+            updateEditingModeUI();
             renderCrmCards();
             showToast('Database cleared');
         }
@@ -2131,7 +2261,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                     try {
                         const parsed = JSON.parse(e.target.result);
                         const list = Array.isArray(parsed) ? parsed : (parsed.clients || []);
-                        crmClients = list;
+                        crmClients = normalizeLegacyClients(list);
                         safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
                         syncJsonArrayToSqlite();
                         renderCrmCards();
@@ -2150,7 +2280,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                         const res = sqliteDb.exec("SELECT * FROM patients");
                         if (res.length > 0) {
                             const rows = res[0].values;
-                            crmClients = rows.map(r => ({
+                            crmClients = normalizeLegacyClients(rows.map(r => ({
                                 id: r[0],
                                 name: r[1],
                                 phone: r[2],
@@ -2168,8 +2298,10 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                                 status: r[14],
                                 savedAt: r[15],
                                 pastMedical: r[16] || '',
-                                foodAllergies: r[17] || ''
-                            }));
+                                foodAllergies: r[17] || '',
+                                caseRef: r[18] || ('#MD-2026-' + Math.floor(100 + Math.random() * 900)),
+                                paidTimestamp: Number(r[19] || 0)
+                            })));
                             safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
                             persistSqliteToStorage();
                             renderCrmCards();
@@ -2227,7 +2359,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                     <div class="bg-white rounded-2xl p-6 text-center border border-slate-200">
                         <i class="fa-solid fa-folder-open text-2xl text-slate-300 mb-2"></i>
                         <p class="text-xs font-bold text-slate-500">No matching patient records found.</p>
-                        <p class="text-[11px] text-slate-400 mt-0.5">Tap "Save File" on Tab 1 to store patients.</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Tap "Save New File" on Tab 1 to store patients.</p>
                     </div>
                 `;
                 return;
@@ -2335,6 +2467,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
             loadBankSettings();
             loadWebhookUrl();
             loadCrmClients();
+            currentCaseId = generateUniqueCaseId();
             initSqliteDatabase();
             selectScenario(1);
             recalculateAll();
