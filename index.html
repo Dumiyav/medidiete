@@ -823,22 +823,14 @@
         </div>
     </div>
 
-    <!-- Hidden textarea for Initial Intake Greeting copy (Includes Idea #5 Exclusivity Rule) -->
-    <textarea id="hiddenIntakeGreeting" class="hidden">ආයුබෝවන්. MediDiet Sri Lanka Medical Unit. 🩺
+    <!-- Hidden textarea for Initial Intake Greeting copy (Warm Human Medical Desk — Zero Emojis) -->
+    <textarea id="hiddenIntakeGreeting" class="hidden">ආයුබෝවන්. MediDiet Medical Unit එකෙන්.
 
-අපි හැමෝටම පොදුවේ දෙන සාමාන්‍ය Diet Sheets නිකුත් කරන්නේ නෑ. අපේ Medical Panel එකෙන් කරන්නේ ඔයාගේ ශරීරයේ දත්ත, රෝග තත්ත්වයන් සහ ඔයා ගෙදරදී කන බොන කෑම වර්ග පරීක්ෂා කරලා, ඔයාගේ ඇඟට 100%ක්ම Match වෙන *Personal Clinical Nutrition Blueprint* එකක් සකසන එකයි.
+ඔයාගේ සෞඛ්‍ය තත්ත්වයට සහ බර අඩු කරගන්න ගැලපෙනම පෞද්ගලික වෛද්‍ය ආහාර සැලැස්ම (Medical Diet Prescription එක) හදන්න කලින්, වෛද්‍ය පරීක්ෂාව සඳහා මට ඔයාගේ පොඩි විස්තර ටිකක් දැනගන්න ඕනේ.
 
-⚠️ *විශේෂ දැනුවත් කිරීමයි:* අපේ වෛද්‍ය මණ්ඩලය Blueprint එකක් සඳහා භාරගන්නේ කෙටි කාලීන බෙහෙත් පෙති හෝ Slimming Tea හොයන්නේ නැතුව, ගෙදර ආහාර පාලනයෙන් විද්‍යාත්මකව සහ ආරක්ෂිතව ප්‍රතිඵල ගන්න කැමති අයගේ Files පමණයි.
+මට ඔයාගේ වයස, උස (සෙන්ටිමීටර් හෝ අඩි වලින්) සහ දැනට බර එවන්න පුළුවන්ද?
 
-වෛද්‍ය මණ්ඩලයේ මූලික පරීක්ෂාව (Clinical Assessment) සඳහා මේ විස්තර ටික පිළිවෙළින් එවන්න: 👇
-
-1. ස්ත්‍රී/පුරුෂ භාවය සහ වයස:
-2. උස සහ දැනට බර:
-3. ප්‍රධානම Target එක: (උදා: Belly Fat සහ බර අඩු කරගන්න / PCOS / Fatty Liver / Cholesterol / Post-Pregnancy)
-4. *Past Medical History:* දැනට ඇති වෙනත් රෝග (උදා: Gastritis, Thyroid, Pressure, Wheezing) හෝ ගන්නා බෙහෙත්:
-5. *Food Allergies & Preference:* ඔයාට අසාත්මික (Allergy) කෑම මොනවාද? (මස්, මාළු, බිත්තර කනවද? Vegetarian ද?):
-
-මේ දත්ත එවූ පසු අපේ Medical Team එක ඔයාගේ Clinical Case File එක Open කරලා BMI සහ Calorie Assessment එක එවයි.</textarea>
+ඒ වගේම දැනට වෙනත් ලෙඩකට බෙහෙත් ගන්නවා නම් ඒ මොනවද කියලත්, ඔයාට කෑම ජාති මොනවා හරි Allergic ද, මස් මාළු බිත්තර කනවද කියලත් මට පොඩ්ඩක් කියන්න.</textarea>
 
     <!-- Hidden textarea for Google Apps Script Backend Code (100% BACKWARD COMPATIBLE with old 15-col and 17-col sheets!) -->
     <textarea id="hiddenAppsScriptCode" class="hidden">function doPost(e) {
@@ -948,9 +940,9 @@ function doGet(e) {
         const STORAGE_KEY_GSHEET_URL = 'medidiet_sl_gsheet_url_v3';
 
         const CLINICAL_CONDITIONS = [
-            { id: 'belly', label: 'Belly Fat එක (උදරය වටා තෙල්) සහ වැඩි බර', short: 'Belly Fat' },
-            { id: 'pcos', label: 'PCOS / PCOD සහ Insulin Resistance තත්ත්වය', short: 'PCOS / PCOD' },
-            { id: 'fattyliver', label: 'Fatty Liver (අක්මාවේ තෙල් තැන්පත් වීම)', short: 'Fatty Liver' },
+            { id: 'belly', label: 'Belly Fat (උදරය වටා තෙල්)', short: 'Belly Fat' },
+            { id: 'pcos', label: 'PCOS සහ හෝමෝන ගැටලු', short: 'PCOS / PCOD' },
+            { id: 'fattyliver', label: 'Fatty Liver (අක්මාවේ තෙල්)', short: 'Fatty Liver' },
             { id: 'cholesterol', label: 'Cholesterol සහ Triglycerides මට්ටම', short: 'Cholesterol' },
             { id: 'postpreg', label: 'බබා ලැබුණට පස්සේ වැඩි වුණ බර (Post-Pregnancy Weight)', short: 'Post-Pregnancy' },
             { id: 'diabetes', label: 'Blood Sugar මට්ටම (Pre-Diabetes / Sugar Control)', short: 'Pre-Diabetes / Sugar' }
@@ -974,7 +966,7 @@ function doGet(e) {
             height: 160,
             weight: 74,
             activity: 1.2,
-            condition: 'Belly Fat එක (උදරය වටා තෙල්) සහ වැඩි බර',
+            condition: 'Belly Fat (උදරය වටා තෙල්)',
             selectedIds: ['belly'],
             pastMedical: '',
             foodAllergies: '',
@@ -1424,14 +1416,14 @@ function doGet(e) {
             }
 
             const scenarioTitles = {
-                1: '#1 Direct Diagnosis & Case File Close',
-                2: '#2 Clinical Fee & Standards',
+                1: '#1 Direct Diagnosis Close',
+                2: '#2 Fee & Standards',
                 3: '#3 Quick Data Check',
-                4: '#4 Page Tips vs Custom Blueprint (Pull-Back)',
-                5: '#5 Clinical File Closing Notice',
-                6: '#6 Why Rs. 3,500? (No Discount / High Status)',
+                4: '#4 Page vs Custom (Take/Leave)',
+                5: '#5 File Closing Notice',
+                6: '#6 Why Rs. 3,500? (Status)',
                 7: '#7 Clinical Logic ("අඩු වෙයිද?")',
-                8: '#8 Case Assigned to Medical Panel',
+                8: '#8 Assigned to Panel',
                 9: '#9 AI Clinical Blueprint Master Prompt',
                 10: '#10 14-Day Clinical Review Check-In'
             };
@@ -1462,166 +1454,122 @@ function doGet(e) {
 
         function renderScenarioOutput() {
             const s = calculatedState;
-            const displayName = s.rawNameOnly ? s.rawNameOnly : '';
-            const nameWithSpace = displayName ? ` ${displayName}` : '';
+            const name = s.rawNameOnly ? s.rawNameOnly.trim() : '';
+            const height = s.height;
+            const weight = s.weight;
+            const bmi = s.bmi;
+            const targetLoss = s.targetLoss;
+            const condition = s.condition;
+            const calorieTarget = s.calorieTarget;
+            const price = s.price;
 
-            const bank = document.getElementById('bankName').value.trim() || "People's Bank";
-            const accNo = document.getElementById('bankAccNo').value.trim() || '068100110085332';
-            const accName = document.getElementById('bankAccName').value.trim() || 'DAWNNEX Medical Team';
-            const branch = document.getElementById('bankBranch').value.trim() || 'Monaragala';
+            const bankName = document.getElementById('bankName').value.trim() || "People's Bank";
+            const accountNumber = document.getElementById('bankAccNo').value.trim() || '068100110085332';
+            const accountName = document.getElementById('bankAccName').value.trim() || 'DAWNNEX Medical Team';
+            const bankBranch = document.getElementById('bankBranch').value.trim() || 'Monaragala';
 
-            const historyDisplay = s.pastMedical ? s.pastMedical : 'විශේෂ පූර්ව රෝග වාර්තා වී නැත';
-            const allergyDisplay = s.foodAllergies ? `${s.foodAllergies} (Blueprint එකෙන් 100%ක් ඉවත් කෙරේ)` : 'වාර්තා වී නැත';
-
-            const voiceHistoryLine = s.pastMedical ? ` සහ ${s.pastMedical}` : '';
-            const voiceAllergyLine = s.foodAllergies ? ` ඔයාට Allergy වෙන ${s.foodAllergies} සම්පූර්ණයෙන්ම අයින් කරලා,` : '';
+            const universalVoiceScript = `"හලෝ ${name ? name : ''}, මම ඔයාගේ විස්තර ටික පරීක්ෂා කළා. ඔයාගේ උසයි බරයි එක්ක බලද්දී අපි කිලෝ ${targetLoss} ක් විතර අඩු කරගන්න ඕනේ. විශේෂයෙන්ම ඔයාගේ ${condition} තත්ත්වය නිසා කෑම නොකා බඩගින්නේ ඉඳලා මේක අඩු කරන්න බෑ. මම පහළින් මැසේජ් එකක් දාලා ඇති ඔයාගේ ඇඟේ තත්ත්වය ගැනයි මට දැනගන්න ඕන පොඩි ප්‍රශ්නයකුයි, ඒක පොඩ්ඩක් කියවලා බලලා මට රිප්ලයි එකක් දාන්නකෝ."`;
 
             let output = '';
             let psychTip = '';
-            let voiceScript = '';
-            let voicePriority = 'OPTIONAL VOICE';
+            let voiceScript = universalVoiceScript;
+            let voicePriority = 'SPECIALIST DOCTOR VOICE NOTE';
             let voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-600 text-white';
 
             switch (activeScenario) {
                 case 1:
-                    voicePriority = '🔥 SEND CALM, DIRECT DOCTOR VOICE NOTE';
+                    voicePriority = 'SEND WITH VOICE NOTE';
                     voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse';
-                    psychTip = '💡 Blue Ocean Upgrade (Ideas #1, #2, #5): උඩින්ම Clinical Case ID එක වැටෙනවා (Asiri/Nawaloka File එකක් වගේ). Visceral Fat Risk එක කෙලින්ම කියනවා. බෙහෙත්/Tea හොයන අයව ගන්නේ නෑ කියන Exclusivity Rule එකත් තියෙනවා!';
-                    voiceScript = `"${displayName || 'Hi'}, මම MediDiet Medical Unit එකෙන්. ඔයාගේ දත්ත අපේ Doctors ලා බැලුවා, ඔයාගේ Clinical Case Number එක උඩින් දාලා තියෙනවා. ඔයාගේ BMI එක ${s.bmi} නිසා කිලෝ ${s.targetLoss}ක් වගේ අඩු කරගන්න ඕනේ. විශේෂයෙන්ම ඔයාගේ ${s.condition}${voiceHistoryLine} තත්ත්වය එක්ක Visceral Fat සහ Insulin Resistance අවදානම වැඩියි. හැමෝටම දෙන පොදු Diet කොළවලින් මේක කරන්න බෑ. හොඳම දේ තමයි${voiceAllergyLine} ඔයා ගෙදර උයන කෑම වලින්ම දවසට කැලරි ${s.calorieTarget} ගාණට හරියටම Match කරපු Personal Blueprint එකක් හදාගන්න එක. එහෙම ඔයාටම Curate කරපු Blueprint එකක් ගන්න අදහසක් නැත්නම් අපේ Page එකේ තියෙන පොදු ලිපි වලිනුත් ඔයාට පොඩි Idea එකක් ගන්න පුළුවන්. හැබැයි හරියටම ඔයාගේ ඇඟට ගැලපෙන Clinical Blueprint එක හදාගන්නවා නම් විස්තර ටික උඩින් දාලා තියෙනවා."`;
+                    psychTip = 'Empathy + Guilt Removal + The "One Clinical Question" Hook (මිල රහිතව): ලෙඩාගේ වරදකාරී හැඟීම නැති කර, දවල්ට නිදිමත/පැණිරස ප්‍රශ්නය අසා ලෙඩාව පුදුම කරන්න.';
+                    output = `ස්තූතියි ${name ? name : 'ඔයාගේ විස්තර වලට'}. මම ඔයාගේ දත්ත ටික පරීක්ෂා කළා.
 
-                    output = `🆔 *Clinical Case File:* ${s.caseRef}
-${displayName ? displayName + ',' : 'ආයුබෝවන්,'} අපේ Medical Panel එක ඔයාගේ දත්ත පරීක්ෂා කළා. 🩺📋
+ඔයාගේ උස (${height}cm) සහ බර (${weight}kg) අනුව දැනට BMI අගය තියෙන්නේ ${bmi} ක් වගේ මට්ටමක. ඒ කියන්නේ ඔයාගේ උසට ගැලපෙන නිරෝගී මට්ටමට එන්න නම් අපි කිලෝ ${targetLoss} ක් විතර අඩු කරගන්න ඕනේ.
 
-📊 *Clinical Diagnosis (වෛද්‍ය තක්සේරුව):*
-• *BMI:* ${s.bmi} kg/m² (${s.category})
-• *අඩු කළ යුතු බර:* ${s.targetLoss} kg
-• *Daily Metabolic Target:* ${s.calorieTarget} kcal/day
-• *Clinical Focus:* ${s.condition}
-• *Medical History / Allergies:* ${historyDisplay}${s.foodAllergies ? ' | ' + s.foodAllergies : ''}
+මුලින්ම කියන්න ඕනේ මේක ඔයාගේ වරදක් නෙවෙයි. ඔයාගේ ${condition} තත්ත්වයත් එක්ක ඇඟේ Insulin Resistance (ඉන්සියුලින් හෝමෝනය නිසි ලෙස ක්‍රියා නොකිරීම) වැඩියි. ඒ නිසා ඔයා කොච්චර කෑම පාලනය කරන්න උත්සාහ කළත් ඇඟේ තැන්පත් වෙලා තියෙන මේදය දහනය වෙන්නේ නෑ. මේකට බඩගින්නේ ඉඳලා හෝ සාමාන්‍ය Diet ප්ලෑන් කරලා හරියන්නේ නෑ, එහෙම කළොත් හෝමෝන තවත් අවුල් වෙනවා.
 
-⚠️ *Metabolic & Visceral Fat Risk Assessment:*
-${s.visceralRiskNote}
+අපි මේකට කරන්නේ ඔයා ගෙදරදී කන සාමාන්‍ය කෑම (බත්, මාළු, බිත්තර, එළවළු) ඔයාගේ ඇඟට දවසකට ඕන කරන කැලරි ${calorieTarget} ගාණට සහ ඔයාගේ රෝග තත්ත්වය පාලනය වෙන විදිහට හරියටම බැලන්ස් කරලා, ඔයාටම විශේෂිත වුණු Medical Diet Prescription එකක් හදලා දෙන එකයි. මේකෙන් මුල් මාස 2 ඇතුළත කිලෝ 6ත් 8ත් අතර ප්‍රමාණයක් කිසිම අතුරු ආබාධයක් නැතුව ආරක්ෂිතව අඩු කරගන්න පුළුවන්.
 
-🥗 *Personal Clinical Nutrition Blueprint:*
-අපේ වෛද්‍ය කණ්ඩායම ඔයාගේ Case File (${s.caseRef}) එක වෙනම අධ්‍යයනය කරලා, ඔයාට අගුණ/Allergy කෑම ඉවත් කරලා, *ඔයා ගෙදරදී කන සාමාන්‍ය කෑම (බත්, මාළු, බිත්තර, එළවළු)* අර *${s.calorieTarget} kcal* ගාණට හරියටම Balance කරලා ඔයාගේම *Personal Clinical Blueprint* එක සකසා දෙනවා. (දින 14කට පසු නැවත ප්‍රගතිය බලා අවශ්‍ය වෙනස්කම් සිදු කරන Clinical Review එකද ඇතුළත්).
-
-🛡️ *Exclusivity Standard:* අපේ Medical Panel එක Blueprint එකක් භාරගන්නේ බෙහෙත් පෙති හෝ Slimming Tea නොසොයා, ගෙදර ආහාර පාලනයෙන් විද්‍යාත්මකව ප්‍රතිඵල ගැනීමට කැපවිය හැකි අයගේ පමණයි. (දැනට Personal Blueprint එකකට යොමු වීමට අදහසක් නැත්නම් අපේ Page එකේ පොදු ලිපි වලින් මූලික අදහසක් ගත හැක).
-
-💎 *Complete Clinical Blueprint Fee:* රු. ${s.price}/- (එකවර ගෙවීමක් පමණයි)
-
-ඔයාගේ Blueprint එක අපේ Medical Panel එක හරහා සකසා ගැනීමට අවශ්‍ය නම් පහත ගිණුමට මුදල් බැර කර Slip එක එවන්න: 👇
-
-🏦 *${bank}*
-• *Acc No:* ${accNo}
-• *Name:* ${accName}
-• *Branch:* ${branch}`;
+මට මේ Prescription එක හදන්න කලින් තව එක දෙයක් හරියටම දැනගන්න ඕනේ. ඔයාට දවල්ට කෑම කෑවට පස්සේ ලොකු නිදිමතක් හෝ ඇඟට පණ නැති මහන්සි ගතියක් එනවද? ඒ වගේම පැණි රස හෝ පිටි කෑම කන්න නිතරම හිතෙනවද?`;
                     break;
 
                 case 2:
-                    voicePriority = 'DIRECT TEXT ONLY';
-                    psychTip = '💡 "ගාණ කීයද?" අහන අයට හුරතල් නොකර කෙලින්ම අපේ Standard එකයි, අපි හැමෝවම ගන්නේ නෑ කියන Exclusivity Rule එකයි, රු. 3,500 ගාස්තුවයි කියන්න.';
-                    voiceScript = `"අපි හැමෝටම දෙන සාමාන්‍ය Diet කොළ නිකුත් කරන්නේ නෑ. අපේ Medical Team එක ඔයාගේ ඇඟේ දත්ත, ලෙඩ සහ ගෙදර කෑම 100%ක් Match කරලා හදන Personal Clinical Blueprint එකට රුපියල් ${s.price}ක් වෙනවා. ඔයාගේ වයස, උස, බර සහ රෝග තත්ත්වයන් දැම්මොත් අපිට පුළුවන් මූලික Assessment එක බලලා කියන්න."`;
+                    voicePriority = 'ATTACH SAMPLE BLURRED PDF';
+                    voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-600 text-white';
+                    psychTip = 'ලෙඩා රෝග ලක්ෂණයට "ඔව්" කී විට යවන්න. (Note: මෙම මැසේජ් එක යවන විට Sample Prescription PDF එකක Blurred Screenshot එකක් Attach කරන්න).';
+                    output = `හරියටම හරි${name ? ' ' + name : ''}. අන්න ඒ ලක්ෂණ එන්නේ අර මම කියපු Insulin Resistance තත්ත්වය නිසාමයි. අපි හදන ආහාර සැලැස්මෙන් මුලින්ම කරන්නේ ඔය තත්ත්වය නැති කරලා ඇඟේ මේදය ඉබේම දහනය වෙන තැනට ගේන එකයි.
 
-                    output = `ආයුබෝවන්. 🩺 
+අපේ වෛද්‍ය කණ්ඩායම ඔයාගේ විස්තර වලට අනුව උදේ, දවල්, රාත්‍රී ආහාර වේල් ගන්න ඕන ප්‍රමාණයන් (තරාදි නැතුව ගෙදරදී පිඟානට බෙදාගන්න ලේසි විදිහට) සහ ඔයාට අගුණ කෑම වර්ග ඉවත් කරලා හදන සම්පූර්ණ Clinical Prescription එක PDF වාර්තාවක් විදිහට ඔයාගේ WhatsApp එකටමයි එවන්නේ.
 
-අපි හැමෝටම දෙන පොදු Diet Sheets නිකුත් කරන්නේ නෑ. අපේ වෛද්‍ය කණ්ඩායම (Medical & Clinical Nutrition Panel) විසින් ඔයාගේ BMI අගය, රෝග තත්ත්වයන්, Allergies සහ ගෙදරදී ගන්නා ආහාර 100%ක්ම පරීක්ෂා කර ඔයාටම සකසන *Personal Clinical Nutrition Blueprint* එක සඳහා සම්පූර්ණ ගාස්තුව *රු. ${s.price}/-* වේ (දින 14ක Clinical Review එකද ඇතුළත්ව).
+ඒ වගේම දවස් 14කට පස්සේ අපි ආයෙත් ඔයාගේ බර පරීක්ෂා කරලා, ඇඟේ වෙනස අනුව සැලැස්මේ කරන්න ඕන වෙනස්කම් නොමිලේම කරලා දෙනවා.
 
-*(සැ.යු: අපි Blueprint සකසන්නේ Slimming Tea හෝ පෙති වර්ග නොසොයා, විද්‍යාත්මක ආහාර පාලනයෙන් ප්‍රතිඵල ගැනීමට සූදානම් අය සඳහා පමණි).*
+මෙම පෞද්ගලික වෛද්‍ය ආහාර සැලැස්ම සකසා ගැනීම සහ දින 14 පසුවිපරම සඳහා අපගේ සායනික ගාස්තුව රු. ${price}/- ක් වෙනවා. (මෙය එකවර ගෙවීමක් පමණයි, මාසික ගාස්තු නැහැ).
 
-ඔයාගේ මූලික වෛද්‍ය තක්සේරුව (Clinical Assessment) බලා ගැනීමට අවශ්‍ය නම් *වයස, උස, දැනට බර, ප්‍රධාන Target එක සහ දැනට ඇති රෝග/Allergies* එවන්න.`;
+ඔයාට පහසු වෙලාවක පහත ගිණුමට ගාස්තුව යොමු කරලා රිසිට් පත (Slip එක) මේකට එවන්න. 
+
+${bankName} - ${bankBranch} Branch
+Account No: ${accountNumber}
+Name: ${accountName}
+
+ඔයා ගෙවීම කරලා රිසිට් එක දැම්මම මට පොඩ්ඩක් මැසේජ් එකක් දාන්න, එතකොට මම අදම ඔයාගේ ෆයිල් එක ඩොක්ටර්ස්ලට යොමු කරලා Prescription එක හදවන්නම්.`;
                     break;
 
                 case 3:
-                    voicePriority = 'TEXT ONLY';
-                    psychTip = '💡 විස්තර නොදා ගිය අයට පස්සෙන් පන්නන්නේ නැතුව, Doctor කෙනෙක්ගේ Assistant කෙනෙක් වගේ කෙටියෙන්ම මතක් කරන්න.';
-                    voiceScript = `"ඔයාගේ BMI සහ Calorie Assessment එක බලන්න ඕනේ නම් උස, බර සහ දැනට තියෙන රෝග/Allergies ටික විතරක් දාන්න."`;
+                    voicePriority = 'DIRECT TEXT ONLY';
+                    psychTip = 'බර පමණක් එවා උස/වයස/Allergies නොඑවූ විට නිවැරදි BMI ගණනයට ඉතිරි දත්ත අවශ්‍ය බව කාරුණිකව දැන්වීම.';
+                    output = `ස්තූතියි ඔයාගේ බර එව්වට. ඔයාගේ ඇඟේ BMI අගය සහ දවසට ගන්න ඕන කැලරි ප්‍රමාණය හරියටම ගණනය කරන්න මට ඔයාගේ වයස සහ උස (සෙන්ටිමීටර් හෝ අඩි වලින්) දැනගන්න ඕනේ.
 
-                    output = `ආයුබෝවන්. 🩺 ඔයාගේ මූලික BMI සහ Visceral Fat Assessment එක පරීක්ෂා කරගැනීමට අවශ්‍ය නම් ඔයාගේ *උස, දැනට බර සහ විශේෂ රෝග/Allergies* පමණක් එවන්න.`;
+ඒ වගේම දැනට වෙනත් ලෙඩකට බෙහෙත් ගන්නවා නම් ඒ මොනවද කියලත්, කෑම ජාති මොනවා හරි Allergic ද, මස් මාළු බිත්තර කනවද කියලත් මට පොඩ්ඩක් එවන්න පුළුවන්ද?`;
                     break;
 
                 case 4:
-                    voicePriority = '🔥 HIGH-STATUS PULL-BACK (NO BEGGING)';
+                    voicePriority = 'CALM AUTHORITY PULL-BACK';
                     voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-600 text-white';
-                    psychTip = '💡 Reverse Psychology Pull-Back: Seen කරලා සද්ද නැති කෙනාට Case ID එක මතක් කරලා "Personal Blueprint එකට යන්න අදහසක් නැත්නම් අපේ Page එකේ Free Posts බලන්න, හැබැයි ඔයාගේ Visceral Fat/Condition එකට හොඳම දේ Custom Blueprint එකක්" කියලා කෙලින්ම කියනවා.';
-                    voiceScript = `"${displayName || 'Hi'}, මම MediDiet Medical Unit එකෙන්. ඔයාගේ ${s.condition} තත්ත්වයත් එක්ක හොඳම සහ ආරක්ෂිතම දේ තමයි ඔයාගේ ඇඟටම ගණනය කරපු Personal Blueprint එකකට යන එක. හදිසියේවත් ඔයාට දැන්ම එහෙම Personalize කරපු Blueprint එකකට යන්න අදහසක් නැත්නම් කිසිම ප්‍රශ්නයක් නෑ, අපේ Page එකේ දාලා තියෙන පොදු Posts වලිනුත් ඔයාට පොඩි Idea එකක් ගන්න පුළුවන්, අපිත් එක්ක දිගටම ඉන්න. හැබැයි හරියටම ඔයාගේ ඇඟට Match කරපු Blueprint එක පටන් ගන්න ඕන වුණොත් අපිට කියන්න."`;
+                    psychTip = '"ගාණ වැඩියි / නිකන් Tips දෙන්න" කී විට බැගෑපත් නොවී, පොදු ලිපි සහ පෞද්ගලික Prescription අතර වෙනස පෙන්වා දීම.';
+                    output = `මට තේරෙනවා${name ? ' ' + name : ''}. අපේ Facebook පිටුවේ තියෙන ලිපි වලින් ඔයාට කෑම පාලනය ගැන සාමාන්‍ය අවබෝධයක් ගන්න පුළුවන්. 
 
-                    output = `🆔 *Case Ref:* ${s.caseRef}
-${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺
+හැබැයි ${condition} වගේ තත්ත්වයකදී එක එක්කෙනාගේ උස, බර සහ හෝමෝන ක්‍රියාකාරීත්වය වෙනස් නිසා හැමෝටම එකම ආහාර සැලැස්මක් හරියන්නේ නෑ. අපි මේ Prescription එක හදන්නේ ඔයාගේම ඇඟේ දත්ත පරීක්ෂා කරලා, ඔයාට අගුණ කෑම අයින් කරලා හරියටම කැලරි ${calorieTarget} ගාණට බැලන්ස් කරලයි. 
 
-ඔයාගේ *${s.condition}* තත්ත්වය සහ BMI (${s.bmi}) අගය අනුව හොඳම සහ ආරක්ෂිතම විසඳුම වෙන්නේ ඔයාගේ ඇඟටම ගණනය කරපු *Personal Clinical Blueprint* එකක් අනුගමනය කරන එකයි.
-
-ඔයාට දැනට එවැනි Personalized සැලැස්මකට යොමු වෙන්න අදහසක් නැත්නම් කිසිම ගැටලුවක් නෑ—අපේ Page එකේ තියෙන පොදුවේ දාපු ලිපි සහ විස්තර වලිනුත් ඔයාට මූලික අදහසක් ගන්න පුළුවන්, දිගටම අපිත් එක්ක රැඳිලා ඉන්න. 
-
-නමුත් ඔයාගේ රෝග තත්ත්වයන් සහ ගෙදර ආහාර රටාව 100%ක්ම Match කරපු *Personal Blueprint* එක හදාගෙන හරියටම වැඩේ පටන් ගන්න ඕන වුණොත් අපිට දැනුවත් කරන්න.`;
+ඔයාට හදිසියක් නෑ, පහසු දවසක ඔයාගේ පෞද්ගලික වෛද්‍ය සැලැස්ම හදාගන්න ඕන වුණොත් මට මැසේජ් එකක් දාන්න.`;
                     break;
 
                 case 5:
-                    voicePriority = 'SHORT DIRECT NOTICE';
-                    psychTip = '💡 අපි කාගේවත් පස්සෙන් යන්නේ නෑ. "අපි අද ඔයාගේ Case File එක Close කරනවා, පස්සේ ඕන වුණොත් Case ID එක එවන්න" කියලා කෙලින්ම කියනවා.';
-                    voiceScript = `"${displayName || 'Hi'}, අපේ Medical Panel එකේ අද දවසේ Files ටික දැන් Finalize කරන නිසා ඔයාගේ තාවකාලික Assessment File එක අපි දැනට Close කරනවා. ඉදිරියේදී ඔයාගේ Personal Blueprint එක හදාගන්න අවශ්‍ය වුණොත් මැසේජ් එකක් දාන්න."`;
+                    voicePriority = '24-HR RESPECTFUL FOLLOW-UP';
+                    psychTip = 'පැය 24ක් ගියත් සද්ද නැති අයට "ෆයිල් එක ඩොක්ටර්ස්ලට දාන්නද නැත්නම් Close කරන්නද?" කියා අසා වටිනාකම වැඩි කිරීම.';
+                    output = `ආයුබෝවන්${name ? ' ' + name : ''}. MediDiet Medical Unit එකෙන්.
 
-                    output = `🆔 *Case Ref:* ${s.caseRef}
-${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺 අපේ Medical Panel එකේ අද දින සැලසුම් (Clinical Queue) අවසන් කරන බැවින්, ඔයාගේ දත්ත ඇතුළත් තාවකාලික File එක (*BMI: ${s.bmi} | ${s.calorieTarget} kcal*) අපි දැනට Close කරනවා. 
+ඔයා කලින් එවපු විස්තර අනුව අපි සටහන් කරගත්තු ඔයාගේ Medical Diet Prescription ෆයිල් එක අද Medical Panel එකට යොමු කරන්නද, නැත්නම් දැනට ඒක තාවකාලිකව Close කරන්නද කියලා දැනගන්නයි මැසේජ් කළේ. 
 
-ඉදිරියේදී ඔයාටම Curate කරපු Personal Blueprint එක සකසා ගැනීමට අවශ්‍ය වුවහොත් මෙම Case ID (${s.caseRef}) එක සමඟ නැවත පණිවිඩයක් තබන්න.`;
+අපි දවසකට සකසන්නේ සීමිත ෆයිල්ස් ප්‍රමාණයක් නිසා, ඔයා මේ සතියේ ආහාර සැලැස්ම පටන් ගන්න බලාපොරොත්තු වෙනවා නම් විතරක් මට පොඩ්ඩක් දැනුම් දෙන්න. ස්තූතියි.`;
                     break;
 
                 case 6:
-                    voicePriority = '🎙️ HIGH-STATUS VALUE EXPLANATION';
-                    psychTip = '💡 ගාණ වැඩියි කියන කෙනාට Discount දීලා Brand Status එක බස්සන්න එපා! ඇයි මේක රු. 3,500ක් වෙන්නේ කියන ඇත්ත කෙලින්ම කියන්න.';
-                    voiceScript = `"${displayName || 'Hi'}, සාමාන්‍යයෙන් කාටත් එකම විදිහට බෙදන පොදු Diet කොළයක් නම් අඩු ගාණට ගන්න පුළුවන්, හැබැයි ඒවා ප්‍රායෝගික නැති නිසා දවස් දෙකෙන් පැත්තකට දානවා. අපේ Medical Team එක කරන්නේ ලංකාවේ වෙන කවුරුත්ම කරන්නේ නැති දෙයක්—ඔයාගේ ලෙඩයි, Allergies ටිකයි, ඔයාගේ ගෙදර උයන කෑමයි 100%ක්ම ගණනය කරලා ඔයාටම විතරක් ගැලපෙන Clinical Blueprint එකක් හදන එක. ඒ වෛද්‍ය කණ්ඩායමේ කාලයට සහ දවස් 14ක Review එකට තමයි රුපියල් ${s.price}ක් වෙන්නේ. ඔයාට ඒක දැනට අපහසු නම් අපේ Page එකේ නොමිලේ දාන පොදු විස්තර බලන්න, හැබැයි හරියටම ඔයාට හදපු Blueprint එක ඕනේ නම් මේක තමයි Standard ගාස්තුව."`;
+                    voicePriority = 'HIGH-STATUS VALUE DEFENSE';
+                    psychTip = '"ඇයි 3,500ක් ගන්නේ?" කියා ඇසූ විට පෝෂණවේදියෙක්ගේ ගාස්තුව (රු. 6,000+) සහ ජිම් වියදම් සමඟ සසඳා වටිනාකම පෙන්වීම.';
+                    output = `අපි හැමෝටම එකම කොළයක් ෆොටෝකොපි කරලා දෙන්නේ නෑ${name ? ' ' + name : ''}. ඔයාගේ උස, බර, වයස සහ ${condition} තත්ත්වය අනුව අපේ වෛද්‍ය කණ්ඩායම වෙනම කාලය අරගෙන ඔයාගේ ඇඟටම ගැලපෙන කැලරි ප්‍රමාණය (${calorieTarget} kcal) ගණනය කරලයි මේ පෞද්ගලික Prescription එක හදන්නේ.
 
-                    output = `${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺
-
-හැමෝටම එකම විදිහට බෙදන පොදු Diet Sheet එකක් නම් අඩු මුදලකට ගන්න පුළුවන්. නමුත් එවැනි පොදු කොළ ප්‍රායෝගික නැති නිසා 90%ක්ම දෙනා දවස් දෙකෙන් ඒක පැත්තකට දානවා.
-
-අපේ Medical Panel එක සිදු කරන්නේ ඊට හාත්පසින්ම වෙනස්, 100%ක්ම ඔයා වෙනුවෙන්ම කරන Clinical ගණනය කිරීමක්:
-• ඔයාගේ *${s.condition}* තත්ත්වය, Past Medical History සහ Allergies වෙනම පරීක්ෂා කිරීම.
-• ඔයා ගෙදරදී කන බොන සාමාන්‍ය කෑම වර්ග පමණක් යොදාගෙන හරියටම *${s.calorieTarget} kcal* ලැබෙන සේ මිනුම් සකස් කිරීම.
-• දින 14කට පසු නැවත ප්‍රගතිය පරීක්ෂා කර සැලැස්ම Update කිරීම.
-
-ඒ සම්පූර්ණ වෛද්‍ය ක්‍රියාවලිය සඳහා අපේ ස්ථාවර ගාස්තුව *රු. ${s.price}/-* වේ. දැනට එයට යොමු වීමට අපහසු නම් අපේ Page එකේ පොදු ලිපි වලින් අදහසක් ගන්න පුළුවන්. ඔයාගේම Personal Blueprint එක හදාගන්න තීරණය කළොත් අපිට දැනුවත් කරන්න.`;
+සාමාන්‍යයෙන් පෝෂණවේදියෙක් චැනල් කරලා මේ වගේ සැලැස්මක් සහ දින 14කට පසු නැවත පරීක්ෂාවක් කරගන්න ගියොත් රු. 6,000කට වඩා වියදම් වෙනවා. ඒ වගේම ජිම් වල දෙන අධික වියදම් සහිත Supplements මුකුත් නැතුව, ගෙදර ඉවෙන කෑම වලින්ම ප්‍රතිඵල ගන්න සම්පූර්ණ වෛද්‍ය සේවාවම තමයි අපි මේ රු. ${price}/- ගාස්තුව යටතේ ඔයාට ලබා දෙන්නේ.`;
                     break;
 
                 case 7:
-                    voicePriority = '🔥 DIRECT SCIENTIFIC VOICE NOTE';
+                    voicePriority = 'CLINICAL LOGIC EXPLANATION';
                     voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-600 text-white';
-                    psychTip = '💡 "බර අඩු වෙයිද?" අහන කෙනාව නලවන්නේ නැතුව, ඇඟේ බර අඩු වෙන විද්‍යාත්මක නීතිය (Clinical Physics) කෙලින්ම කියන්න.';
-                    voiceScript = `"${displayName || 'Hi'}, මේක Magic බෙහෙතක් හරි Tea එකක් හරි නෙවෙයි, මේක 100%ක්ම Clinical Science එකක්. ඔයාගේ ඇඟට දවසට ඕන කරන කැලරි ගාණට වඩා අඩුවෙන්, හරියටම කැලරි ${s.calorieTarget}ක් ලැබෙන විදිහටත්, ඔයාගේ ${s.condition} තත්ත්වය පාලනය වෙන විදිහටත් තමයි අපේ Doctors ලා ගෙදර කෑම වලින්ම මේ Blueprint එක හදන්නේ. ඒ නිසා ඔයා මේක අරන් පැත්තකට දාන්නේ නැතුව අපි දීලා තියෙන මිනුම් වලටම කෑවොත් අනිවාර්යයෙන්ම බර අඩු වෙනවා. ඊට අමතරව දවස් 14න් අපි ආයේ Check කරලා වෙනස්කම් කරලත් දෙනවා."`;
+                    psychTip = '"මේකෙන් ඇත්තටම අඩු වෙයිද?" ඇසූ විට බඩගින්නේ සිටීම සහ Insulin පාලනය අතර විද්‍යාත්මක වෙනස පැහැදිලි කිරීම.';
+                    output = `ඔයාට එහෙම සැකයක් හිතෙන එක සාධාරණයි${name ? ' ' + name : ''}. මොකද ගොඩක් අය කරන්නේ බත් කන එක සම්පූර්ණයෙන්ම නවත්තලා බඩගින්නේ ඉන්න එක. එහෙම කළාම සතියක් දෙකක් කරද්දී එපා වෙනවා, ආයේ කෑවම තිබ්බට වඩා මහත් වෙනවා.
 
-                    output = `${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺
-
-මෙය කිසිදු Supplement එකක් හෝ තේ වර්ගයක් නොවෙයි; මෙය 100%ක්ම වෛද්‍ය විද්‍යාත්මක ගණනය කිරීමක් (Clinical Metabolic Calculation).
-
-1️⃣ ඔයාගේ ශරීරය දිනකට දහනය කරන කැලරි ප්‍රමාණය (${s.tdee} kcal) අනුව, ආරක්ෂිතව මේදය දහනය වීමට නම් දිනකට *${s.calorieTarget} kcal* ලැබෙන සේ ආහාර ගත යුතුයි.
-2️⃣ අපේ Medical Team එක ඔයා ගෙදරදී කන ආහාර වලින්ම ඒ නිවැරදි ප්‍රමාණයන් සහ *${s.condition}* පාලනය වන රටාව සකසා දෙනවා.
-3️⃣ දින 14කින් නැවත ඔයාගේ බර සහ ඉණ පරීක්ෂා කර අවශ්‍ය නම් කැලරි ප්‍රමාණය නැවත සකසා දෙනවා (Clinical Re-adjustment).
-
-එම නිසා, සැලැස්ම ලබාගෙන එය නිවැරදිව අනුගමනය කළහොත් ප්‍රතිඵල ලැබීම විද්‍යාත්මකව තහවුරුයි.`;
+හැබැයි අපි මේ Prescription එක හදන්නේ ඔයාගේ ඇඟේ Insulin හෝමෝනය පාලනය වෙන විදිහට ගෙදර බත් සහ ව්‍යංජන ගන්න ඕන නිවැරදිම ප්‍රමාණයන් ගණනය කරලයි. ඒ නිසා බඩගින්නක් දැනෙන්නෙත් නෑ, ඇඟට පණ නැති වෙන්නෙත් නෑ. අනික දවස් 14කින් අපි ආයෙත් ඔයාගේ බර බලලා ඇඟේ වෙනස අනුව සැලැස්ම වෙනස් කරන නිසා, මේක හරියට අනුගමනය කළොත් අනිවාර්යයෙන්ම බර අඩු වෙනවා.`;
                     break;
 
                 case 8:
-                    voicePriority = 'EXECUTIVE CONFIRMATION';
-                    psychTip = '💡 Payment එක ආවමත් High-End Private Hospital එකක Concierge කෙනෙක් වගේ Case ID එකත් එක්කම Professional විදිහට Confirm කරන්න.';
-                    voiceScript = `"ස්තූතියි ${displayName || ''}. ඔයාගේ Payment Slip එක ලැබුණා. මම ඔයාගේ Clinical File එකයි, Medical History සහ Allergies විස්තර ටිකයි අපේ Doctors ලාගේ Panel එකට යොමු කළා. ඔයාගේ Personal Clinical Blueprint එක සකසලා පැයක් ඇතුළත මේ WhatsApp එකට එවනවා."`;
+                    voicePriority = 'PAYMENT CONFIRMATION';
+                    psychTip = 'මුදල් ගෙවා Slip එක එවූ සැණින් මුදල් ලැබුණු බව තහවුරු කර, අදම Prescription PDF එක ලැබෙන බවට විශ්වාසය දීම.';
+                    output = `බොහොම ස්තූතියි${name ? ' ' + name : ''}. ඔයාගේ ගෙවීම් රිසිට් පත ලැබුණා.
 
-                    output = `🆔 *Confirmed Clinical Case Ref:* ${s.caseRef}
-ස්තූතියි${nameWithSpace}. ඔයාගේ Payment Slip එක තහවුරු කළා. ✅🩺 
-
-ඔයාගේ Clinical File එක දැන් අපේ *වෛද්‍ය මණ්ඩලය (Medical & Clinical Nutrition Panel)* වෙත යොමු කර ඇත:
-• *Clinical Metrics:* BMI ${s.bmi} kg/m² | ${s.calorieTarget} kcal/day
-• *Condition Focus:* ${s.condition}
-• *Medical History:* ${historyDisplay}
-• *Allergies Excluded:* ${allergyDisplay}
-
-අපේ වෛද්‍ය කණ්ඩායම ඔයාගේ දත්ත වලට 100%ක් ගැලපෙන සේ ගණනය කිරීම් සිදු කර, ඉදිරි *විනාඩි 45 - 60 ඇතුළත* ඔයාගේ සම්පූර්ණ *Personal Clinical Nutrition Blueprint* එක මෙම WhatsApp අංකයට එවනු ඇත. 🇱🇰`;
+මම ඔයාගේ විස්තර ටික අපේ Medical Panel එකට යොමු කළා. ඔයාගේ දත්ත සහ ආහාර රටාවට හරියටම ගැලපෙන විදිහට කැලරි ${calorieTarget} සැලැස්ම සකසලා, අද දවස ඇතුළත ඔයාගේ Personal Clinical Prescription PDF වාර්තාව මේ WhatsApp අංකයටම එවන්නම්.`;
                     break;
 
                 case 9:
                     voicePriority = 'INTERNAL AI PROMPT';
-                    psychTip = '💡 මේ Prompt එක Copy කරගෙන ChatGPT / Claude එකට දෙන්න. එතනින් එන උත්තරේ Copy කරගෙන අපේ App එකේ තියෙන "3. PDF Studio" ටැබ් එකට Paste කරපු ගමන් තත්පර 5න් ලස්සන Official Medical Report PDF එකක් හදාගන්න පුළුවන්!';
-                    voiceScript = `මෙය ඔබ විසින් ChatGPT / Claude වෙත ලබා දෙන AI Prompt එකකි. ලැබෙන පිළිතුර Tab 3 (PDF Studio) වෙත Paste කරන්න.`;
-
+                    psychTip = 'මේ Prompt එක Copy කරගෙන ChatGPT / Claude එකට දෙන්න. එතනින් එන උත්තරේ Copy කරගෙන අපේ App එකේ තියෙන "3. PDF Studio" ටැබ් එකට Paste කරපු ගමන් තත්පර 5න් ලස්සන Official Medical Report PDF එකක් හදාගන්න පුළුවන්!';
                     output = `Act as the Senior Consultant Medical Board (Panel of Medical Doctors and Clinical Nutritionists) at "MediDiet Sri Lanka". Generate an ultra-exclusive, authoritative "Personal Clinical Nutrition & Metabolic Blueprint" (Case Ref: ${s.caseRef}, valued at Rs. ${s.price}/-) for the following patient.
 
 CRITICAL POSITIONING, LANGUAGE & TONE RULE:
@@ -1630,7 +1578,7 @@ CRITICAL POSITIONING, LANGUAGE & TONE RULE:
 
 =========================================
 PATIENT CLINICAL CASE FILE (${s.caseRef}):
-- Patient Name: ${displayName || 'Valued Patient'}
+- Patient Name: ${name || 'Valued Patient'}
 - Age & Gender: ${s.age} Years / ${s.gender}
 - Height & Current Weight: ${s.height} cm / ${s.weight} kg
 - Calculated Asian BMI: ${s.bmi} kg/m² (${s.category})
@@ -1660,23 +1608,14 @@ STRICT CLINICAL, SAFETY & SRI LANKAN CULTURAL INSTRUCTIONS:
                     break;
 
                 case 10:
-                    voicePriority = '🗓️ 14-DAY REVIEW FOLLOW-UP';
+                    voicePriority = '14-DAY CLINICAL REVIEW';
                     voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-medigreen text-white';
-                    psychTip = '💡 Idea #4 (14-Day Auto-Tracker): Client ගෙවලා දවස් 14ක් පිරුණම මේ මැසේජ් එක යවන්න. මේක දැක්කම Client පුදුම වෙනවා "මුන්ට හරියටම දවස් 14න් මාව මතක තිබ්බානේ!" කියලා. එතනින්ම Word-of-Mouth Referrals එනවා!';
-                    voiceScript = `"Hi ${displayName || ''}, මම MediDiet Medical Unit එකෙන්. අදට ඔයාගේ Clinical Blueprint එක පටන් අරන් දවස් 14ක් සම්පූර්ණයි. අපේ Medical Panel එකේ 14-Day Review එකට අද හරි හෙට උදේ හරි හිස්බඩ ඔයාගේ බරයි, ඉණේ ප්‍රමාණයයි බලලා මේකට Reply කරන්න."`;
+                    psychTip = 'මුදල් ගෙවා දින 14ක් පිරුණු විට සැබෑම වෛද්‍ය සායනයක් ලෙස ලෙඩාගේ බර සහ ඉණේ ප්‍රමාණය පරීක්ෂා කිරීම.';
+                    output = `ආයුබෝවන්${name ? ' ' + name : ''}. MediDiet Medical Unit එකෙන්.
 
-                    output = `🆔 *Clinical Review File:* ${s.caseRef}
-${displayName ? 'Hi ' + displayName + ',' : 'ආයුබෝවන්,'} 🩺🗓️
+ඔයා අපේ වෛද්‍ය ආහාර සැලැස්ම (Prescription එක) පටන් අරගෙන අදට දවස් 14ක් සම්පූර්ණ වෙනවා. දැන් ඔයාගේ දින 14 පසුවිපරම (Clinical Review) කරන දවසයි.
 
-අදට ඔයාගේ *Personal Clinical Nutrition Blueprint* එක ආරම්භ කර දින 14ක් සම්පූර්ණ වෙනවා. 
-
-අපේ Medical Panel එකේ *14-Day Clinical Review & Metabolic Re-adjustment* පරීක්ෂාව සඳහා පහත විස්තර 3 අප වෙත එවන්න: 👇
-
-1️⃣ *ආරම්භක බර:* ${s.weight} kg
-2️⃣ *අද උදෑසන (හිස්බඩ) බර:* ____ kg
-3️⃣ *දැනට ඉණේ ප්‍රමාණය (Inches) සහ ඔයාට දැනෙන වෙනස:* 
-
-මෙම දත්ත පරීක්ෂා කිරීමෙන් පසු ඉදිරි දින 14 සඳහා ඔයාගේ කැලරි හෝ ආහාර අනුපාතයන්හි යම් වෙනසක් අවශ්‍ය නම් අපේ වෛද්‍ය කණ්ඩායම විසින් එය නොමිලේම Update කර දෙනු ඇත.`;
+මට අද හෝ හෙට උදේම හිස්බඩ ඔයාගේ දැනට බර (kg) සහ ඉණ වටා ප්‍රමාණය (අඟල් වලින්) මැනලා එවන්න පුළුවන්ද? ඒ වගේම මේ සති දෙකේදී ඔයාට දැනුණු වෙනස්කම් හෝ මොනවා හරි අපහසුතාවයක් තිබුණා නම් ඒකත් කියන්න. එතකොට අපිට ඊළඟ සති දෙකට අදාළ වෙනස්කම් කරගන්න පුළුවන්.`;
                     break;
             }
 
@@ -1805,7 +1744,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
             hiddenEl.setSelectionRange(0, 99999);
             try {
                 document.execCommand('copy');
-                showToast('Premium Intake Greeting Copied!');
+                showToast('Intake Message Copied!');
             } catch (e) {
                 showToast('Copy failed');
             }
@@ -1959,7 +1898,7 @@ ${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේ�
                         height: 158,
                         weight: 73,
                         activity: '1.2',
-                        condition: 'Belly Fat එක (උදරය වටා තෙල්) සහ වැඩි බර සහ PCOS / PCOD සහ Insulin Resistance තත්ත්වය',
+                        condition: 'Belly Fat (උදරය වටා තෙල්) සහ PCOS සහ හෝමෝන ගැටලු',
                         selectedIds: ['belly', 'pcos'],
                         pastMedical: 'Gastritis (ගැස්ට්‍රයිටිස්)',
                         foodAllergies: 'ඉස්සෝ / දැල්ලෝ (Seafood Allergy)',
