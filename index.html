@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0A365C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>MediDiet Sri Lanka — Blue Ocean Clinical System & Instant PDF Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medinavy: {
+                            DEFAULT: '#0A365C',
+                            dark: '#06233d',
+                            light: '#124e82'
+                        },
+                        medigreen: {
+                            DEFAULT: '#2E7D32',
+                            dark: '#1b5e20',
+                            light: '#4caf50'
+                        },
+                        medislate: '#F1F5F9'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
+            background-color: #0F172A;
+            color: #0F172A;
+            overscroll-behavior-y: none;
+        }
+        .sinhala-font {
+            font-family: 'Noto Sans Sinhala', 'Inter', sans-serif;
+            line-height: 1.65;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+        .cond-chip.active {
+            background-color: #0A365C;
+            color: #ffffff;
+            border-color: #0A365C;
+            box-shadow: 0 4px 12px rgba(10, 54, 92, 0.25);
+        }
+        .cond-chip.active .chip-check {
+            background-color: #2E7D32;
+            border-color: #4caf50;
+            color: white;
+        }
+        .quick-tag.active {
+            background-color: #0A365C;
+            color: #ffffff;
+            border-color: #0A365C;
+        }
+        /* PRINT / PDF STUDIO STYLES (A4 Luxury Private Hospital Report) */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #0F172A !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #appShellContainer {
+                max-width: 100% !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+            }
+            #tabViewInput, #tabViewScripts, #tabViewDatabase, header, nav, #toastBox {
+                display: none !important;
+            }
+            #tabViewPdf {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #printableClinicalReport {
+                border: 2px solid #0A365C !important;
+                box-shadow: none !important;
+                border-radius: 12px !important;
+                padding: 20px !important;
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center bg-slate-900">
+
+    <!-- MOBILE-FIRST APP CONTAINER -->
+    <div id="appShellContainer" class="w-full max-w-md bg-[#F8FAFC] min-h-screen flex flex-col justify-between relative shadow-2xl pb-24 overflow-x-hidden">
+
+        <header class="bg-medinavy text-white sticky top-0 z-30 shadow-md no-print">
+            <div class="px-3.5 py-2.5 flex items-center justify-between border-b border-white/10">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-inner border border-white/30 shrink-0">
+                        <i class="fa-solid fa-user-doctor text-base text-slate-950"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <h1 class="text-sm font-extrabold tracking-tight">MediDiet Sri Lanka</h1>
+                            <span id="headerCaseBadge" onclick="regenerateCaseId()" class="cursor-pointer text-[9px] bg-emerald-400/20 text-emerald-300 px-1.5 py-0.5 rounded-full font-mono font-bold border border-emerald-400/30" title="Tap to generate new Case ID">
+                                #MD-2026-841
+                            </span>
+                        </div>
+                        <p class="text-[10px] text-slate-300">Blue Ocean Clinical System • <span id="dbStatusBadge" onclick="switchMobileTab('database'); toggleCloudSetupModal();" class="underline cursor-pointer text-amber-300">3,500/-</span></p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                    <button onclick="copyInitialWelcome()" class="bg-white/10 active:bg-white/25 text-white text-[11px] font-bold px-2.5 py-2 rounded-xl flex items-center gap-1 border border-white/15" title="Copy First Inquiry Message">
+                        <i class="fa-regular fa-comment-dots text-amber-300"></i>
+                        <span>Intake Msg</span>
+                    </button>
+                    <button onclick="resetPatientForm()" class="bg-white/10 active:bg-white/25 text-white text-[11px] font-bold p-2 rounded-xl border border-white/15" title="Reset New Patient">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Always-Visible Compact Live Clinical Metrics Bar -->
+            <div class="px-3 py-2 bg-medinavy-dark/90 backdrop-blur-md grid grid-cols-3 gap-2 text-center border-b border-white/10">
+                <div class="bg-white/10 rounded-lg py-1.5 px-2 flex flex-col justify-center">
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="text-[9px] uppercase text-slate-300 font-semibold">BMI:</span>
+                        <span id="metricBmi" class="text-sm font-extrabold text-white">28.9</span>
+                    </div>
+                    <span id="asianCategoryBadge" class="text-[9px] font-bold text-amber-300 truncate">Obese Grade 1</span>
+                </div>
+
+                <div class="bg-white/10 rounded-lg py-1.5 px-2 flex flex-col justify-center">
+                    <span class="text-[9px] uppercase text-slate-300 font-semibold">Visceral Risk</span>
+                    <span id="metricRiskLevel" class="text-[11px] font-extrabold text-rose-400 truncate">⚠️ HIGH RISK</span>
+                </div>
+
+                <div class="bg-medigreen/40 rounded-lg py-1.5 px-2 border border-emerald-400/30 flex flex-col justify-center">
+                    <span class="text-[9px] uppercase text-emerald-100 font-semibold">Daily Target</span>
+                    <span class="text-sm font-extrabold text-emerald-300"><span id="metricCalories">1,300</span> kcal</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 px-3 pt-3 space-y-3">
+
+            <!-- VIEW 1: PATIENT BIOMETRICS, CASE ID, METABOLIC RISK & INPUT -->
+            <section id="tabViewInput" class="space-y-3 no-print">
+
+                <!-- Quick WhatsApp Reply Paste Parser -->
+                <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-200/90">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-xs font-bold text-medinavy flex items-center gap-1.5">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
+                            Smart Paste Customer Reply (Optional)
+                        </span>
+                        <button type="button" onclick="clearSmartPaste()" class="text-[11px] text-slate-400 font-medium">Clear</button>
+                    </div>
+                    <textarea id="smartPasteInput" rows="2" oninput="parseCustomerReply(this.value)" placeholder="Paste client's WhatsApp reply here (e.g., Female 32, 158cm 74kg, PCOS, Gastritis, Prawn allergy)..." class="w-full p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 outline-none focus:border-medinavy"></textarea>
+                </div>
+
+                <!-- Patient Biometrics Card -->
+                <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200/90 space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-5 h-5 rounded-md bg-medinavy text-white text-[11px] font-extrabold flex items-center justify-center">1</span>
+                            <h2 class="font-extrabold text-slate-800 text-xs uppercase tracking-wider">Patient Clinical File</h2>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span id="caseIdPill" class="text-[10px] font-mono font-extrabold text-medinavy bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">#MD-2026-841</span>
+                            <button type="button" onclick="regenerateCaseId()" class="text-[10px] text-slate-400 hover:text-medinavy px-1" title="New Case ID">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Visceral Fat & Metabolic Risk Alert Banner (Idea #2) -->
+                    <div id="visceralRiskBanner" class="rounded-xl p-2.5 bg-rose-50 border border-rose-200/80 flex items-start gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600 text-xs mt-0.5"></i>
+                        <div class="text-[11px] sinhala-font leading-snug">
+                            <div class="flex items-center justify-between">
+                                <span id="visceralRiskTitle" class="font-extrabold text-rose-800">Visceral Fat & Metabolic Risk: HIGH</span>
+                                <span id="idealWeightSubtext" class="text-[10px] font-extrabold text-medigreen bg-white px-1.5 py-0.5 rounded border border-emerald-200">Target: 16 - 18 kg loss</span>
+                            </div>
+                            <p id="visceralRiskDesc" class="text-slate-700 mt-0.5 text-[10.5px]">අභ්‍යන්තර ඉන්ද්‍රියන් වටා මේදය තැන්පත් වීමේ සහ Insulin Resistance ඉහළ යාමේ අවදානමක් පවතී.</p>
+                        </div>
+                    </div>
+
+                    <!-- Name & Phone -->
+                    <div class="grid grid-cols-12 gap-2.5">
+                        <div class="col-span-7">
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Client Name</label>
+                            <input type="text" id="clientName" value="Nimali" placeholder="e.g., Nimali" oninput="recalculateAll()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 font-bold text-slate-800 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-medinavy outline-none">
+                        </div>
+                        <div class="col-span-5">
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">WhatsApp No</label>
+                            <input type="tel" id="waPhoneInput" placeholder="077xxxxxxx" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-800 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-medinavy outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Age & Gender -->
+                    <div class="grid grid-cols-12 gap-2.5">
+                        <div class="col-span-5">
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Age (Yrs)</label>
+                            <input type="number" id="clientAge" value="30" min="10" max="100" inputmode="numeric" oninput="recalculateAll()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 font-bold text-slate-800 text-center focus:ring-2 focus:ring-medinavy outline-none">
+                        </div>
+                        <div class="col-span-7">
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Gender (ස්ත්‍රී/පුරුෂ)</label>
+                            <div class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-xl">
+                                <button type="button" id="genderBtnFemale" onclick="setGender('Female')" class="py-2 rounded-lg text-xs font-extrabold bg-medinavy text-white shadow-sm transition">
+                                    👩 Female
+                                </button>
+                                <button type="button" id="genderBtnMale" onclick="setGender('Male')" class="py-2 rounded-lg text-xs font-bold text-slate-600 transition">
+                                    👨 Male
+                                </button>
+                            </div>
+                            <input type="hidden" id="clientGender" value="Female">
+                        </div>
+                    </div>
+
+                    <!-- Height & Weight -->
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-[11px] font-bold text-slate-700">Height (cm)</label>
+                                <span id="heightFeetHelper" class="text-[11px] font-extrabold text-medinavy bg-blue-100/80 px-1.5 py-0.5 rounded">≈ 5' 3"</span>
+                            </div>
+                            <input type="number" id="clientHeight" value="160" min="100" max="230" step="0.5" inputmode="decimal" oninput="recalculateAll()" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-extrabold text-slate-900 bg-white outline-none focus:ring-2 focus:ring-medinavy">
+                            <div class="flex items-center gap-1 mt-1.5 overflow-x-auto no-scrollbar">
+                                <button type="button" onclick="setHeightCm(152)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'0"</button>
+                                <button type="button" onclick="setHeightCm(155)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'1"</button>
+                                <button type="button" onclick="setHeightCm(157.5)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'2"</button>
+                                <button type="button" onclick="setHeightCm(160)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'3"</button>
+                                <button type="button" onclick="setHeightCm(162.5)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'4"</button>
+                                <button type="button" onclick="setHeightCm(165)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'5"</button>
+                                <button type="button" onclick="setHeightCm(167.5)" class="text-[10px] font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">5'6"</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-[11px] font-bold text-slate-700">Weight (kg)</label>
+                                    <span class="text-[10px] text-slate-400 font-bold">දැනට බර</span>
+                                </div>
+                                <input type="number" id="clientWeight" value="74" min="30" max="250" step="0.5" inputmode="decimal" oninput="recalculateAll()" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-extrabold text-slate-900 bg-white outline-none focus:ring-2 focus:ring-medinavy">
+                            </div>
+                            <p id="tdeeSubtext" class="text-[10px] text-slate-500 font-semibold mt-1.5">TDEE: 1,703 kcal (-450)</p>
+                        </div>
+                    </div>
+
+                    <!-- MULTI-SELECT CLINICAL CONDITIONS / PRIMARY GOALS -->
+                    <div class="pt-1">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="text-xs font-extrabold text-slate-800">
+                                Primary Clinical Goals (කිහිපයක් තෝරන්න පුළුවන්)
+                            </label>
+                            <span id="selectedCondCount" class="text-[10px] font-bold bg-medigreen text-white px-2 py-0.5 rounded-full">1 Selected</span>
+                        </div>
+
+                        <div id="multiConditionContainer" class="space-y-1.5">
+                            <!-- Dynamically rendered touch-friendly multi-select chips -->
+                        </div>
+
+                        <div class="mt-2">
+                            <input type="text" id="customConditionInput" oninput="recalculateAll()" placeholder="+ වෙනත් විශේෂ ඉලක්කයක් ඇත්නම් මෙහි ලියන්න..." class="w-full px-3 py-2 rounded-xl border border-dashed border-slate-300 text-xs sinhala-font bg-slate-50/70 focus:bg-white outline-none">
+                        </div>
+                    </div>
+
+                    <!-- NEW: PAST MEDICAL HISTORY & MEDICATIONS -->
+                    <div class="pt-2 border-t border-slate-100 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-extrabold text-medinavy flex items-center gap-1.5">
+                                <i class="fa-solid fa-notes-medical text-rose-600"></i>
+                                Past Medical History & Medications
+                            </label>
+                            <button type="button" onclick="document.getElementById('pastMedicalInput').value=''; recalculateAll();" class="text-[10px] text-slate-400 font-bold">Clear</button>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Gastritis (ගැස්ට්‍රයිටිස්)')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Gastritis</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Thyroid / Thyroxine')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Thyroid</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'High Blood Pressure (ප්‍රෙෂර්)')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ High BP</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Breastfeeding (මව්කිරි දෙන මවක්)')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Breastfeeding</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'C-Section / Surgery')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Surgery</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Wheezing / Asthma')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Wheezing</button>
+                        </div>
+                        <input type="text" id="pastMedicalInput" oninput="recalculateAll()" placeholder="උදා: Gastritis, Thyroxine ගන්නවා (නැත්නම් හිස්ව තියන්න)" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold sinhala-font bg-slate-50/70 focus:bg-white outline-none focus:ring-2 focus:ring-medinavy">
+                    </div>
+
+                    <!-- NEW: FOOD ALLERGIES & INTOLERANCES -->
+                    <div class="pt-2 border-t border-slate-100 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-extrabold text-medinavy flex items-center gap-1.5">
+                                <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-600"></i>
+                                Food Allergies & Dislikes (කෑම අසාත්මිකතා)
+                            </label>
+                            <button type="button" onclick="document.getElementById('foodAllergyInput').value=''; recalculateAll();" class="text-[10px] text-slate-400 font-bold">Clear</button>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <button type="button" onclick="appendQuickText('foodAllergyInput', 'ඉස්සෝ / දැල්ලෝ / කකුළුවෝ (Seafood Allergy)')" class="text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200 px-2 py-1 rounded-lg active:scale-95">+ Prawns/Cuttlefish</button>
+                            <button type="button" onclick="appendQuickText('foodAllergyInput', 'බල මාළු / කෙලවල්ලා (Heat Fish)')" class="text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200 px-2 py-1 rounded-lg active:scale-95">+ බල/කෙලවල්ලා</button>
+                            <button type="button" onclick="appendQuickText('foodAllergyInput', 'එළකිරි / Lactose Intolerance')" class="text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200 px-2 py-1 rounded-lg active:scale-95">+ Dairy/Milk</button>
+                            <button type="button" onclick="appendQuickText('foodAllergyInput', 'රටකජු / Peanuts')" class="text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200 px-2 py-1 rounded-lg active:scale-95">+ Peanuts</button>
+                            <button type="button" onclick="appendQuickText('foodAllergyInput', 'තක්කාලි / අන්නාසි (Acidic Foods)')" class="text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200 px-2 py-1 rounded-lg active:scale-95">+ තක්කාලි/අන්නාසි</button>
+                        </div>
+                        <input type="text" id="foodAllergyInput" oninput="recalculateAll()" placeholder="උදා: ඉස්සෝ, තක්කාලි අසාත්මිකයි (නැත්නම් හිස්ව තියන්න)" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold sinhala-font bg-slate-50/70 focus:bg-white outline-none focus:ring-2 focus:ring-medinavy">
+                    </div>
+
+                    <!-- Activity, Diet Preference & Package Price (Default 3,500/-) -->
+                    <div class="grid grid-cols-1 gap-2.5 pt-2 border-t border-slate-100">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Dietary Preference (ආහාර රටාව)</label>
+                            <select id="dietPreference" onchange="recalculateAll()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 sinhala-font outline-none">
+                                <option value="Non-Vegetarian (මස්, මාළු, බිත්තර ගනී)" selected>🍗 Non-Vegetarian (මස්, මාළු, බිත්තර ගනී)</option>
+                                <option value="මාළු සහ බිත්තර පමණයි (No Meat)">🐟 මාළු සහ බිත්තර පමණයි (No Meat)</option>
+                                <option value="නිර්මාංශ (Pure Vegetarian)">🥬 නිර්මාංශ (Pure Vegetarian)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Activity Level</label>
+                                <select id="activityLevel" onchange="recalculateAll()" class="w-full px-2.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 outline-none">
+                                    <option value="1.2" selected>Sedentary [1.2]</option>
+                                    <option value="1.35">Light Active [1.35]</option>
+                                    <option value="1.5">Active [1.5]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Clinical Blueprint Fee</label>
+                                <select id="packagePrice" onchange="recalculateAll()" class="w-full px-2.5 py-2.5 rounded-xl border-2 border-amber-500 bg-amber-50 text-xs font-extrabold text-amber-900 outline-none">
+                                    <option value="3,500" selected>💎 Rs. 3,500/- (Blueprint)</option>
+                                    <option value="4,500">👑 Rs. 4,500/- (Complex Case)</option>
+                                    <option value="5,500">🏛️ Rs. 5,500/- (Executive)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save to SQLite/Cloud Database Button & Jump to Script -->
+                    <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
+                        <select id="clientStatusSelect" class="px-2.5 py-3 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold text-slate-700 outline-none">
+                            <option value="Pending">⏳ Pending</option>
+                            <option value="Paid">✅ Paid</option>
+                        </select>
+
+                        <button type="button" onclick="saveClientToDatabase()" class="flex-1 bg-medinavy active:scale-[0.98] text-white text-xs font-extrabold py-3 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition">
+                            <i class="fa-solid fa-database text-amber-300"></i>
+                            <span>Save File</span>
+                        </button>
+
+                        <button type="button" onclick="switchMobileTab('scripts')" class="bg-medigreen active:scale-[0.98] text-white text-xs font-extrabold py-3 px-3.5 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition">
+                            <span>Scripts</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Collapsible Bank Account Settings -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden">
+                    <button type="button" onclick="toggleBankPanel()" class="w-full px-4 py-3 bg-slate-50 flex items-center justify-between text-left">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-building-columns text-medinavy text-sm"></i>
+                            <div>
+                                <h3 class="text-xs font-extrabold text-slate-800">Bank Account Details</h3>
+                                <p class="text-[10px] text-slate-500">Auto-saved for GitHub Pages</p>
+                            </div>
+                        </div>
+                        <i id="bankCollapseIcon" class="fa-solid fa-chevron-down text-xs text-slate-500 transition-transform"></i>
+                    </button>
+
+                    <div id="bankDetailsBody" class="hidden p-3.5 border-t border-slate-100 space-y-2.5 bg-white">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Bank Name</label>
+                            <input type="text" id="bankName" value="People's Bank" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Account Number</label>
+                            <input type="text" id="bankAccNo" value="068100110085332" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Account Name</label>
+                                <input type="text" id="bankAccName" value="DAWNNEX Medical Team" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Branch</label>
+                                <input type="text" id="bankBranch" value="Monaragala" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 2: WHATSAPP FUNNEL SCRIPTS & AI MASTER PROMPT -->
+            <section id="tabViewScripts" class="space-y-3 hidden">
+
+                <!-- 9 Scenario Touch Selector -->
+                <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-200/90">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
+                            <span class="w-5 h-5 rounded-md bg-medigreen text-white text-[11px] flex items-center justify-center">2</span>
+                            Clinical Authority Scripts (No Begging)
+                        </span>
+                        <span id="activeScenarioLabel" class="text-[10px] font-bold text-medinavy bg-slate-100 px-2 py-0.5 rounded-md">
+                            #1 Direct Diagnosis
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <button type="button" onclick="selectScenario(1)" id="scenBtn1" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>🩺</span><span class="truncate">1. Direct Diagnosis Close</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(2)" id="scenBtn2" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>🛡️</span><span class="truncate">2. Fee & Standards</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(3)" id="scenBtn3" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>📋</span><span class="truncate">3. Quick Data Check</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(4)" id="scenBtn4" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>🎯</span><span class="truncate">4. Page vs Custom (Take/Leave)</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(5)" id="scenBtn5" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>🔒</span><span class="truncate">5. File Closing Notice</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(6)" id="scenBtn6" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>💎</span><span class="truncate">6. Why Rs. 3,500? (Status)</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(7)" id="scenBtn7" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>🧬</span><span class="truncate">7. Clinical Logic ("අඩු වෙයිද?")</span>
+                        </button>
+                        <button type="button" onclick="selectScenario(8)" id="scenBtn8" class="scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border transition flex items-center gap-1.5">
+                            <span>✅</span><span class="truncate">8. Assigned to Panel</span>
+                        </button>
+
+                        <!-- Button 9: Distinct Gold/Orange AI Master Prompt -->
+                        <button type="button" onclick="selectScenario(9)" id="scenBtn9" class="col-span-2 px-3 py-3 rounded-xl text-xs font-extrabold border-2 border-amber-500 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>🤖 9. GENERATE CLINICAL BLUEPRINT PROMPT (AI)</span>
+                        </button>
+
+                        <!-- Button 10: 14-Day Clinical Review Follow-up Script (Idea #4) -->
+                        <button type="button" onclick="selectScenario(10)" id="scenBtn10" class="col-span-2 px-3 py-2.5 rounded-xl text-xs font-extrabold border border-emerald-600 bg-emerald-50 text-medigreen flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>🔔 10. 14-DAY CLINICAL REVIEW CHECK-IN SCRIPT</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Script Output Card -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <div id="outputHeaderBar" class="bg-medinavy text-white px-3.5 py-2.5 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i id="outputHeaderIcon" class="fa-brands fa-whatsapp text-base text-emerald-400"></i>
+                            <span id="outputHeaderTitle" class="text-xs font-extrabold tracking-wide">WhatsApp — #1 Direct Diagnosis</span>
+                        </div>
+                        <span id="charCounter" class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded-md text-slate-200">0 chars</span>
+                    </div>
+
+                    <div class="p-3 bg-slate-100/70 space-y-2.5">
+                        <!-- Psychological Strategy Banner -->
+                        <div class="bg-amber-50 border border-amber-200/90 rounded-xl p-2.5 flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-600 text-xs mt-0.5"></i>
+                            <p id="psychTipText" class="text-[11px] sinhala-font text-amber-950 leading-snug font-medium"></p>
+                        </div>
+
+                        <!-- Main WhatsApp / AI Prompt Bubble -->
+                        <div id="messageBubbleWrapper" class="bg-[#dcf8c6] rounded-2xl rounded-tl-none p-3 shadow-sm border border-emerald-300/60">
+                            <textarea id="mainOutputTextarea" rows="13" oninput="updateCharCount()" class="w-full bg-transparent border-0 focus:ring-0 outline-none text-xs sinhala-font text-slate-800 resize-y"></textarea>
+                        </div>
+
+                        <!-- Voice Note Teleprompter Card -->
+                        <div class="bg-slate-900 text-white rounded-xl p-3 border border-slate-800 space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="fa-solid fa-microphone-lines text-amber-400 text-xs"></i>
+                                    <span class="text-[11px] font-extrabold tracking-wide text-amber-300">🎙️ Voice Note Teleprompter (20s)</span>
+                                </div>
+                                <span id="voicePriorityBadge" class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-600 text-white">OPTIONAL VOICE</span>
+                            </div>
+                            <p id="voiceTeleprompterText" class="text-[11px] sinhala-font text-slate-200 leading-relaxed italic"></p>
+                            <div class="pt-1 flex justify-end">
+                                <button type="button" onclick="copyVoiceScript()" class="text-[10px] font-bold bg-white/10 hover:bg-white/20 text-amber-300 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Copy Voice Script</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sticky Mobile Action Buttons for Copy, WhatsApp & PDF Studio -->
+                    <div class="p-3 bg-white border-t border-slate-100 grid grid-cols-12 gap-2">
+                        <button type="button" onclick="copyMainOutput()" class="col-span-5 py-3.5 px-2 bg-medigreen active:scale-[0.98] text-white font-extrabold rounded-xl shadow-md flex items-center justify-center gap-1.5 text-xs">
+                            <i class="fa-regular fa-copy text-sm"></i>
+                            <span>Copy</span>
+                        </button>
+
+                        <button type="button" onclick="sendToWhatsApp()" class="col-span-4 py-3.5 px-2 bg-[#25D366] active:scale-[0.98] text-white font-extrabold rounded-xl shadow-md flex items-center justify-center gap-1.5 text-xs">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Send WA</span>
+                        </button>
+
+                        <button type="button" onclick="switchMobileTab('pdf')" class="col-span-3 py-3.5 px-2 bg-medinavy active:scale-[0.98] text-amber-300 font-extrabold rounded-xl shadow-md flex items-center justify-center gap-1 text-xs" title="Open Official PDF Blueprint Studio">
+                            <i class="fa-solid fa-file-pdf"></i>
+                            <span>PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: ONE-CLICK INSTANT CLINICAL BLUEPRINT PDF GENERATOR STUDIO -->
+            <section id="tabViewPdf" class="space-y-3 hidden">
+
+                <!-- Controls Card (Hidden when printing) -->
+                <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 space-y-2.5 no-print">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs flex items-center justify-center">
+                                <i class="fa-solid fa-file-medical"></i>
+                            </span>
+                            <div>
+                                <h2 class="text-xs font-extrabold text-slate-800 uppercase">Instant Clinical Blueprint PDF Studio</h2>
+                                <p class="text-[10px] text-slate-500">Paste AI Output → Auto-Formats with Hospital Header & Seal</p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="loadSampleBlueprintIntoPdf()" class="text-[10px] font-extrabold bg-blue-50 text-medinavy border border-blue-200 px-2.5 py-1 rounded-lg">
+                            Auto-Fill Sample
+                        </button>
+                    </div>
+
+                    <textarea id="aiBlueprintPasteArea" rows="4" oninput="renderLiveClinicalPdf()" placeholder="Paste the Clinical Blueprint generated by ChatGPT / Claude (from Button #9) here... Or tap 'Auto-Fill Sample' to preview instantly!" class="w-full p-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs sinhala-font text-slate-800 outline-none focus:border-medinavy"></textarea>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="triggerClinicalPdfPrint()" class="py-3 px-3 bg-gradient-to-r from-medinavy to-medinavy-light text-white font-extrabold rounded-xl shadow-md flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-print text-amber-300"></i>
+                            <span>Save / Print Official PDF</span>
+                        </button>
+                        <button type="button" onclick="switchMobileTab('scripts'); selectScenario(9);" class="py-3 px-3 bg-amber-500 text-slate-950 font-extrabold rounded-xl shadow-sm flex items-center justify-center gap-1.5 text-xs">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>Get #9 AI Prompt</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LIVE PRINTABLE LUXURY MEDICAL BLUEPRINT DOCUMENT -->
+                <div id="printableClinicalReport" class="bg-white rounded-2xl p-4 shadow-lg border-2 border-medinavy space-y-3.5 text-slate-800">
+                    
+                    <!-- Official Hospital-Style Header -->
+                    <div class="border-b-2 border-medinavy pb-3 flex items-start justify-between gap-2">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-10 h-10 rounded-xl bg-medinavy text-amber-400 flex items-center justify-center font-extrabold text-lg shrink-0">
+                                🩺
+                            </div>
+                            <div>
+                                <h1 class="text-sm font-extrabold text-medinavy tracking-tight uppercase">MEDIDIET SRI LANKA — CLINICAL NUTRITION UNIT</h1>
+                                <p class="text-[10px] font-bold text-slate-500">Personal Clinical Nutrition & Metabolic Prescription Blueprint</p>
+                                <p class="text-[9px] text-medigreen font-bold">100% Sri Lankan Household Low-GI Medical Protocol • Confidential</p>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0">
+                            <span id="pdfCaseId" class="inline-block text-[10px] font-mono font-extrabold bg-slate-100 text-medinavy border border-slate-300 px-2 py-0.5 rounded">#MD-2026-841</span>
+                            <p id="pdfDateIssued" class="text-[9px] text-slate-500 font-semibold mt-0.5">Issued: Today</p>
+                        </div>
+                    </div>
+
+                    <!-- Patient Biometric Summary Grid -->
+                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 space-y-2">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                            <div>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 block">Patient Name</span>
+                                <span id="pdfPatientName" class="font-extrabold text-slate-900">Nimali</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 block">Age / Gender / Biometrics</span>
+                                <span id="pdfBiometrics" class="font-bold text-slate-800">30Y / Female (160cm, 74kg)</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 block">Asian Clinical BMI</span>
+                                <span id="pdfBmiCategory" class="font-extrabold text-medinavy">28.9 kg/m² (Obese Grade 1)</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 block">Prescribed Daily Target</span>
+                                <span id="pdfCalorieTarget" class="font-extrabold text-medigreen">1,300 kcal/day (-450 Deficit)</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-200/80 grid grid-cols-1 gap-1.5 text-[11px] sinhala-font">
+                            <div><b class="text-medinavy">🎯 Primary Clinical Focus:</b> <span id="pdfConditionFocus" class="font-semibold"></span></div>
+                            <div><b class="text-rose-700">🩺 Past Medical History / Meds:</b> <span id="pdfMedicalHistory" class="font-semibold"></span></div>
+                            <div class="bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1 text-amber-950">
+                                <b>⚠️ STRICT ALLERGY & DIETARY EXCLUSION:</b> <span id="pdfAllergyBox" class="font-bold"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DynamicFormatted Clinical Blueprint Content -->
+                    <div id="pdfFormattedBody" class="text-xs sinhala-font text-slate-800 space-y-2.5 leading-relaxed whitespace-pre-wrap">
+                        <!-- Rendered dynamically -->
+                    </div>
+
+                    <!-- 14-Day Clinical Progress Review Log Table -->
+                    <div class="pt-3 border-t border-slate-200">
+                        <h4 class="text-[11px] font-extrabold text-medinavy uppercase mb-1.5">🗓️ Mandatory 14-Day Clinical Biometric Review Log</h4>
+                        <table class="w-full text-[10px] border-collapse border border-slate-300 text-left">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700">
+                                    <th class="border border-slate-300 px-2 py-1">Review Stage</th>
+                                    <th class="border border-slate-300 px-2 py-1">Morning Fasting Weight (kg)</th>
+                                    <th class="border border-slate-300 px-2 py-1">Umbilical Waist (Inches)</th>
+                                    <th class="border border-slate-300 px-2 py-1">Clinical Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-slate-300 px-2 py-1 font-bold">Day 01 (Baseline)</td>
+                                    <td id="pdfDay1Weight" class="border border-slate-300 px-2 py-1 font-bold">74 kg</td>
+                                    <td class="border border-slate-300 px-2 py-1 text-slate-400">Record morning Day 1</td>
+                                    <td class="border border-slate-300 px-2 py-1">Blueprint Initiated</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 px-2 py-1 font-bold text-medigreen">Day 14 (Clinical Review)</td>
+                                    <td class="border border-slate-300 px-2 py-1 text-slate-400">Send via WhatsApp</td>
+                                    <td class="border border-slate-300 px-2 py-1 text-slate-400">Send via WhatsApp</td>
+                                    <td class="border border-slate-300 px-2 py-1">Free Metabolic Re-Adjustment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Official Clinical Board Seal & Signature Footer -->
+                    <div class="pt-3 border-t-2 border-medinavy flex items-center justify-between text-[10px] text-slate-600">
+                        <div>
+                            <p class="font-extrabold text-medinavy">APPROVED BY CLINICAL NUTRITION & MEDICAL PANEL</p>
+                            <p class="text-[9px]">MediDiet Sri Lanka • Evidence-Based Metabolic & Low-GI Therapy</p>
+                        </div>
+                        <div class="text-right border-2 border-medigreen/60 bg-emerald-50/60 px-2.5 py-1 rounded-lg">
+                            <span class="font-extrabold text-medigreen block text-[9px] uppercase">✓ VERIFIED CLINICAL BLUEPRINT</span>
+                            <span id="pdfFooterSealId" class="font-mono text-[9px] text-slate-700">Ref: #MD-2026-841</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- VIEW 4: PORTABLE SQLITE & GOOGLE SHEETS DATABASE MANAGER -->
+            <section id="tabViewDatabase" class="space-y-3 hidden no-print">
+
+                <!-- 14-Day Review Auto-Tracker Filter Bar (Idea #4) -->
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 rounded-2xl p-3 shadow-sm flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bell text-base animate-bounce"></i>
+                        <div>
+                            <h3 class="text-xs font-extrabold">14-Day Clinical Review Tracker</h3>
+                            <p id="dueReviewSummaryText" class="text-[10px] font-bold">Auto-tracks paid patients for Day-14 follow-up</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="filterOnlyDueReviews()" id="filterDueBtn" class="bg-slate-950 text-amber-300 text-[10px] font-extrabold px-2.5 py-1.5 rounded-xl">
+                        Show All / Due
+                    </button>
+                </div>
+
+                <!-- GOOGLE SHEETS CLOUD SYNC CARD -->
+                <div class="bg-white rounded-2xl p-3.5 shadow-sm border-2 border-emerald-500/40 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-medigreen flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <h2 class="text-xs font-extrabold text-slate-800">Google Sheets Cloud DB</h2>
+                                    <span id="cloudConnPill" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Not Linked</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500">Syncs Past History, Allergies & Biometrics</p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="toggleCloudSetupModal()" class="text-[11px] font-extrabold bg-slate-100 hover:bg-slate-200 text-medinavy px-2.5 py-1.5 rounded-xl">
+                            <i class="fa-solid fa-gear mr-1"></i>Setup
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-1.5">
+                        <input type="url" id="googleSheetWebhookInput" oninput="saveWebhookUrl()" placeholder="Paste Google Apps Script Web App URL here..." class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-mono text-slate-700 outline-none focus:border-medigreen">
+                        <button type="button" onclick="fetchAllFromGoogleSheet()" class="bg-medigreen active:scale-95 text-white text-[11px] font-extrabold px-3 py-2 rounded-xl shrink-0 flex items-center gap-1 shadow-sm" title="Pull latest records from Google Sheet">
+                            <i id="cloudSyncSpinner" class="fa-solid fa-rotate"></i>
+                            <span>Sync</span>
+                        </button>
+                    </div>
+
+                    <div id="cloudSetupBox" class="hidden pt-2 border-t border-slate-100 space-y-2 text-[11px] text-slate-600">
+                        <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-2.5 space-y-1.5">
+                            <p class="font-extrabold text-medinavy text-xs">🚀 Google Sheet Apps Script (Updated for Allergies & Medical History):</p>
+                            <ol class="list-decimal list-inside space-y-1 text-[11px] sinhala-font">
+                                <li>Google Sheet එකේ <b>Extensions → Apps Script</b> වෙත යන්න.</li>
+                                <li>පහත <b>"Copy Apps Script Code"</b> ඔබා අලුත් කෝඩ් එක Paste කර <b>Deploy → New deployment (Web app / Anyone)</b> දෙන්න.</li>
+                            </ol>
+                            <button type="button" onclick="copyGoogleAppsScriptCode()" class="w-full mt-1 py-2 bg-medinavy text-white rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 shadow">
+                                <i class="fa-regular fa-copy text-emerald-300"></i>
+                                <span>Copy Updated Apps Script Code</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portable Database Controls -->
+                <div class="bg-gradient-to-br from-medinavy to-medinavy-light text-white rounded-2xl p-3.5 shadow-md space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-database text-emerald-400 text-base"></i>
+                            <div>
+                                <h2 class="text-xs font-extrabold uppercase tracking-wider">SQLite + JSON Portable DB</h2>
+                                <p class="text-[10px] text-slate-300">Works 100% on GitHub Pages • Backup & Restore</p>
+                            </div>
+                        </div>
+                        <span id="crmCountBadge" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-white/15 text-emerald-300">0 Records</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-1.5 pt-1">
+                        <button type="button" onclick="exportJsonDatabase()" class="bg-white/10 active:bg-white/25 py-2 px-2 rounded-xl text-[11px] font-bold flex flex-col items-center gap-1 border border-white/15">
+                            <i class="fa-solid fa-file-code text-amber-300 text-sm"></i>
+                            <span>Export .JSON</span>
+                        </button>
+                        <button type="button" onclick="exportSqliteDatabase()" class="bg-white/10 active:bg-white/25 py-2 px-2 rounded-xl text-[11px] font-bold flex flex-col items-center gap-1 border border-white/15">
+                            <i class="fa-solid fa-hard-drive text-emerald-300 text-sm"></i>
+                            <span>Export .SQLite</span>
+                        </button>
+                        <label class="bg-white/10 active:bg-white/25 py-2 px-2 rounded-xl text-[11px] font-bold flex flex-col items-center gap-1 border border-white/15 cursor-pointer text-center">
+                            <i class="fa-solid fa-file-arrow-up text-sky-300 text-sm"></i>
+                            <span>Import DB</span>
+                            <input type="file" id="dbImportFile" accept=".json,.sqlite,.db" onchange="importDatabaseFile(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Search & Filter Bar -->
+                <div class="flex items-center gap-2">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" id="crmSearchInput" oninput="renderCrmCards()" placeholder="Search patient, condition, allergy..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold outline-none">
+                    </div>
+                    <button type="button" onclick="clearAllCrmClients()" class="px-3 py-2.5 rounded-xl bg-rose-50 text-rose-600 text-xs font-bold border border-rose-200">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Patient Cards List -->
+                <div id="crmMobileList" class="space-y-2.5 pb-4">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FIXED BOTTOM NAVIGATION BAR (4 TABS: FILE, SCRIPTS, PDF STUDIO, DB) -->
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-slate-200 shadow-2xl z-40 grid grid-cols-4 py-1.5 px-1.5 no-print">
+            <button type="button" id="navBtnInput" onclick="switchMobileTab('input')" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-medinavy font-extrabold transition">
+                <i class="fa-solid fa-sliders text-sm mb-0.5"></i>
+                <span class="text-[10px]">1. File</span>
+            </button>
+
+            <button type="button" id="navBtnScripts" onclick="switchMobileTab('scripts')" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-bold transition relative">
+                <i class="fa-brands fa-whatsapp text-sm mb-0.5"></i>
+                <span class="text-[10px]">2. Scripts</span>
+            </button>
+
+            <button type="button" id="navBtnPdf" onclick="switchMobileTab('pdf')" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-bold transition relative">
+                <i class="fa-solid fa-file-pdf text-sm mb-0.5 text-amber-500"></i>
+                <span class="text-[10px]">3. PDF Studio</span>
+            </button>
+
+            <button type="button" id="navBtnDatabase" onclick="switchMobileTab('database')" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-bold transition relative">
+                <i class="fa-solid fa-database text-sm mb-0.5"></i>
+                <span class="text-[10px]">4. DB (<span id="navDbCount">0</span>)</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div id="toastBox" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none w-11/12 max-w-xs no-print">
+        <div class="bg-medinavy text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center justify-center gap-2.5 border border-white/20 text-center">
+            <div class="w-5 h-5 rounded-full bg-medigreen text-white flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-check text-[10px]"></i>
+            </div>
+            <span id="toastText" class="text-xs font-extrabold">Copied!</span>
+        </div>
+    </div>
+
+    <!-- Hidden textarea for Initial Intake Greeting copy (Includes Idea #5 Exclusivity Rule) -->
+    <textarea id="hiddenIntakeGreeting" class="hidden">ආයුබෝවන්. MediDiet Sri Lanka Medical Unit. 🩺
+
+අපි හැමෝටම පොදුවේ දෙන සාමාන්‍ය Diet Sheets නිකුත් කරන්නේ නෑ. අපේ Medical Panel එකෙන් කරන්නේ ඔයාගේ ශරීරයේ දත්ත, රෝග තත්ත්වයන් සහ ඔයා ගෙදරදී කන බොන කෑම වර්ග පරීක්ෂා කරලා, ඔයාගේ ඇඟට 100%ක්ම Match වෙන *Personal Clinical Nutrition Blueprint* එකක් සකසන එකයි.
+
+⚠️ *විශේෂ දැනුවත් කිරීමයි:* අපේ වෛද්‍ය මණ්ඩලය Blueprint එකක් සඳහා භාරගන්නේ කෙටි කාලීන බෙහෙත් පෙති හෝ Slimming Tea හොයන්නේ නැතුව, ගෙදර ආහාර පාලනයෙන් විද්‍යාත්මකව සහ ආරක්ෂිතව ප්‍රතිඵල ගන්න කැමති අයගේ Files පමණයි.
+
+වෛද්‍ය මණ්ඩලයේ මූලික පරීක්ෂාව (Clinical Assessment) සඳහා මේ විස්තර ටික පිළිවෙළින් එවන්න: 👇
+
+1. ස්ත්‍රී/පුරුෂ භාවය සහ වයස:
+2. උස සහ දැනට බර:
+3. ප්‍රධානම Target එක: (උදා: Belly Fat සහ බර අඩු කරගන්න / PCOS / Fatty Liver / Cholesterol / Post-Pregnancy)
+4. *Past Medical History:* දැනට ඇති වෙනත් රෝග (උදා: Gastritis, Thyroid, Pressure, Wheezing) හෝ ගන්නා බෙහෙත්:
+5. *Food Allergies & Preference:* ඔයාට අසාත්මික (Allergy) කෑම මොනවාද? (මස්, මාළු, බිත්තර කනවද? Vegetarian ද?):
+
+මේ දත්ත එවූ පසු අපේ Medical Team එක ඔයාගේ Clinical Case File එක Open කරලා BMI සහ Calorie Assessment එක එවයි.</textarea>
+
+    <!-- Hidden textarea for Google Apps Script Backend Code -->
+    <textarea id="hiddenAppsScriptCode" class="hidden">function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["ID", "SavedAt", "Name", "Phone", "Status", "Price", "Age", "Gender", "Height_cm", "Weight_kg", "BMI", "CalorieTarget", "Condition", "DietPref", "SelectedIdsJSON", "PastMedical", "FoodAllergies", "CaseRef", "PaidTimestamp"]);
+  }
+  var data = JSON.parse(e.postData.contents);
+  
+  if (data.action === "upsert") {
+    var c = data.client;
+    var values = sheet.getDataRange().getValues();
+    var updated = false;
+    var rowData = [c.id, c.savedAt, c.name, c.phone, c.status, c.price, c.age, c.gender, c.height, c.weight, c.bmi, c.calorieTarget, c.condition, c.dietPref, JSON.stringify(c.selectedIds || []), c.pastMedical || "", c.foodAllergies || "", c.caseRef || "", c.paidTimestamp || ""];
+    for (var i = 1; i < values.length; i++) {
+      if (String(values[i][0]) === String(c.id) || (values[i][2] && String(values[i][2]).toLowerCase() === String(c.name).toLowerCase())) {
+        sheet.getRange(i + 1, 1, 1, 19).setValues([rowData]);
+        updated = true;
+        break;
+      }
+    }
+    if (!updated) {
+      sheet.appendRow(rowData);
+    }
+    return ContentService.createTextOutput(JSON.stringify({ status: "ok" })).setMimeType(ContentService.MimeType.JSON);
+  }
+  return ContentService.createTextOutput(JSON.stringify({ status: "ignored" })).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var rows = sheet.getDataRange().getValues();
+  var clients = [];
+  for (var i = 1; i < rows.length; i++) {
+    var r = rows[i];
+    if (!r[2]) continue;
+    var sIds = ["belly"];
+    try { sIds = JSON.parse(r[14] || '["belly"]'); } catch(err) {}
+    clients.push({
+      id: String(r[0]),
+      savedAt: String(r[1]),
+      name: String(r[2]),
+      phone: String(r[3] || ""),
+      status: String(r[4] || "Pending"),
+      price: String(r[5] || "3,500"),
+      age: Number(r[6] || 30),
+      gender: String(r[7] || "Female"),
+      height: Number(r[8] || 160),
+      weight: Number(r[9] || 70),
+      bmi: String(r[10] || "27.3"),
+      calorieTarget: Number(r[11] || 1300),
+      condition: String(r[12] || ""),
+      dietPref: String(r[13] || ""),
+      activity: "1.2",
+      selectedIds: sIds,
+      pastMedical: String(r[15] || ""),
+      foodAllergies: String(r[16] || ""),
+      caseRef: String(r[17] || "#MD-2026-841"),
+      paidTimestamp: Number(r[18] || 0)
+    });
+  }
+  return ContentService.createTextOutput(JSON.stringify({ status: "ok", clients: clients.reverse() })).setMimeType(ContentService.MimeType.JSON);
+}</textarea>
+
+    <script>
+        const STORAGE_KEY_BANK = 'medidiet_sl_bank_v4';
+        const STORAGE_KEY_CRM_JSON = 'medidiet_sl_crm_json_v4';
+        const STORAGE_KEY_SQLITE_B64 = 'medidiet_sl_sqlite_b64_v4';
+        const STORAGE_KEY_GSHEET_URL = 'medidiet_sl_gsheet_url_v3';
+
+        const CLINICAL_CONDITIONS = [
+            { id: 'belly', label: 'Belly Fat එක (උදරය වටා තෙල්) සහ වැඩි බර', short: 'Belly Fat' },
+            { id: 'pcos', label: 'PCOS / PCOD සහ Insulin Resistance තත්ත්වය', short: 'PCOS / PCOD' },
+            { id: 'fattyliver', label: 'Fatty Liver (අක්මාවේ තෙල් තැන්පත් වීම)', short: 'Fatty Liver' },
+            { id: 'cholesterol', label: 'Cholesterol සහ Triglycerides මට්ටම', short: 'Cholesterol' },
+            { id: 'postpreg', label: 'බබා ලැබුණට පස්සේ වැඩි වුණ බර (Post-Pregnancy Weight)', short: 'Post-Pregnancy' },
+            { id: 'diabetes', label: 'Blood Sugar මට්ටම (Pre-Diabetes / Sugar Control)', short: 'Pre-Diabetes / Sugar' }
+        ];
+
+        let selectedConditionIds = ['belly'];
+        let sqliteDb = null;
+        let SQL_ENGINE = null;
+        let activeScenario = 1;
+        let currentCaseId = '#MD-2026-' + Math.floor(100 + Math.random() * 900);
+        let showOnlyDueReviews = false;
+
+        let calculatedState = {
+            caseRef: currentCaseId,
+            name: 'Nimali',
+            rawNameOnly: 'Nimali',
+            phone: '',
+            age: 30,
+            gender: 'Female',
+            height: 160,
+            weight: 74,
+            activity: 1.2,
+            condition: 'Belly Fat එක (උදරය වටා තෙල්) සහ වැඩි බර',
+            selectedIds: ['belly'],
+            pastMedical: '',
+            foodAllergies: '',
+            dietPref: 'Non-Vegetarian (මස්, මාළු, බිත්තර ගනී)',
+            price: '3,500',
+            bmi: '28.9',
+            category: 'Obese Grade 1 (තරබාරු කාණ්ඩය 1)',
+            visceralRiskLevel: 'High-Risk (අධික අවදානම්)',
+            visceralRiskNote: '',
+            targetLoss: '16 - 18',
+            calorieTarget: 1300,
+            bmr: 1419,
+            tdee: 1703
+        };
+
+        let crmClients = [];
+
+        function safeGetStorage(key) {
+            try { return window.localStorage.getItem(key); } catch (e) { return null; }
+        }
+        function safeSetStorage(key, value) {
+            try { window.localStorage.setItem(key, value); } catch (e) {}
+        }
+
+        function regenerateCaseId() {
+            currentCaseId = '#MD-2026-' + Math.floor(100 + Math.random() * 900);
+            document.getElementById('headerCaseBadge').textContent = currentCaseId;
+            document.getElementById('caseIdPill').textContent = currentCaseId;
+            recalculateAll();
+            showToast(`New Clinical Case ID: ${currentCaseId}`);
+        }
+
+        function switchMobileTab(tabName) {
+            const views = {
+                input: document.getElementById('tabViewInput'),
+                scripts: document.getElementById('tabViewScripts'),
+                pdf: document.getElementById('tabViewPdf'),
+                database: document.getElementById('tabViewDatabase')
+            };
+            const btns = {
+                input: document.getElementById('navBtnInput'),
+                scripts: document.getElementById('navBtnScripts'),
+                pdf: document.getElementById('navBtnPdf'),
+                database: document.getElementById('navBtnDatabase')
+            };
+
+            Object.keys(views).forEach(k => {
+                if (k === tabName) {
+                    views[k].classList.remove('hidden');
+                    btns[k].className = 'flex flex-col items-center justify-center py-1.5 rounded-xl text-medinavy bg-blue-50/80 font-extrabold transition';
+                } else {
+                    views[k].classList.add('hidden');
+                    btns[k].className = 'flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-bold transition';
+                }
+            });
+
+            if (tabName === 'pdf') {
+                renderLiveClinicalPdf();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderConditionChips() {
+            const container = document.getElementById('multiConditionContainer');
+            container.innerHTML = CLINICAL_CONDITIONS.map((c, idx) => {
+                const isSelected = selectedConditionIds.includes(c.id);
+                return `
+                    <button type="button" onclick="toggleCondition('${c.id}')" class="cond-chip ${isSelected ? 'active' : 'bg-slate-50 text-slate-800 border-slate-200'} w-full text-left px-3 py-2.5 rounded-xl border text-xs font-bold sinhala-font transition flex items-center justify-between gap-2">
+                        <span class="leading-snug">${idx + 1}. ${c.label}</span>
+                        <span class="chip-check w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center shrink-0 text-[10px]">
+                            ${isSelected ? '<i class="fa-solid fa-check"></i>' : ''}
+                        </span>
+                    </button>
+                `;
+            }).join('');
+
+            document.getElementById('selectedCondCount').textContent = `${selectedConditionIds.length} Selected`;
+        }
+
+        function toggleCondition(id) {
+            if (selectedConditionIds.includes(id)) {
+                if (selectedConditionIds.length > 1) {
+                    selectedConditionIds = selectedConditionIds.filter(item => item !== id);
+                } else {
+                    showToast('අවම වශයෙන් එක් ඉලක්කයක් හෝ තෝරන්න');
+                }
+            } else {
+                selectedConditionIds.push(id);
+            }
+            renderConditionChips();
+            recalculateAll();
+        }
+
+        function appendQuickText(inputId, textToAdd) {
+            const input = document.getElementById(inputId);
+            const current = input.value.trim();
+            if (!current) {
+                input.value = textToAdd;
+            } else if (!current.includes(textToAdd)) {
+                input.value = current + ', ' + textToAdd;
+            }
+            recalculateAll();
+        }
+
+        function getCombinedConditionText() {
+            const labels = CLINICAL_CONDITIONS
+                .filter(c => selectedConditionIds.includes(c.id))
+                .map(c => c.label);
+            const custom = document.getElementById('customConditionInput').value.trim();
+            if (custom) labels.push(custom);
+            return labels.join(' සහ ');
+        }
+
+        function setGender(g) {
+            document.getElementById('clientGender').value = g;
+            const fBtn = document.getElementById('genderBtnFemale');
+            const mBtn = document.getElementById('genderBtnMale');
+            if (g === 'Female') {
+                fBtn.className = 'py-2 rounded-lg text-xs font-extrabold bg-medinavy text-white shadow-sm transition';
+                mBtn.className = 'py-2 rounded-lg text-xs font-bold text-slate-600 transition';
+            } else {
+                mBtn.className = 'py-2 rounded-lg text-xs font-extrabold bg-medinavy text-white shadow-sm transition';
+                fBtn.className = 'py-2 rounded-lg text-xs font-bold text-slate-600 transition';
+            }
+            recalculateAll();
+        }
+
+        function setHeightCm(cm) {
+            document.getElementById('clientHeight').value = cm;
+            recalculateAll();
+        }
+
+        function parseCustomerReply(text) {
+            if (!text || text.trim().length < 3) return;
+            const lower = text.toLowerCase();
+
+            if ((lower.includes('male') && !lower.includes('female')) || text.includes('පුරුෂ')) {
+                setGender('Male');
+            } else if (lower.includes('female') || text.includes('ස්ත්‍රී') || text.includes('ගැහැණු')) {
+                setGender('Female');
+            }
+
+            const ageMatch = text.match(/(?:වයස|age)[:\s-]*(\d{2})/i) || text.match(/\b(1[89]|[2-6]\d)\s*(?:yrs|years|y|වයස)/i);
+            if (ageMatch) document.getElementById('clientAge').value = ageMatch[1];
+
+            const cmMatch = text.match(/(\d{3}(?:\.\d+)?)\s*cm/i);
+            const ftMatch = text.match(/([456])\s*(?:ft|feet|'|අඩි)\s*(\d{1,2})?/i);
+            if (cmMatch) {
+                document.getElementById('clientHeight').value = parseFloat(cmMatch[1]);
+            } else if (ftMatch) {
+                const ft = parseInt(ftMatch[1], 10);
+                const inc = ftMatch[2] ? parseInt(ftMatch[2], 10) : 0;
+                document.getElementById('clientHeight').value = Math.round(((ft * 12) + inc) * 2.54);
+            }
+
+            const kgMatch = text.match(/(\d{2,3}(?:\.\d+)?)\s*(?:kg|කිලෝ|බර)/i);
+            if (kgMatch) {
+                document.getElementById('clientWeight').value = parseFloat(kgMatch[1]);
+            }
+
+            const matchedConds = [];
+            if (lower.includes('belly') || text.includes('බඩ') || text.includes('බර')) matchedConds.push('belly');
+            if (lower.includes('pcos') || lower.includes('pcod')) matchedConds.push('pcos');
+            if (lower.includes('fatty') || lower.includes('liver') || text.includes('අක්මා')) matchedConds.push('fattyliver');
+            if (lower.includes('cholesterol') || text.includes('කොලෙස්ටරෝල්')) matchedConds.push('cholesterol');
+            if (lower.includes('preg') || lower.includes('baby') || text.includes('දරු')) matchedConds.push('postpreg');
+            if (lower.includes('sugar') || lower.includes('diabet') || text.includes('සීනි')) matchedConds.push('diabetes');
+
+            if (matchedConds.length > 0) {
+                selectedConditionIds = matchedConds;
+                renderConditionChips();
+            }
+
+            // Detect Past Medical History keywords
+            const medKeywords = [];
+            if (lower.includes('gastritis') || text.includes('ගැස්ට්‍රයිටිස්')) medKeywords.push('Gastritis (ගැස්ට්‍රයිටිස්)');
+            if (lower.includes('thyroid') || lower.includes('thyroxine') || text.includes('තයිරොයිඩ්')) medKeywords.push('Thyroid / Thyroxine');
+            if (lower.includes('pressure') || text.includes('ප්‍රෙෂර්')) medKeywords.push('High Blood Pressure');
+            if (lower.includes('wheez') || lower.includes('asthma') || text.includes('වීසිං')) medKeywords.push('Wheezing / Asthma');
+            if (lower.includes('feeding') || text.includes('මව්කිරි')) medKeywords.push('Breastfeeding (මව්කිරි දෙන මවක්)');
+            if (medKeywords.length > 0) {
+                document.getElementById('pastMedicalInput').value = medKeywords.join(', ');
+            }
+
+            // Detect Allergy keywords
+            const allergyKeywords = [];
+            if (lower.includes('prawn') || lower.includes('shrimp') || lower.includes('seafood') || text.includes('ඉස්සෝ') || text.includes('දැල්ලෝ')) {
+                allergyKeywords.push('ඉස්සෝ / දැල්ලෝ (Seafood Allergy)');
+            }
+            if (lower.includes('pineapple') || text.includes('අන්නාසි') || text.includes('තක්කාලි')) {
+                allergyKeywords.push('තක්කාලි / අන්නාසි');
+            }
+            if (lower.includes('milk') || lower.includes('dairy') || lower.includes('lactose') || text.includes('කිරි')) {
+                allergyKeywords.push('එළකිරි (Dairy)');
+            }
+            if (allergyKeywords.length > 0) {
+                document.getElementById('foodAllergyInput').value = allergyKeywords.join(', ');
+            }
+
+            recalculateAll();
+        }
+
+        function clearSmartPaste() {
+            document.getElementById('smartPasteInput').value = '';
+        }
+
+        function recalculateAll() {
+            const rawName = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('waPhoneInput').value.trim();
+            const age = parseFloat(document.getElementById('clientAge').value) || 30;
+            const gender = document.getElementById('clientGender').value;
+            const height = parseFloat(document.getElementById('clientHeight').value) || 160;
+            const weight = parseFloat(document.getElementById('clientWeight').value) || 70;
+            const activity = parseFloat(document.getElementById('activityLevel').value) || 1.2;
+            const condition = getCombinedConditionText();
+            const pastMedical = document.getElementById('pastMedicalInput').value.trim();
+            const foodAllergies = document.getElementById('foodAllergyInput').value.trim();
+            const dietPref = document.getElementById('dietPreference').value;
+            const price = document.getElementById('packagePrice').value;
+
+            document.getElementById('headerCaseBadge').textContent = currentCaseId;
+            document.getElementById('caseIdPill').textContent = currentCaseId;
+
+            const totalInches = height / 2.54;
+            const ft = Math.floor(totalInches / 12);
+            const inches = Math.round(totalInches % 12);
+            document.getElementById('heightFeetHelper').textContent = `≈ ${ft}' ${inches}"`;
+
+            const heightMeters = height / 100;
+            const bmiVal = heightMeters > 0 ? weight / (heightMeters * heightMeters) : 0;
+            const bmiFormatted = bmiVal.toFixed(1);
+
+            let category = '';
+            let shortCat = '';
+            const badge = document.getElementById('asianCategoryBadge');
+            if (bmiVal < 23) {
+                category = 'Normal / Mild Toning';
+                shortCat = 'Normal / Toning';
+                badge.className = 'text-[9px] font-bold text-emerald-300 truncate';
+            } else if (bmiVal < 25) {
+                category = 'Overweight (අධික බර)';
+                shortCat = 'Overweight';
+                badge.className = 'text-[9px] font-bold text-yellow-300 truncate';
+            } else if (bmiVal < 30) {
+                category = 'Obese Grade 1 (තරබාරු කාණ්ඩය 1)';
+                shortCat = 'Obese Grade 1';
+                badge.className = 'text-[9px] font-bold text-amber-300 truncate';
+            } else {
+                category = 'Obese Grade 2 (අධික තරබාරු)';
+                shortCat = 'Obese Grade 2';
+                badge.className = 'text-[9px] font-bold text-rose-300 truncate';
+            }
+            badge.textContent = shortCat;
+
+            // Idea #2: Dynamic Metabolic & Visceral Fat Warning Calculation
+            const hasMetabolicCond = selectedConditionIds.some(id => ['belly', 'pcos', 'fattyliver', 'diabetes', 'cholesterol'].includes(id));
+            let visceralRiskLevel = 'Moderate Risk';
+            let visceralRiskNote = '';
+            const riskHeaderEl = document.getElementById('metricRiskLevel');
+            const riskTitleEl = document.getElementById('visceralRiskTitle');
+            const riskDescEl = document.getElementById('visceralRiskDesc');
+
+            if (bmiVal >= 27.5 || (bmiVal >= 24.5 && hasMetabolicCond)) {
+                visceralRiskLevel = 'High-Risk (අධික අවදානම් මට්ටම)';
+                visceralRiskNote = `ඔයාගේ BMI අගය (${bmiFormatted}) සහ ${condition} තත්ත්වය අනුව *Visceral Fat (අභ්‍යන්තර ඉන්ද්‍රියන් වටා තෙල් තැන්පත් වීමේ අවදානම) High-Risk* මට්ටමක පවතී. මෙය කල් යාමට හැරියහොත් Insulin Resistance තත්ත්වය වැඩි වී බර අඩු කරගැනීම දෙගුණයකින් අපහසු වේ.`;
+                riskHeaderEl.textContent = '⚠️ HIGH RISK';
+                riskHeaderEl.className = 'text-[11px] font-extrabold text-rose-400 truncate';
+                riskTitleEl.textContent = 'Visceral Fat & Metabolic Risk: HIGH';
+                riskDescEl.textContent = 'අභ්‍යන්තර ඉන්ද්‍රියන් වටා තෙල් තැන්පත් වීමේ (Visceral Fat) සහ Insulin Resistance ඉහළ යාමේ දැඩි අවදානමක් පවතී.';
+            } else if (bmiVal >= 23) {
+                visceralRiskLevel = 'Elevated Risk (මධ්‍යම අවදානම් මට්ටම)';
+                visceralRiskNote = `ඔයාගේ BMI අගය (${bmiFormatted}) සහ ${condition} තත්ත්වය අනුව *Metabolic & Visceral Fat මට්ටම Elevated Risk* කාණ්ඩයේ පවතී. දැන්ම නිවැරදි Low-GI Calorie Deficit රටාවකට යොමු වීමෙන් මෙය පහසුවෙන්ම පාලනය කළ හැක.`;
+                riskHeaderEl.textContent = '⚡ ELEVATED';
+                riskHeaderEl.className = 'text-[11px] font-extrabold text-amber-300 truncate';
+                riskTitleEl.textContent = 'Visceral Fat & Metabolic Risk: ELEVATED';
+                riskDescEl.textContent = 'Metabolism මන්දගාමී වීම සහ උදරය වටා මේදය තැන්පත් වීම ආරම්භ වී ඇත.';
+            } else {
+                visceralRiskLevel = 'Low / Controlled';
+                visceralRiskNote = `ඔයාගේ BMI අගය (${bmiFormatted}) පාලනයක පැවතුණද, *${condition}* තත්ත්වය සඳහා ඉන්සියුලින් පාලනය කරන නිවැරදි පෝෂණ අනුපාතයන් ලබා ගැනීම අත්‍යවශ්‍ය වේ.`;
+                riskHeaderEl.textContent = '✅ MILD RISK';
+                riskHeaderEl.className = 'text-[11px] font-extrabold text-emerald-300 truncate';
+                riskTitleEl.textContent = 'Metabolic Risk: MILD / TONING';
+                riskDescEl.textContent = 'ශරීරයේ හෝමෝන සහ පෝෂණ සමතුලිතතාවය (Metabolic Toning) ඉලක්ක කරගත් සැලැස්මකි.';
+            }
+
+            const idealWeight = 22.0 * (heightMeters * heightMeters);
+            const rawDiff = weight - idealWeight;
+            let targetLossRange = '3 - 5';
+            if (rawDiff > 3) {
+                const lowRange = Math.max(2, Math.floor(rawDiff - 1));
+                const highRange = Math.ceil(rawDiff + 1);
+                targetLossRange = `${lowRange} - ${highRange}`;
+            }
+
+            const bmr = (10 * weight) + (6.25 * height) - (5 * age) + (gender === 'Male' ? 5 : -161);
+            const tdee = bmr * activity;
+            const rawDeficit = tdee - 450;
+            const rounded50 = Math.round(rawDeficit / 50) * 50;
+            const prescribedCalories = Math.max(1200, Math.min(1800, rounded50));
+
+            calculatedState = {
+                caseRef: currentCaseId,
+                name: rawName || 'ඔයා',
+                rawNameOnly: rawName,
+                phone,
+                age,
+                gender,
+                height,
+                weight,
+                activity,
+                condition,
+                selectedIds: [...selectedConditionIds],
+                pastMedical,
+                foodAllergies,
+                dietPref,
+                price,
+                bmi: bmiFormatted,
+                category,
+                visceralRiskLevel,
+                visceralRiskNote,
+                targetLoss: targetLossRange,
+                calorieTarget: prescribedCalories,
+                bmr: Math.round(bmr),
+                tdee: Math.round(tdee)
+            };
+
+            document.getElementById('metricBmi').textContent = bmiFormatted;
+            document.getElementById('idealWeightSubtext').textContent = `Target: ${targetLossRange} kg loss`;
+            document.getElementById('metricCalories').textContent = prescribedCalories.toLocaleString();
+            document.getElementById('tdeeSubtext').textContent = `TDEE: ${Math.round(tdee)} kcal (-450)`;
+
+            renderScenarioOutput();
+            renderLiveClinicalPdf();
+        }
+
+        function toggleBankPanel() {
+            const body = document.getElementById('bankDetailsBody');
+            const icon = document.getElementById('bankCollapseIcon');
+            body.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        function loadBankSettings() {
+            const raw = safeGetStorage(STORAGE_KEY_BANK);
+            if (!raw) return;
+            try {
+                const bank = JSON.parse(raw);
+                if (bank.bankName) document.getElementById('bankName').value = bank.bankName;
+                if (bank.accNo) document.getElementById('bankAccNo').value = bank.accNo;
+                if (bank.accName) document.getElementById('bankAccName').value = bank.accName;
+                if (bank.branch) document.getElementById('bankBranch').value = bank.branch;
+            } catch (err) {}
+        }
+
+        function saveBankAndRefresh() {
+            const bankObj = {
+                bankName: document.getElementById('bankName').value.trim(),
+                accNo: document.getElementById('bankAccNo').value.trim(),
+                accName: document.getElementById('bankAccName').value.trim(),
+                branch: document.getElementById('bankBranch').value.trim()
+            };
+            safeSetStorage(STORAGE_KEY_BANK, JSON.stringify(bankObj));
+            renderScenarioOutput();
+        }
+
+        function selectScenario(num) {
+            activeScenario = num;
+
+            for (let i = 1; i <= 8; i++) {
+                const btn = document.getElementById(`scenBtn${i}`);
+                if (i === num) {
+                    btn.className = 'scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-extrabold border-2 border-medinavy bg-medinavy text-white shadow-sm transition flex items-center gap-1.5';
+                } else {
+                    btn.className = 'scenario-btn text-left px-2.5 py-2.5 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700 transition flex items-center gap-1.5';
+                }
+            }
+
+            const btn9 = document.getElementById('scenBtn9');
+            if (num === 9) {
+                btn9.className = 'col-span-2 px-3 py-3 rounded-xl text-xs font-extrabold border-2 border-amber-300 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white shadow-lg ring-2 ring-amber-400 transition flex items-center justify-center gap-2';
+            } else {
+                btn9.className = 'col-span-2 px-3 py-3 rounded-xl text-xs font-extrabold border-2 border-amber-500 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-md transition flex items-center justify-center gap-2';
+            }
+
+            const btn10 = document.getElementById('scenBtn10');
+            if (btn10) {
+                if (num === 10) {
+                    btn10.className = 'col-span-2 px-3 py-2.5 rounded-xl text-xs font-extrabold border-2 border-medigreen bg-medigreen text-white shadow-md flex items-center justify-center gap-2';
+                } else {
+                    btn10.className = 'col-span-2 px-3 py-2.5 rounded-xl text-xs font-extrabold border border-emerald-600 bg-emerald-50 text-medigreen flex items-center justify-center gap-2';
+                }
+            }
+
+            const scenarioTitles = {
+                1: '#1 Direct Diagnosis & Case File Close',
+                2: '#2 Clinical Fee & Standards',
+                3: '#3 Quick Data Check',
+                4: '#4 Page Tips vs Custom Blueprint (Pull-Back)',
+                5: '#5 Clinical File Closing Notice',
+                6: '#6 Why Rs. 3,500? (No Discount / High Status)',
+                7: '#7 Clinical Logic ("අඩු වෙයිද?")',
+                8: '#8 Case Assigned to Medical Panel',
+                9: '#9 AI Clinical Blueprint Master Prompt',
+                10: '#10 14-Day Clinical Review Check-In'
+            };
+
+            document.getElementById('activeScenarioLabel').textContent = scenarioTitles[num];
+
+            const headerBar = document.getElementById('outputHeaderBar');
+            const headerIcon = document.getElementById('outputHeaderIcon');
+            const headerTitle = document.getElementById('outputHeaderTitle');
+            const bubbleWrapper = document.getElementById('messageBubbleWrapper');
+
+            if (num === 9) {
+                headerBar.className = 'bg-gradient-to-r from-amber-600 to-orange-600 text-white px-3.5 py-2.5 flex items-center justify-between';
+                headerIcon.className = 'fa-solid fa-wand-magic-sparkles text-base text-amber-200';
+                headerTitle.textContent = 'AI Master Prompt (ChatGPT / Claude)';
+                bubbleWrapper.className = 'bg-slate-900 text-amber-50 rounded-2xl p-3 shadow-inner border border-slate-700';
+                document.getElementById('mainOutputTextarea').className = 'w-full bg-transparent border-0 focus:ring-0 outline-none text-xs font-mono text-amber-50 resize-y';
+            } else {
+                headerBar.className = 'bg-medinavy text-white px-3.5 py-2.5 flex items-center justify-between';
+                headerIcon.className = 'fa-brands fa-whatsapp text-base text-emerald-400';
+                headerTitle.textContent = `WhatsApp — ${scenarioTitles[num]}`;
+                bubbleWrapper.className = 'bg-[#dcf8c6] rounded-2xl rounded-tl-none p-3 shadow-sm border border-emerald-300/60';
+                document.getElementById('mainOutputTextarea').className = 'w-full bg-transparent border-0 focus:ring-0 outline-none text-xs sinhala-font text-slate-800 resize-y';
+            }
+
+            renderScenarioOutput();
+        }
+
+        function renderScenarioOutput() {
+            const s = calculatedState;
+            const displayName = s.rawNameOnly ? s.rawNameOnly : '';
+            const nameWithSpace = displayName ? ` ${displayName}` : '';
+
+            const bank = document.getElementById('bankName').value.trim() || "People's Bank";
+            const accNo = document.getElementById('bankAccNo').value.trim() || '068100110085332';
+            const accName = document.getElementById('bankAccName').value.trim() || 'DAWNNEX Medical Team';
+            const branch = document.getElementById('bankBranch').value.trim() || 'Monaragala';
+
+            const historyDisplay = s.pastMedical ? s.pastMedical : 'විශේෂ පූර්ව රෝග වාර්තා වී නැත';
+            const allergyDisplay = s.foodAllergies ? `${s.foodAllergies} (Blueprint එකෙන් 100%ක් ඉවත් කෙරේ)` : 'වාර්තා වී නැත';
+
+            const voiceHistoryLine = s.pastMedical ? ` සහ ${s.pastMedical}` : '';
+            const voiceAllergyLine = s.foodAllergies ? ` ඔයාට Allergy වෙන ${s.foodAllergies} සම්පූර්ණයෙන්ම අයින් කරලා,` : '';
+
+            let output = '';
+            let psychTip = '';
+            let voiceScript = '';
+            let voicePriority = 'OPTIONAL VOICE';
+            let voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-600 text-white';
+
+            switch (activeScenario) {
+                case 1:
+                    voicePriority = '🔥 SEND CALM, DIRECT DOCTOR VOICE NOTE';
+                    voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse';
+                    psychTip = '💡 Blue Ocean Upgrade (Ideas #1, #2, #5): උඩින්ම Clinical Case ID එක වැටෙනවා (Asiri/Nawaloka File එකක් වගේ). Visceral Fat Risk එක කෙලින්ම කියනවා. බෙහෙත්/Tea හොයන අයව ගන්නේ නෑ කියන Exclusivity Rule එකත් තියෙනවා!';
+                    voiceScript = `"${displayName || 'Hi'}, මම MediDiet Medical Unit එකෙන්. ඔයාගේ දත්ත අපේ Doctors ලා බැලුවා, ඔයාගේ Clinical Case Number එක උඩින් දාලා තියෙනවා. ඔයාගේ BMI එක ${s.bmi} නිසා කිලෝ ${s.targetLoss}ක් වගේ අඩු කරගන්න ඕනේ. විශේෂයෙන්ම ඔයාගේ ${s.condition}${voiceHistoryLine} තත්ත්වය එක්ක Visceral Fat සහ Insulin Resistance අවදානම වැඩියි. හැමෝටම දෙන පොදු Diet කොළවලින් මේක කරන්න බෑ. හොඳම දේ තමයි${voiceAllergyLine} ඔයා ගෙදර උයන කෑම වලින්ම දවසට කැලරි ${s.calorieTarget} ගාණට හරියටම Match කරපු Personal Blueprint එකක් හදාගන්න එක. එහෙම ඔයාටම Curate කරපු Blueprint එකක් ගන්න අදහසක් නැත්නම් අපේ Page එකේ තියෙන පොදු ලිපි වලිනුත් ඔයාට පොඩි Idea එකක් ගන්න පුළුවන්. හැබැයි හරියටම ඔයාගේ ඇඟට ගැලපෙන Clinical Blueprint එක හදාගන්නවා නම් විස්තර ටික උඩින් දාලා තියෙනවා."`;
+
+                    output = `🆔 *Clinical Case File:* ${s.caseRef}
+${displayName ? displayName + ',' : 'ආයුබෝවන්,'} අපේ Medical Panel එක ඔයාගේ දත්ත පරීක්ෂා කළා. 🩺📋
+
+📊 *Clinical Diagnosis (වෛද්‍ය තක්සේරුව):*
+• *BMI:* ${s.bmi} kg/m² (${s.category})
+• *අඩු කළ යුතු බර:* ${s.targetLoss} kg
+• *Daily Metabolic Target:* ${s.calorieTarget} kcal/day
+• *Clinical Focus:* ${s.condition}
+• *Medical History / Allergies:* ${historyDisplay}${s.foodAllergies ? ' | ' + s.foodAllergies : ''}
+
+⚠️ *Metabolic & Visceral Fat Risk Assessment:*
+${s.visceralRiskNote}
+
+🥗 *Personal Clinical Nutrition Blueprint:*
+අපේ වෛද්‍ය කණ්ඩායම ඔයාගේ Case File (${s.caseRef}) එක වෙනම අධ්‍යයනය කරලා, ඔයාට අගුණ/Allergy කෑම ඉවත් කරලා, *ඔයා ගෙදරදී කන සාමාන්‍ය කෑම (බත්, මාළු, බිත්තර, එළවළු)* අර *${s.calorieTarget} kcal* ගාණට හරියටම Balance කරලා ඔයාගේම *Personal Clinical Blueprint* එක සකසා දෙනවා. (දින 14කට පසු නැවත ප්‍රගතිය බලා අවශ්‍ය වෙනස්කම් සිදු කරන Clinical Review එකද ඇතුළත්).
+
+🛡️ *Exclusivity Standard:* අපේ Medical Panel එක Blueprint එකක් භාරගන්නේ බෙහෙත් පෙති හෝ Slimming Tea නොසොයා, ගෙදර ආහාර පාලනයෙන් විද්‍යාත්මකව ප්‍රතිඵල ගැනීමට කැපවිය හැකි අයගේ පමණයි. (දැනට Personal Blueprint එකකට යොමු වීමට අදහසක් නැත්නම් අපේ Page එකේ පොදු ලිපි වලින් මූලික අදහසක් ගත හැක).
+
+💎 *Complete Clinical Blueprint Fee:* රු. ${s.price}/- (එකවර ගෙවීමක් පමණයි)
+
+ඔයාගේ Blueprint එක අපේ Medical Panel එක හරහා සකසා ගැනීමට අවශ්‍ය නම් පහත ගිණුමට මුදල් බැර කර Slip එක එවන්න: 👇
+
+🏦 *${bank}*
+• *Acc No:* ${accNo}
+• *Name:* ${accName}
+• *Branch:* ${branch}`;
+                    break;
+
+                case 2:
+                    voicePriority = 'DIRECT TEXT ONLY';
+                    psychTip = '💡 "ගාණ කීයද?" අහන අයට හුරතල් නොකර කෙලින්ම අපේ Standard එකයි, අපි හැමෝවම ගන්නේ නෑ කියන Exclusivity Rule එකයි, රු. 3,500 ගාස්තුවයි කියන්න.';
+                    voiceScript = `"අපි හැමෝටම දෙන සාමාන්‍ය Diet කොළ නිකුත් කරන්නේ නෑ. අපේ Medical Team එක ඔයාගේ ඇඟේ දත්ත, ලෙඩ සහ ගෙදර කෑම 100%ක් Match කරලා හදන Personal Clinical Blueprint එකට රුපියල් ${s.price}ක් වෙනවා. ඔයාගේ වයස, උස, බර සහ රෝග තත්ත්වයන් දැම්මොත් අපිට පුළුවන් මූලික Assessment එක බලලා කියන්න."`;
+
+                    output = `ආයුබෝවන්. 🩺 
+
+අපි හැමෝටම දෙන පොදු Diet Sheets නිකුත් කරන්නේ නෑ. අපේ වෛද්‍ය කණ්ඩායම (Medical & Clinical Nutrition Panel) විසින් ඔයාගේ BMI අගය, රෝග තත්ත්වයන්, Allergies සහ ගෙදරදී ගන්නා ආහාර 100%ක්ම පරීක්ෂා කර ඔයාටම සකසන *Personal Clinical Nutrition Blueprint* එක සඳහා සම්පූර්ණ ගාස්තුව *රු. ${s.price}/-* වේ (දින 14ක Clinical Review එකද ඇතුළත්ව).
+
+*(සැ.යු: අපි Blueprint සකසන්නේ Slimming Tea හෝ පෙති වර්ග නොසොයා, විද්‍යාත්මක ආහාර පාලනයෙන් ප්‍රතිඵල ගැනීමට සූදානම් අය සඳහා පමණි).*
+
+ඔයාගේ මූලික වෛද්‍ය තක්සේරුව (Clinical Assessment) බලා ගැනීමට අවශ්‍ය නම් *වයස, උස, දැනට බර, ප්‍රධාන Target එක සහ දැනට ඇති රෝග/Allergies* එවන්න.`;
+                    break;
+
+                case 3:
+                    voicePriority = 'TEXT ONLY';
+                    psychTip = '💡 විස්තර නොදා ගිය අයට පස්සෙන් පන්නන්නේ නැතුව, Doctor කෙනෙක්ගේ Assistant කෙනෙක් වගේ කෙටියෙන්ම මතක් කරන්න.';
+                    voiceScript = `"ඔයාගේ BMI සහ Calorie Assessment එක බලන්න ඕනේ නම් උස, බර සහ දැනට තියෙන රෝග/Allergies ටික විතරක් දාන්න."`;
+
+                    output = `ආයුබෝවන්. 🩺 ඔයාගේ මූලික BMI සහ Visceral Fat Assessment එක පරීක්ෂා කරගැනීමට අවශ්‍ය නම් ඔයාගේ *උස, දැනට බර සහ විශේෂ රෝග/Allergies* පමණක් එවන්න.`;
+                    break;
+
+                case 4:
+                    voicePriority = '🔥 HIGH-STATUS PULL-BACK (NO BEGGING)';
+                    voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-600 text-white';
+                    psychTip = '💡 Reverse Psychology Pull-Back: Seen කරලා සද්ද නැති කෙනාට Case ID එක මතක් කරලා "Personal Blueprint එකට යන්න අදහසක් නැත්නම් අපේ Page එකේ Free Posts බලන්න, හැබැයි ඔයාගේ Visceral Fat/Condition එකට හොඳම දේ Custom Blueprint එකක්" කියලා කෙලින්ම කියනවා.';
+                    voiceScript = `"${displayName || 'Hi'}, මම MediDiet Medical Unit එකෙන්. ඔයාගේ ${s.condition} තත්ත්වයත් එක්ක හොඳම සහ ආරක්ෂිතම දේ තමයි ඔයාගේ ඇඟටම ගණනය කරපු Personal Blueprint එකකට යන එක. හදිසියේවත් ඔයාට දැන්ම එහෙම Personalize කරපු Blueprint එකකට යන්න අදහසක් නැත්නම් කිසිම ප්‍රශ්නයක් නෑ, අපේ Page එකේ දාලා තියෙන පොදු Posts වලිනුත් ඔයාට පොඩි Idea එකක් ගන්න පුළුවන්, අපිත් එක්ක දිගටම ඉන්න. හැබැයි හරියටම ඔයාගේ ඇඟට Match කරපු Blueprint එක පටන් ගන්න ඕන වුණොත් අපිට කියන්න."`;
+
+                    output = `🆔 *Case Ref:* ${s.caseRef}
+${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺
+
+ඔයාගේ *${s.condition}* තත්ත්වය සහ BMI (${s.bmi}) අගය අනුව හොඳම සහ ආරක්ෂිතම විසඳුම වෙන්නේ ඔයාගේ ඇඟටම ගණනය කරපු *Personal Clinical Blueprint* එකක් අනුගමනය කරන එකයි.
+
+ඔයාට දැනට එවැනි Personalized සැලැස්මකට යොමු වෙන්න අදහසක් නැත්නම් කිසිම ගැටලුවක් නෑ—අපේ Page එකේ තියෙන පොදුවේ දාපු ලිපි සහ විස්තර වලිනුත් ඔයාට මූලික අදහසක් ගන්න පුළුවන්, දිගටම අපිත් එක්ක රැඳිලා ඉන්න. 
+
+නමුත් ඔයාගේ රෝග තත්ත්වයන් සහ ගෙදර ආහාර රටාව 100%ක්ම Match කරපු *Personal Blueprint* එක හදාගෙන හරියටම වැඩේ පටන් ගන්න ඕන වුණොත් අපිට දැනුවත් කරන්න.`;
+                    break;
+
+                case 5:
+                    voicePriority = 'SHORT DIRECT NOTICE';
+                    psychTip = '💡 අපි කාගේවත් පස්සෙන් යන්නේ නෑ. "අපි අද ඔයාගේ Case File එක Close කරනවා, පස්සේ ඕන වුණොත් Case ID එක එවන්න" කියලා කෙලින්ම කියනවා.';
+                    voiceScript = `"${displayName || 'Hi'}, අපේ Medical Panel එකේ අද දවසේ Files ටික දැන් Finalize කරන නිසා ඔයාගේ තාවකාලික Assessment File එක අපි දැනට Close කරනවා. ඉදිරියේදී ඔයාගේ Personal Blueprint එක හදාගන්න අවශ්‍ය වුණොත් මැසේජ් එකක් දාන්න."`;
+
+                    output = `🆔 *Case Ref:* ${s.caseRef}
+${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺 අපේ Medical Panel එකේ අද දින සැලසුම් (Clinical Queue) අවසන් කරන බැවින්, ඔයාගේ දත්ත ඇතුළත් තාවකාලික File එක (*BMI: ${s.bmi} | ${s.calorieTarget} kcal*) අපි දැනට Close කරනවා. 
+
+ඉදිරියේදී ඔයාටම Curate කරපු Personal Blueprint එක සකසා ගැනීමට අවශ්‍ය වුවහොත් මෙම Case ID (${s.caseRef}) එක සමඟ නැවත පණිවිඩයක් තබන්න.`;
+                    break;
+
+                case 6:
+                    voicePriority = '🎙️ HIGH-STATUS VALUE EXPLANATION';
+                    psychTip = '💡 ගාණ වැඩියි කියන කෙනාට Discount දීලා Brand Status එක බස්සන්න එපා! ඇයි මේක රු. 3,500ක් වෙන්නේ කියන ඇත්ත කෙලින්ම කියන්න.';
+                    voiceScript = `"${displayName || 'Hi'}, සාමාන්‍යයෙන් කාටත් එකම විදිහට බෙදන පොදු Diet කොළයක් නම් අඩු ගාණට ගන්න පුළුවන්, හැබැයි ඒවා ප්‍රායෝගික නැති නිසා දවස් දෙකෙන් පැත්තකට දානවා. අපේ Medical Team එක කරන්නේ ලංකාවේ වෙන කවුරුත්ම කරන්නේ නැති දෙයක්—ඔයාගේ ලෙඩයි, Allergies ටිකයි, ඔයාගේ ගෙදර උයන කෑමයි 100%ක්ම ගණනය කරලා ඔයාටම විතරක් ගැලපෙන Clinical Blueprint එකක් හදන එක. ඒ වෛද්‍ය කණ්ඩායමේ කාලයට සහ දවස් 14ක Review එකට තමයි රුපියල් ${s.price}ක් වෙන්නේ. ඔයාට ඒක දැනට අපහසු නම් අපේ Page එකේ නොමිලේ දාන පොදු විස්තර බලන්න, හැබැයි හරියටම ඔයාට හදපු Blueprint එක ඕනේ නම් මේක තමයි Standard ගාස්තුව."`;
+
+                    output = `${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺
+
+හැමෝටම එකම විදිහට බෙදන පොදු Diet Sheet එකක් නම් අඩු මුදලකට ගන්න පුළුවන්. නමුත් එවැනි පොදු කොළ ප්‍රායෝගික නැති නිසා 90%ක්ම දෙනා දවස් දෙකෙන් ඒක පැත්තකට දානවා.
+
+අපේ Medical Panel එක සිදු කරන්නේ ඊට හාත්පසින්ම වෙනස්, 100%ක්ම ඔයා වෙනුවෙන්ම කරන Clinical ගණනය කිරීමක්:
+• ඔයාගේ *${s.condition}* තත්ත්වය, Past Medical History සහ Allergies වෙනම පරීක්ෂා කිරීම.
+• ඔයා ගෙදරදී කන බොන සාමාන්‍ය කෑම වර්ග පමණක් යොදාගෙන හරියටම *${s.calorieTarget} kcal* ලැබෙන සේ මිනුම් සකස් කිරීම.
+• දින 14කට පසු නැවත ප්‍රගතිය පරීක්ෂා කර සැලැස්ම Update කිරීම.
+
+ඒ සම්පූර්ණ වෛද්‍ය ක්‍රියාවලිය සඳහා අපේ ස්ථාවර ගාස්තුව *රු. ${s.price}/-* වේ. දැනට එයට යොමු වීමට අපහසු නම් අපේ Page එකේ පොදු ලිපි වලින් අදහසක් ගන්න පුළුවන්. ඔයාගේම Personal Blueprint එක හදාගන්න තීරණය කළොත් අපිට දැනුවත් කරන්න.`;
+                    break;
+
+                case 7:
+                    voicePriority = '🔥 DIRECT SCIENTIFIC VOICE NOTE';
+                    voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-600 text-white';
+                    psychTip = '💡 "බර අඩු වෙයිද?" අහන කෙනාව නලවන්නේ නැතුව, ඇඟේ බර අඩු වෙන විද්‍යාත්මක නීතිය (Clinical Physics) කෙලින්ම කියන්න.';
+                    voiceScript = `"${displayName || 'Hi'}, මේක Magic බෙහෙතක් හරි Tea එකක් හරි නෙවෙයි, මේක 100%ක්ම Clinical Science එකක්. ඔයාගේ ඇඟට දවසට ඕන කරන කැලරි ගාණට වඩා අඩුවෙන්, හරියටම කැලරි ${s.calorieTarget}ක් ලැබෙන විදිහටත්, ඔයාගේ ${s.condition} තත්ත්වය පාලනය වෙන විදිහටත් තමයි අපේ Doctors ලා ගෙදර කෑම වලින්ම මේ Blueprint එක හදන්නේ. ඒ නිසා ඔයා මේක අරන් පැත්තකට දාන්නේ නැතුව අපි දීලා තියෙන මිනුම් වලටම කෑවොත් අනිවාර්යයෙන්ම බර අඩු වෙනවා. ඊට අමතරව දවස් 14න් අපි ආයේ Check කරලා වෙනස්කම් කරලත් දෙනවා."`;
+
+                    output = `${displayName ? displayName + ',' : 'ආයුබෝවන්,'} 🩺
+
+මෙය කිසිදු Supplement එකක් හෝ තේ වර්ගයක් නොවෙයි; මෙය 100%ක්ම වෛද්‍ය විද්‍යාත්මක ගණනය කිරීමක් (Clinical Metabolic Calculation).
+
+1️⃣ ඔයාගේ ශරීරය දිනකට දහනය කරන කැලරි ප්‍රමාණය (${s.tdee} kcal) අනුව, ආරක්ෂිතව මේදය දහනය වීමට නම් දිනකට *${s.calorieTarget} kcal* ලැබෙන සේ ආහාර ගත යුතුයි.
+2️⃣ අපේ Medical Team එක ඔයා ගෙදරදී කන ආහාර වලින්ම ඒ නිවැරදි ප්‍රමාණයන් සහ *${s.condition}* පාලනය වන රටාව සකසා දෙනවා.
+3️⃣ දින 14කින් නැවත ඔයාගේ බර සහ ඉණ පරීක්ෂා කර අවශ්‍ය නම් කැලරි ප්‍රමාණය නැවත සකසා දෙනවා (Clinical Re-adjustment).
+
+එම නිසා, සැලැස්ම ලබාගෙන එය නිවැරදිව අනුගමනය කළහොත් ප්‍රතිඵල ලැබීම විද්‍යාත්මකව තහවුරුයි.`;
+                    break;
+
+                case 8:
+                    voicePriority = 'EXECUTIVE CONFIRMATION';
+                    psychTip = '💡 Payment එක ආවමත් High-End Private Hospital එකක Concierge කෙනෙක් වගේ Case ID එකත් එක්කම Professional විදිහට Confirm කරන්න.';
+                    voiceScript = `"ස්තූතියි ${displayName || ''}. ඔයාගේ Payment Slip එක ලැබුණා. මම ඔයාගේ Clinical File එකයි, Medical History සහ Allergies විස්තර ටිකයි අපේ Doctors ලාගේ Panel එකට යොමු කළා. ඔයාගේ Personal Clinical Blueprint එක සකසලා පැයක් ඇතුළත මේ WhatsApp එකට එවනවා."`;
+
+                    output = `🆔 *Confirmed Clinical Case Ref:* ${s.caseRef}
+ස්තූතියි${nameWithSpace}. ඔයාගේ Payment Slip එක තහවුරු කළා. ✅🩺 
+
+ඔයාගේ Clinical File එක දැන් අපේ *වෛද්‍ය මණ්ඩලය (Medical & Clinical Nutrition Panel)* වෙත යොමු කර ඇත:
+• *Clinical Metrics:* BMI ${s.bmi} kg/m² | ${s.calorieTarget} kcal/day
+• *Condition Focus:* ${s.condition}
+• *Medical History:* ${historyDisplay}
+• *Allergies Excluded:* ${allergyDisplay}
+
+අපේ වෛද්‍ය කණ්ඩායම ඔයාගේ දත්ත වලට 100%ක් ගැලපෙන සේ ගණනය කිරීම් සිදු කර, ඉදිරි *විනාඩි 45 - 60 ඇතුළත* ඔයාගේ සම්පූර්ණ *Personal Clinical Nutrition Blueprint* එක මෙම WhatsApp අංකයට එවනු ඇත. 🇱🇰`;
+                    break;
+
+                case 9:
+                    voicePriority = 'INTERNAL AI PROMPT';
+                    psychTip = '💡 මේ Prompt එක Copy කරගෙන ChatGPT / Claude එකට දෙන්න. එතනින් එන උත්තරේ Copy කරගෙන අපේ App එකේ තියෙන "3. PDF Studio" ටැබ් එකට Paste කරපු ගමන් තත්පර 5න් ලස්සන Official Medical Report PDF එකක් හදාගන්න පුළුවන්!';
+                    voiceScript = `මෙය ඔබ විසින් ChatGPT / Claude වෙත ලබා දෙන AI Prompt එකකි. ලැබෙන පිළිතුර Tab 3 (PDF Studio) වෙත Paste කරන්න.`;
+
+                    output = `Act as the Senior Consultant Medical Board (Panel of Medical Doctors and Clinical Nutritionists) at "MediDiet Sri Lanka". Generate an ultra-exclusive, authoritative "Personal Clinical Nutrition & Metabolic Blueprint" (Case Ref: ${s.caseRef}, valued at Rs. ${s.price}/-) for the following patient.
+
+CRITICAL POSITIONING, LANGUAGE & TONE RULE:
+- Do NOT frame this as a "cheap diet sheet". Frame it as a bespoke, clinical-grade Medical Nutrition Prescription crafted exclusively for this individual.
+- Write in clear, direct, authoritative yet natural Spoken Clinical Sinhala mixed seamlessly with standard English medical/nutrition terms (e.g., Clinical Blueprint, BMI, Calorie Deficit, Low-GI, Insulin Resistance, Visceral Fat, Metabolic Rate, Protein Portion, Clinical Review) — exactly how a Senior Consultant at an elite private hospital in Colombo communicates.
+
+=========================================
+PATIENT CLINICAL CASE FILE (${s.caseRef}):
+- Patient Name: ${displayName || 'Valued Patient'}
+- Age & Gender: ${s.age} Years / ${s.gender}
+- Height & Current Weight: ${s.height} cm / ${s.weight} kg
+- Calculated Asian BMI: ${s.bmi} kg/m² (${s.category})
+- Metabolic & Visceral Fat Status: ${s.visceralRiskLevel}
+- Safe Target Weight Loss: ${s.targetLoss} kg (4-6 kg expected in Month 1)
+- Prescribed Daily Calorie Target: ${s.calorieTarget} kcal/day (Low-GI Calorie Deficit, BMR: ${s.bmr} kcal, TDEE: ${s.tdee} kcal)
+- Primary Clinical Conditions / Goals: ${s.condition}
+- PAST MEDICAL HISTORY & MEDICATIONS: ${s.pastMedical || 'None reported'}
+- FOOD ALLERGIES / INTOLERANCES / DISLIKES (STRICT EXCLUSION): ${s.foodAllergies || 'None reported'}
+- Dietary Preference: ${s.dietPref}
+=========================================
+
+STRICT CLINICAL, SAFETY & SRI LANKAN CULTURAL INSTRUCTIONS:
+1. STRICT ALLERGY & MEDICAL HISTORY COMPLIANCE:
+   - Completely exclude any food listed under "FOOD ALLERGIES / INTOLERANCES" (${s.foodAllergies || 'None'}) from the entire Blueprint and explicitly document in Section 1 that the Medical Panel has excluded these items and substituted safe local alternatives.
+   - Tailor meal timing, spice/acidity levels, and nutrient profiles around their "PAST MEDICAL HISTORY & MEDICATIONS" (${s.pastMedical || 'None'}).
+2. 100% SRI LANKAN HOME KITCHEN FOODS ONLY:
+   - ONLY use practical, everyday Sri Lankan household foods (e.g., Red Rice / Sudu Kakulu / Basmati / Kurakkan, Parippu, Thalapath/Hurulla/Kumbalawa/Salaya fish, Boiled/Omelette Eggs, Chicken breast, Soya/Mushrooms/Chickpeas/Mung/Kawpi, Gotukola, Mukunuwenna, Kankun, Mallung, Pol Sambol in controlled portions, Kola Kanda, Plain Curd/Set Yoghurt, Papaya, Guava, Belimal, Green Tea, Plain Tea without sugar) respecting "${s.dietPref}" and excluding "${s.foodAllergies || 'None'}".
+3. EXACT HOUSEHOLD + GRAM MEASUREMENTS:
+   - Every single meal item MUST specify BOTH Sri Lankan household measurements (e.g., පිසූ බත් කෝප්ප 3/4, මේස හැඳි 2) AND exact gram/ml weights (e.g., 120g) alongside estimated calories per meal so the daily total equals ~${s.calorieTarget} kcal.
+4. Structure the Clinical Blueprint into 5 Clean Sections:
+   - SECTION 1: Medical Board Case Diagnosis & Visceral Fat Analysis
+   - SECTION 2: Morning Metabolic Activation — Breakfast & 10:30 AM Protocol (4 Sri Lankan Options)
+   - SECTION 3: Midday Insulin-Controlled Protocol — Sri Lankan Rice & Curry Plate Method for Lunch (4 Options)
+   - SECTION 4: Evening & Night Recovery Protocol — 4:00 PM Tea & Light Low-Carb Dinner before 8:00 PM (4 Options)
+   - SECTION 5: Clinical Board Directives for "${s.condition}", Safe Allergy Substitutions & Hydration Protocol (2.5L+)`;
+                    break;
+
+                case 10:
+                    voicePriority = '🗓️ 14-DAY REVIEW FOLLOW-UP';
+                    voiceBadgeClass = 'text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-medigreen text-white';
+                    psychTip = '💡 Idea #4 (14-Day Auto-Tracker): Client ගෙවලා දවස් 14ක් පිරුණම මේ මැසේජ් එක යවන්න. මේක දැක්කම Client පුදුම වෙනවා "මුන්ට හරියටම දවස් 14න් මාව මතක තිබ්බානේ!" කියලා. එතනින්ම Word-of-Mouth Referrals එනවා!';
+                    voiceScript = `"Hi ${displayName || ''}, මම MediDiet Medical Unit එකෙන්. අදට ඔයාගේ Clinical Blueprint එක පටන් අරන් දවස් 14ක් සම්පූර්ණයි. අපේ Medical Panel එකේ 14-Day Review එකට අද හරි හෙට උදේ හරි හිස්බඩ ඔයාගේ බරයි, ඉණේ ප්‍රමාණයයි බලලා මේකට Reply කරන්න."`;
+
+                    output = `🆔 *Clinical Review File:* ${s.caseRef}
+${displayName ? 'Hi ' + displayName + ',' : 'ආයුබෝවන්,'} 🩺🗓️
+
+අදට ඔයාගේ *Personal Clinical Nutrition Blueprint* එක ආරම්භ කර දින 14ක් සම්පූර්ණ වෙනවා. 
+
+අපේ Medical Panel එකේ *14-Day Clinical Review & Metabolic Re-adjustment* පරීක්ෂාව සඳහා පහත විස්තර 3 අප වෙත එවන්න: 👇
+
+1️⃣ *ආරම්භක බර:* ${s.weight} kg
+2️⃣ *අද උදෑසන (හිස්බඩ) බර:* ____ kg
+3️⃣ *දැනට ඉණේ ප්‍රමාණය (Inches) සහ ඔයාට දැනෙන වෙනස:* 
+
+මෙම දත්ත පරීක්ෂා කිරීමෙන් පසු ඉදිරි දින 14 සඳහා ඔයාගේ කැලරි හෝ ආහාර අනුපාතයන්හි යම් වෙනසක් අවශ්‍ය නම් අපේ වෛද්‍ය කණ්ඩායම විසින් එය නොමිලේම Update කර දෙනු ඇත.`;
+                    break;
+            }
+
+            const textarea = document.getElementById('mainOutputTextarea');
+            textarea.value = output;
+            updateCharCount();
+
+            document.getElementById('psychTipText').textContent = psychTip;
+            document.getElementById('voiceTeleprompterText').textContent = voiceScript;
+            const pBadge = document.getElementById('voicePriorityBadge');
+            pBadge.textContent = voicePriority;
+            pBadge.className = voiceBadgeClass;
+        }
+
+        function renderLiveClinicalPdf() {
+            const s = calculatedState;
+            document.getElementById('pdfCaseId').textContent = s.caseRef;
+            document.getElementById('pdfFooterSealId').textContent = `Ref: ${s.caseRef}`;
+            document.getElementById('pdfDateIssued').textContent = 'Date: ' + new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+            document.getElementById('pdfPatientName').textContent = s.rawNameOnly || 'Valued Patient';
+            document.getElementById('pdfBiometrics').textContent = `${s.age}Y / ${s.gender} (${s.height}cm • ${s.weight}kg)`;
+            document.getElementById('pdfBmiCategory').textContent = `${s.bmi} kg/m² (${s.category})`;
+            document.getElementById('pdfCalorieTarget').textContent = `${s.calorieTarget} kcal/day (Low-GI Deficit)`;
+            document.getElementById('pdfConditionFocus').textContent = s.condition;
+            document.getElementById('pdfMedicalHistory').textContent = s.pastMedical || 'විශේෂ පූර්ව රෝග වාර්තා වී නැත';
+            document.getElementById('pdfAllergyBox').textContent = s.foodAllergies
+                ? `${s.foodAllergies} — (මෙම ආහාර වර්ග සැලැස්මෙන් 100%ක්ම ඉවත් කර ඇත | Diet: ${s.dietPref})`
+                : `අසාත්මිකතා වාර්තා වී නැත | Diet: ${s.dietPref}`;
+            document.getElementById('pdfDay1Weight').textContent = `${s.weight} kg`;
+
+            const rawText = document.getElementById('aiBlueprintPasteArea').value.trim();
+            const bodyEl = document.getElementById('pdfFormattedBody');
+
+            if (!rawText) {
+                bodyEl.innerHTML = `<div class="p-3 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-slate-600 sinhala-font">
+<b class="text-medinavy block mb-1">🩺 SECTION 1: MEDICAL BOARD METABOLIC DIAGNOSIS</b>
+• <b>Visceral Fat & Insulin Assessment:</b> ${s.visceralRiskNote}
+• <b>Daily Prescribed Intake:</b> ${s.calorieTarget} kcal/day (BMR: ${s.bmr} kcal | TDEE: ${s.tdee} kcal).
+• <b>Target Safe Weight Loss:</b> ${s.targetLoss} kg (මුල් මාසය තුළ 4 - 6 kg).
+
+<span class="text-[11px] text-amber-800 font-bold block mt-2">💡 උපදෙස්: ChatGPT / Claude මගින් ලබාගත් සම්පූර්ණ ආහාර සැලැස්ම ඉහත කොටුවට Paste කරන්න, නැතිනම් උඩ ඇති "Auto-Fill Sample" ඔබා Instant Clinical Blueprint එක පරීක්ෂා කරන්න.</span>
+</div>`;
+            } else {
+                const safeHtml = rawText
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/^(SECTION\s*\d+.*|#+\s*.*)$/gim, '<div class="font-extrabold text-medinavy bg-blue-50/90 border-l-4 border-medinavy px-2.5 py-1.5 rounded-r-lg mt-2 mb-1">$1</div>')
+                    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+                bodyEl.innerHTML = safeHtml;
+            }
+        }
+
+        function loadSampleBlueprintIntoPdf() {
+            const s = calculatedState;
+            const sample = `SECTION 1: MEDICAL BOARD DIAGNOSIS & METABOLIC SUMMARY
+• ${s.visceralRiskNote}
+• ඔයාගේ ${s.condition} තත්ත්වය පාලනය කරමින් මාංශ පේශි ආරක්ෂා වන පරිදි දිනකට **${s.calorieTarget} kcal** ලැබෙන සේ පහත ශ්‍රී ලාංකික ආහාර මිනුම් සකසා ඇත.
+${s.foodAllergies ? `• **Allergy Exclusion:** ඔයාට අසාත්මික **${s.foodAllergies}** මෙම සැලැස්මෙන් 100%ක්ම ඉවත් කර ඒ වෙනුවට ආරක්ෂිත විකල්ප ඇතුළත් කර ඇත.` : ''}
+
+SECTION 2: MORNING METABOLIC ACTIVATION (උදෑසන ආහාරය — 7:30 AM - 8:30 AM | ~350 kcal)
+• **Option 01:** රතු කැකුළු හෝ කුරක්කන් කැඳ කෝප්ප 1 (200ml) + තම්බපු බිත්තර 2ක් (සුදු මද 2, කහ මද 1) + පිපිඤ්ඤා/තක්කාලි පෙති කිහිපයක්.
+• **Option 02:** තම්බපු මුං ඇට හෝ කව්පි කෝප්ප 3/4 (130g) + පොල් මේස හැඳි 1 (15g) + තම්බපු බිත්තර 1ක් හෝ තලපත් මාළු කෑල්ලක් (60g).
+• **Option 03:** ආප්ප 2ක් (බිත්තර ආප්ප 1 + ප්ලේන් ආප්ප 1) + ලුණු මිරිස් තේ හැඳි 1 + මාළු හෝ කුකුළු මස් හොදි මේස හැඳි 3.
+• **10:30 AM Mid-Morning:** සීනි රහිත Green Tea හෝ බෙලිමල් කෝප්ප 1 + පේර හෝ ගස්ලබු කෝප්ප 1/2 (80g).
+
+SECTION 3: MIDDAY INSULIN-CONTROLLED RICE & CURRY PROTOCOL (දහවල් ආහාරය — 12:30 PM - 1:30 PM | ~480 kcal)
+• **බත් ප්‍රමාණය (Strict Low-GI Portion):** පිසූ රතු කැකුළු හෝ බාස්මතී බත් කෝප්ප 3/4ක් පමණි (130g - මේස හැඳි 4).
+• **ප්‍රෝටීන් කොටස:** හොදි හෝ මිරිසට පිසූ මාළු (තලපත්/හුරුල්ලෝ/කුම්බලාවා) හෝ සම රහිත Chicken කෑලි 2ක් (100g) හෝ බිත්තර 2ක්.
+• **එළවළු සහ මැල්ලුම් (පිඟානෙන් 50%ක්):** ගොටුකොළ/මුකුණුවැන්න මැල්ලුම් මේස හැඳි 3 (60g) + පරිප්පු මේස හැඳි 2 (40g) + තෙල් අඩුවෙන් පිසූ එළවළු වර්ග 2ක් කෝප්ප 1ක් (150g).
+
+SECTION 4: EVENING & NIGHT RECOVERY PROTOCOL (රාත්‍රී 7:30ට පෙර | ~320 kcal)
+• **4:00 PM Evening:** සීනි රහිත Plain Tea / කොත්තමල්ලි කෝප්ප 1 + බැදපු කඩල මිටක් (30g).
+• **Dinner Option 01:** එළවළු සහ බිත්තර 2ක් හෝ Chicken (80g) දමා සැකසූ Clear Soup බඳුනක් (300ml) + තම්බපු එළවළු කෝප්ප 1ක්.
+• **Dinner Option 02:** කුරක්කන් හෝ ආටා පිටි රොටි 1ක් (මධ්‍යම ප්‍රමාණයේ - 60g) + ලුණු මිරිස් ස්වල්පයක් + මාළු හෝ බිත්තර 1ක්.
+• **Dinner Option 03:** බිත්තර 2ක් සහ ගෝවා/කැරට්/බෝංචි (120g) දමා සැකසූ Vegetable Omelette එකක් + Plain Curd (මී කිරි) මේස හැඳි 2ක්.
+
+SECTION 5: CLINICAL BOARD DIRECTIVES & HYDRATION PROTOCOL
+• **ජලය පානය:** දිනකට ජලය ලීටර් 2.5 - 3.0ක් අනිවාර්යයෙන්ම පානය කරන්න (කෑමට විනාඩි 20කට පෙර වතුර වීදුරුවක් බොන්න).
+• **තහනම් ආහාර:** සුදු සීනි, කිරිපිටි, පාන් පිටි කෑම (රෝල්ස්/පැටිස්/කොත්තු), බිස්කට් සහ පැණි බීම දින 14 යනතුරු සම්පූර්ණයෙන්ම නවත්වන්න.
+${s.pastMedical ? `• **Special Medical Directive (${s.pastMedical}):** වේලාවට ආහාර ගන්න, බඩගින්නේ නොසිටින්න.` : ''}`;
+
+            document.getElementById('aiBlueprintPasteArea').value = sample;
+            renderLiveClinicalPdf();
+            showToast('Official Clinical Blueprint Ready!');
+        }
+
+        function triggerClinicalPdfPrint() {
+            renderLiveClinicalPdf();
+            window.print();
+        }
+
+        function copyVoiceScript() {
+            const text = document.getElementById('voiceTeleprompterText').textContent;
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast('Voice Note Script Copied!');
+        }
+
+        function updateCharCount() {
+            const val = document.getElementById('mainOutputTextarea').value;
+            document.getElementById('charCounter').textContent = `${val.length} chars`;
+        }
+
+        function copyMainOutput() {
+            const textarea = document.getElementById('mainOutputTextarea');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast(activeScenario === 9 ? 'AI Master Prompt Copied!' : 'WhatsApp Script Copied!');
+            } catch (e) {
+                showToast('Copy failed');
+            }
+            window.getSelection().removeAllRanges();
+        }
+
+        function copyInitialWelcome() {
+            const hiddenEl = document.getElementById('hiddenIntakeGreeting');
+            hiddenEl.classList.remove('hidden');
+            hiddenEl.select();
+            hiddenEl.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast('Premium Intake Greeting Copied!');
+            } catch (e) {
+                showToast('Copy failed');
+            }
+            hiddenEl.classList.add('hidden');
+            window.getSelection().removeAllRanges();
+        }
+
+        function sendToWhatsApp() {
+            const text = document.getElementById('mainOutputTextarea').value;
+            let phone = document.getElementById('waPhoneInput').value.replace(/\D/g, '');
+            if (phone.startsWith('0') && phone.length === 10) {
+                phone = '94' + phone.substring(1);
+            }
+            const url = phone
+                ? `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
+                : `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function resetPatientForm() {
+            document.getElementById('clientName').value = '';
+            document.getElementById('waPhoneInput').value = '';
+            document.getElementById('clientAge').value = 30;
+            setGender('Female');
+            document.getElementById('clientHeight').value = 160;
+            document.getElementById('clientWeight').value = 74;
+            document.getElementById('activityLevel').value = '1.2';
+            document.getElementById('customConditionInput').value = '';
+            document.getElementById('pastMedicalInput').value = '';
+            document.getElementById('foodAllergyInput').value = '';
+            selectedConditionIds = ['belly'];
+            renderConditionChips();
+            document.getElementById('dietPreference').selectedIndex = 0;
+            document.getElementById('packagePrice').value = '3,500';
+            document.getElementById('clientStatusSelect').value = 'Pending';
+            selectScenario(1);
+            recalculateAll();
+            switchMobileTab('input');
+            showToast('Ready for New Patient!');
+        }
+
+        async function initSqliteDatabase() {
+            try {
+                if (typeof initSqlJs === 'function') {
+                    SQL_ENGINE = await initSqlJs({
+                        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+                    });
+
+                    const savedB64 = safeGetStorage(STORAGE_KEY_SQLITE_B64);
+                    if (savedB64) {
+                        const binaryStr = window.atob(savedB64);
+                        const bytes = new Uint8Array(binaryStr.length);
+                        for (let i = 0; i < binaryStr.length; i++) {
+                            bytes[i] = binaryStr.charCodeAt(i);
+                        }
+                        sqliteDb = new SQL_ENGINE.Database(bytes);
+                    } else {
+                        sqliteDb = new SQL_ENGINE.Database();
+                        sqliteDb.run(`
+                            CREATE TABLE IF NOT EXISTS patients (
+                                id TEXT PRIMARY KEY,
+                                name TEXT,
+                                phone TEXT,
+                                age INTEGER,
+                                gender TEXT,
+                                height REAL,
+                                weight REAL,
+                                activity TEXT,
+                                condition TEXT,
+                                selectedIds TEXT,
+                                dietPref TEXT,
+                                price TEXT,
+                                bmi TEXT,
+                                calorieTarget INTEGER,
+                                status TEXT,
+                                savedAt TEXT,
+                                pastMedical TEXT,
+                                foodAllergies TEXT
+                            );
+                        `);
+                        syncJsonArrayToSqlite();
+                    }
+                }
+            } catch (err) {}
+        }
+
+        function persistSqliteToStorage() {
+            if (!sqliteDb) return;
+            try {
+                const data = sqliteDb.export();
+                let binary = '';
+                for (let i = 0; i < data.byteLength; i++) {
+                    binary += String.fromCharCode(data[i]);
+                }
+                safeSetStorage(STORAGE_KEY_SQLITE_B64, window.btoa(binary));
+            } catch (e) {}
+        }
+
+        function syncJsonArrayToSqlite() {
+            if (!sqliteDb) return;
+            try {
+                sqliteDb.run(`
+                    CREATE TABLE IF NOT EXISTS patients (
+                        id TEXT PRIMARY KEY,
+                        name TEXT,
+                        phone TEXT,
+                        age INTEGER,
+                        gender TEXT,
+                        height REAL,
+                        weight REAL,
+                        activity TEXT,
+                        condition TEXT,
+                        selectedIds TEXT,
+                        dietPref TEXT,
+                        price TEXT,
+                        bmi TEXT,
+                        calorieTarget INTEGER,
+                        status TEXT,
+                        savedAt TEXT,
+                        pastMedical TEXT,
+                        foodAllergies TEXT
+                    );
+                `);
+                sqliteDb.run('DELETE FROM patients;');
+                const stmt = sqliteDb.prepare(`
+                    INSERT INTO patients VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                `);
+                crmClients.forEach(c => {
+                    stmt.run([
+                        c.id, c.name, c.phone || '', c.age, c.gender, c.height, c.weight,
+                        String(c.activity), c.condition, JSON.stringify(c.selectedIds || ['belly']),
+                        c.dietPref, c.price, c.bmi, c.calorieTarget, c.status, c.savedAt || '',
+                        c.pastMedical || '', c.foodAllergies || ''
+                    ]);
+                });
+                stmt.free();
+                persistSqliteToStorage();
+            } catch (e) {}
+        }
+
+        function loadCrmClients() {
+            const raw = safeGetStorage(STORAGE_KEY_CRM_JSON) || safeGetStorage('medidiet_sl_crm_json_v3');
+            if (raw) {
+                try {
+                    crmClients = JSON.parse(raw);
+                } catch (e) {
+                    crmClients = [];
+                }
+            } else {
+                const fourteenDaysAgo = Date.now() - (14 * 24 * 60 * 60 * 1000);
+                crmClients = [
+                    {
+                        id: 'sample-1',
+                        caseRef: '#MD-2026-812',
+                        name: 'Nimali Perera',
+                        phone: '0771234567',
+                        age: 32,
+                        gender: 'Female',
+                        height: 158,
+                        weight: 73,
+                        activity: '1.2',
+                        condition: 'Belly Fat එක (උදරය වටා තෙල්) සහ වැඩි බර සහ PCOS / PCOD සහ Insulin Resistance තත්ත්වය',
+                        selectedIds: ['belly', 'pcos'],
+                        pastMedical: 'Gastritis (ගැස්ට්‍රයිටිස්)',
+                        foodAllergies: 'ඉස්සෝ / දැල්ලෝ (Seafood Allergy)',
+                        dietPref: 'Non-Vegetarian (මස්, මාළු, බිත්තර ගනී)',
+                        price: '3,500',
+                        bmi: '29.2',
+                        calorieTarget: 1250,
+                        status: 'Paid',
+                        savedAt: '14 Days Ago',
+                        paidTimestamp: fourteenDaysAgo
+                    }
+                ];
+            }
+            renderCrmCards();
+        }
+
+        function saveClientToDatabase() {
+            const s = calculatedState;
+            const status = document.getElementById('clientStatusSelect').value;
+            const clientName = s.rawNameOnly || 'Unnamed Patient';
+
+            const existingIndex = crmClients.findIndex(c => c.name.toLowerCase() === clientName.toLowerCase());
+            let paidTs = status === 'Paid' ? Date.now() : 0;
+            if (existingIndex > -1 && crmClients[existingIndex].paidTimestamp && status === 'Paid') {
+                paidTs = crmClients[existingIndex].paidTimestamp;
+            }
+
+            const newEntry = {
+                id: existingIndex > -1 ? crmClients[existingIndex].id : ('cli-' + Date.now()),
+                caseRef: s.caseRef || currentCaseId,
+                name: clientName,
+                phone: s.phone || '',
+                age: s.age,
+                gender: s.gender,
+                height: s.height,
+                weight: s.weight,
+                activity: String(s.activity),
+                condition: s.condition,
+                selectedIds: [...selectedConditionIds],
+                pastMedical: s.pastMedical || '',
+                foodAllergies: s.foodAllergies || '',
+                dietPref: s.dietPref,
+                price: s.price,
+                bmi: s.bmi,
+                calorieTarget: s.calorieTarget,
+                status: status,
+                savedAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                paidTimestamp: paidTs
+            };
+
+            if (existingIndex > -1) {
+                crmClients[existingIndex] = newEntry;
+            } else {
+                crmClients.unshift(newEntry);
+            }
+
+            safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+            syncJsonArrayToSqlite();
+            renderCrmCards();
+            pushClientToGoogleSheet(newEntry);
+            showToast(`Saved ${newEntry.caseRef} (${clientName}) to DB!`);
+        }
+
+        function loadWebhookUrl() {
+            const url = safeGetStorage(STORAGE_KEY_GSHEET_URL);
+            if (url) {
+                document.getElementById('googleSheetWebhookInput').value = url;
+                updateCloudStatusUI(true);
+            } else {
+                updateCloudStatusUI(false);
+            }
+        }
+
+        function saveWebhookUrl() {
+            const url = document.getElementById('googleSheetWebhookInput').value.trim();
+            safeSetStorage(STORAGE_KEY_GSHEET_URL, url);
+            updateCloudStatusUI(Boolean(url));
+        }
+
+        function updateCloudStatusUI(isLinked) {
+            const pill = document.getElementById('cloudConnPill');
+            const headerBadge = document.getElementById('dbStatusBadge');
+            if (isLinked) {
+                pill.textContent = '☁️ Cloud Active';
+                pill.className = 'text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-medigreen';
+                headerBadge.textContent = '☁️ Cloud + 3,500/-';
+            } else {
+                pill.textContent = 'Local Only';
+                pill.className = 'text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800';
+            }
+        }
+
+        function toggleCloudSetupModal() {
+            const box = document.getElementById('cloudSetupBox');
+            box.classList.toggle('hidden');
+        }
+
+        function copyGoogleAppsScriptCode() {
+            const el = document.getElementById('hiddenAppsScriptCode');
+            el.classList.remove('hidden');
+            el.select();
+            el.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast('Updated Google Apps Script Copied!');
+            } catch (e) {
+                showToast('Copy failed');
+            }
+            el.classList.add('hidden');
+            window.getSelection().removeAllRanges();
+        }
+
+        async function pushClientToGoogleSheet(clientObj) {
+            const webhookUrl = safeGetStorage(STORAGE_KEY_GSHEET_URL);
+            if (!webhookUrl) return;
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: 'upsert', client: clientObj })
+                });
+            } catch (e) {}
+        }
+
+        async function fetchAllFromGoogleSheet() {
+            const webhookUrl = safeGetStorage(STORAGE_KEY_GSHEET_URL);
+            if (!webhookUrl) {
+                toggleCloudSetupModal();
+                showToast('Paste your Google Sheet URL first!');
+                return;
+            }
+            const spinner = document.getElementById('cloudSyncSpinner');
+            spinner.classList.add('fa-spin');
+            try {
+                const res = await fetch(webhookUrl);
+                const data = await res.json();
+                if (data && Array.isArray(data.clients)) {
+                    crmClients = data.clients;
+                    safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+                    syncJsonArrayToSqlite();
+                    renderCrmCards();
+                    showToast(`Synced ${crmClients.length} clients from Google Cloud!`);
+                }
+            } catch (err) {
+                showToast('Cloud Sync Error — Check URL permissions');
+            } finally {
+                spinner.classList.remove('fa-spin');
+            }
+        }
+
+        function reloadClientFromCrm(id, goToScript = false) {
+            const c = crmClients.find(item => item.id === id);
+            if (!c) return;
+
+            currentCaseId = c.caseRef || ('#MD-2026-' + Math.floor(100 + Math.random() * 900));
+            document.getElementById('clientName').value = c.name;
+            document.getElementById('waPhoneInput').value = c.phone || '';
+            document.getElementById('clientAge').value = c.age;
+            setGender(c.gender || 'Female');
+            document.getElementById('clientHeight').value = c.height;
+            document.getElementById('clientWeight').value = c.weight;
+            document.getElementById('activityLevel').value = c.activity || '1.2';
+            document.getElementById('pastMedicalInput').value = c.pastMedical || '';
+            document.getElementById('foodAllergyInput').value = c.foodAllergies || '';
+            document.getElementById('dietPreference').value = c.dietPref;
+            document.getElementById('packagePrice').value = c.price || '3,500';
+            document.getElementById('clientStatusSelect').value = c.status;
+
+            if (Array.isArray(c.selectedIds) && c.selectedIds.length > 0) {
+                selectedConditionIds = [...c.selectedIds];
+            } else {
+                selectedConditionIds = ['belly'];
+            }
+            renderConditionChips();
+            recalculateAll();
+
+            if (goToScript) {
+                switchMobileTab('scripts');
+            } else {
+                switchMobileTab('input');
+            }
+            showToast(`Loaded ${c.name} (${currentCaseId})!`);
+        }
+
+        function toggleClientPaidStatus(id) {
+            const c = crmClients.find(item => item.id === id);
+            if (!c) return;
+            c.status = c.status === 'Paid' ? 'Pending' : 'Paid';
+            if (c.status === 'Paid' && !c.paidTimestamp) {
+                c.paidTimestamp = Date.now();
+            }
+            safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+            syncJsonArrayToSqlite();
+            renderCrmCards();
+            pushClientToGoogleSheet(c);
+
+            if (c.status === 'Paid') {
+                reloadClientFromCrm(id, true);
+                selectScenario(8);
+                showToast(`${c.name} marked PAID! 14-Day Timer Started.`);
+            }
+        }
+
+        function filterOnlyDueReviews() {
+            showOnlyDueReviews = !showOnlyDueReviews;
+            const btn = document.getElementById('filterDueBtn');
+            btn.textContent = showOnlyDueReviews ? 'Showing Due Only' : 'Show All / Due';
+            renderCrmCards();
+        }
+
+        function deleteCrmClient(id) {
+            crmClients = crmClients.filter(item => item.id !== id);
+            safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+            syncJsonArrayToSqlite();
+            renderCrmCards();
+            showToast('Patient record deleted');
+        }
+
+        function clearAllCrmClients() {
+            crmClients = [];
+            safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+            syncJsonArrayToSqlite();
+            renderCrmCards();
+            showToast('Database cleared');
+        }
+
+        function exportJsonDatabase() {
+            const payload = {
+                brand: 'MediDiet Sri Lanka',
+                exportedAt: new Date().toISOString(),
+                totalClients: crmClients.length,
+                clients: crmClients
+            };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `medidiet_patients_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded .JSON Database!');
+        }
+
+        function exportSqliteDatabase() {
+            if (!sqliteDb) {
+                showToast('SQLite initializing, exporting JSON instead...');
+                exportJsonDatabase();
+                return;
+            }
+            syncJsonArrayToSqlite();
+            const binaryArray = sqliteDb.export();
+            const blob = new Blob([binaryArray], { type: 'application/x-sqlite3' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `medidiet_patients_${new Date().toISOString().slice(0,10)}.sqlite`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded .SQLite Database!');
+        }
+
+        function importDatabaseFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.name.endsWith('.json')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        const list = Array.isArray(parsed) ? parsed : (parsed.clients || []);
+                        crmClients = list;
+                        safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+                        syncJsonArrayToSqlite();
+                        renderCrmCards();
+                        showToast(`Imported ${crmClients.length} clients from JSON!`);
+                    } catch (err) {
+                        showToast('Invalid JSON file');
+                    }
+                };
+                reader.readAsText(file);
+            } else if (file.name.endsWith('.sqlite') || file.name.endsWith('.db')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const uints = new Uint8Array(e.target.result);
+                        sqliteDb = new SQL_ENGINE.Database(uints);
+                        const res = sqliteDb.exec("SELECT * FROM patients");
+                        if (res.length > 0) {
+                            const rows = res[0].values;
+                            crmClients = rows.map(r => ({
+                                id: r[0],
+                                name: r[1],
+                                phone: r[2],
+                                age: r[3],
+                                gender: r[4],
+                                height: r[5],
+                                weight: r[6],
+                                activity: r[7],
+                                condition: r[8],
+                                selectedIds: JSON.parse(r[9] || '["belly"]'),
+                                dietPref: r[10],
+                                price: r[11],
+                                bmi: r[12],
+                                calorieTarget: r[13],
+                                status: r[14],
+                                savedAt: r[15],
+                                pastMedical: r[16] || '',
+                                foodAllergies: r[17] || ''
+                            }));
+                            safeSetStorage(STORAGE_KEY_CRM_JSON, JSON.stringify(crmClients));
+                            persistSqliteToStorage();
+                            renderCrmCards();
+                            showToast(`Imported ${crmClients.length} clients from SQLite!`);
+                        }
+                    } catch (err) {
+                        showToast('Invalid SQLite file');
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        function renderCrmCards() {
+            const container = document.getElementById('crmMobileList');
+            const query = (document.getElementById('crmSearchInput')?.value || '').toLowerCase();
+            document.getElementById('crmCountBadge').textContent = `${crmClients.length} Records`;
+            document.getElementById('navDbCount').textContent = crmClients.length;
+
+            const now = Date.now();
+            let dueCount = 0;
+            crmClients.forEach(c => {
+                if (c.status === 'Paid' && c.paidTimestamp) {
+                    const days = Math.floor((now - c.paidTimestamp) / (1000 * 60 * 60 * 24));
+                    if (days >= 13) dueCount++;
+                }
+            });
+
+            const summaryEl = document.getElementById('dueReviewSummaryText');
+            if (summaryEl) {
+                summaryEl.textContent = dueCount > 0
+                    ? `🔥 ${dueCount} Patient(s) Ready for 14-Day Clinical Review!`
+                    : 'All paid patients are being tracked automatically';
+            }
+
+            const filtered = crmClients.filter(c => {
+                const matchesSearch = c.name.toLowerCase().includes(query) ||
+                    (c.caseRef && c.caseRef.toLowerCase().includes(query)) ||
+                    (c.condition && c.condition.toLowerCase().includes(query)) ||
+                    (c.pastMedical && c.pastMedical.toLowerCase().includes(query)) ||
+                    (c.foodAllergies && c.foodAllergies.toLowerCase().includes(query)) ||
+                    (c.phone && c.phone.includes(query));
+
+                if (!matchesSearch) return false;
+                if (showOnlyDueReviews) {
+                    if (c.status !== 'Paid' || !c.paidTimestamp) return false;
+                    const days = Math.floor((now - c.paidTimestamp) / (1000 * 60 * 60 * 24));
+                    return days >= 13;
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl p-6 text-center border border-slate-200">
+                        <i class="fa-solid fa-folder-open text-2xl text-slate-300 mb-2"></i>
+                        <p class="text-xs font-bold text-slate-500">No matching patient records found.</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Tap "Save File" on Tab 1 to store patients.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(c => {
+                const isPaid = c.status === 'Paid';
+                const statusBtn = isPaid
+                    ? `<button onclick="toggleClientPaidStatus('${c.id}')" class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-100 text-medigreen border border-emerald-300">✅ Paid</button>`
+                    : `<button onclick="toggleClientPaidStatus('${c.id}')" class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 border border-amber-300">⏳ Pending</button>`;
+
+                let reviewBadgeHtml = '';
+                if (isPaid && c.paidTimestamp) {
+                    const daysElapsed = Math.floor((now - c.paidTimestamp) / (1000 * 60 * 60 * 24));
+                    if (daysElapsed >= 14) {
+                        reviewBadgeHtml = `<button onclick="reloadClientFromCrm('${c.id}', true); selectScenario(10);" class="w-full py-1.5 px-2.5 rounded-xl bg-rose-600 text-white text-[11px] font-extrabold flex items-center justify-between animate-pulse shadow-sm">
+                            <span>🔔 14-DAY REVIEW DUE (Day ${daysElapsed})</span>
+                            <span class="underline">Send Check-In →</span>
+                        </button>`;
+                    } else {
+                        reviewBadgeHtml = `<div class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 flex items-center justify-between">
+                            <span>🗓️ Progress Tracker: Day ${daysElapsed} of 14</span>
+                            <button onclick="reloadClientFromCrm('${c.id}', true); selectScenario(10);" class="underline font-extrabold">Preview #10</button>
+                        </div>`;
+                    }
+                }
+
+                const medBadges = [];
+                if (c.pastMedical) {
+                    medBadges.push(`<span class="inline-block text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-md">🩺 Hx: ${c.pastMedical}</span>`);
+                }
+                if (c.foodAllergies) {
+                    medBadges.push(`<span class="inline-block text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-md">⚠️ Allergy: ${c.foodAllergies}</span>`);
+                }
+
+                return `
+                    <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 space-y-2">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[10px] font-mono font-extrabold bg-blue-50 text-medinavy border border-blue-200 px-1.5 py-0.5 rounded">${c.caseRef || '#MD-2026'}</span>
+                                    <h4 class="font-extrabold text-slate-800 text-sm">${c.name}</h4>
+                                    <span class="text-[11px] font-semibold text-slate-400">(${c.age}y, ${c.gender})</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400 font-medium mt-0.5">${c.savedAt || ''} • Rs. ${c.price}/- ${c.phone ? '• ' + c.phone : ''}</p>
+                            </div>
+                            ${statusBtn}
+                        </div>
+
+                        ${reviewBadgeHtml}
+
+                        <div class="grid grid-cols-3 gap-1.5 bg-slate-50 p-2 rounded-xl text-center border border-slate-100">
+                            <div>
+                                <span class="text-[9px] text-slate-400 uppercase font-bold block">Biometrics</span>
+                                <span class="text-xs font-extrabold text-slate-700">${c.height}cm • ${c.weight}kg</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] text-slate-400 uppercase font-bold block">Asian BMI</span>
+                                <span class="text-xs font-extrabold text-medinavy">${c.bmi} kg/m²</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] text-slate-400 uppercase font-bold block">Calorie Target</span>
+                                <span class="text-xs font-extrabold text-medigreen">${c.calorieTarget} kcal</span>
+                            </div>
+                        </div>
+
+                        <p class="text-[11px] sinhala-font text-slate-600 bg-slate-50/70 px-2.5 py-1.5 rounded-lg border border-slate-100">
+                            🎯 ${c.condition}
+                        </p>
+
+                        ${medBadges.length > 0 ? `<div class="flex flex-wrap gap-1 sinhala-font">${medBadges.join('')}</div>` : ''}
+
+                        <div class="grid grid-cols-4 gap-1.5 pt-1">
+                            <button onclick="reloadClientFromCrm('${c.id}', false)" class="py-2 rounded-xl bg-slate-100 active:bg-slate-200 text-slate-800 text-[11px] font-bold">
+                                <i class="fa-solid fa-pen-to-square mr-0.5"></i>Edit
+                            </button>
+                            <button onclick="reloadClientFromCrm('${c.id}', true); selectScenario(1);" class="py-2 rounded-xl bg-medinavy text-white text-[11px] font-bold">
+                                <i class="fa-brands fa-whatsapp mr-0.5 text-emerald-300"></i>Scripts
+                            </button>
+                            <button onclick="reloadClientFromCrm('${c.id}', false); switchMobileTab('pdf');" class="py-2 rounded-xl bg-amber-500 text-slate-950 text-[11px] font-extrabold">
+                                📄 PDF
+                            </button>
+                            <button onclick="deleteCrmClient('${c.id}')" class="py-2 rounded-xl bg-rose-50 text-rose-600 text-[11px] font-bold">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        let toastTimer;
+        function showToast(message) {
+            const box = document.getElementById('toastBox');
+            document.getElementById('toastText').textContent = message;
+            box.classList.remove('-translate-y-20', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                box.classList.add('-translate-y-20', 'opacity-0');
+            }, 2400);
+        }
+
+        window.onload = function () {
+            renderConditionChips();
+            loadBankSettings();
+            loadWebhookUrl();
+            loadCrmClients();
+            initSqliteDatabase();
+            selectScenario(1);
+            recalculateAll();
+        };
+    </script>
+</body>
+</html>
