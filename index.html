@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0A365C">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>MediDiet Clinic CRM — Dr. D. M. D. V. L. Dissanayaka (V3)</title>
+    <title>MediDiet Clinic CRM — Dr. D. M. D. V. L. Dissanayaka (V4)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -122,21 +122,21 @@
                     </div>
                     <div class="min-w-0">
                         <div class="flex items-center gap-1.5">
-                            <h1 class="text-xs font-extrabold tracking-tight truncate">MediDiet Clinic V3</h1>
+                            <h1 class="text-xs font-extrabold tracking-tight truncate">MediDiet Clinic V4</h1>
                             <span id="headerCaseBadge" onclick="regenerateCaseId()" class="cursor-pointer text-[9px] bg-emerald-400/20 text-emerald-300 px-1.5 py-0.5 rounded-full font-mono font-bold border border-emerald-400/30 shrink-0" title="Tap for new Case ID">
                                 #MD-2026-841
                             </span>
                         </div>
-                        <p class="text-[9px] text-slate-300 truncate">Dr. Dissanayaka • <span id="shiftHeaderBadge" class="text-amber-300 font-bold">6–10 PM Clinic</span></p>
+                        <p class="text-[9px] text-slate-300 truncate">Dr. Dissanayaka • <span id="shiftHeaderBadge" class="text-amber-300 font-bold">2,900 / 3,500 / 9,000</span></p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-1 shrink-0">
-                    <button type="button" onclick="copyTurn0Greeting()" class="bg-white/10 active:bg-white/25 text-white text-[10px] font-bold px-2 py-1.5 rounded-xl flex items-center gap-1 border border-white/15" title="Copy Turn 0 Auto-Greeting">
+                    <button type="button" onclick="copyTurn0Greeting()" class="bg-white/10 active:bg-white/25 text-white text-[10px] font-bold px-2 py-1.5 rounded-xl flex items-center gap-1 border border-white/15" title="Copy 1.2 Turn 0 Auto-Greeting">
                         <i class="fa-regular fa-comment-dots text-amber-300"></i>
                         <span>Turn 0</span>
                     </button>
-                    <button type="button" onclick="copyRawAccountNumber()" class="bg-amber-500/25 active:bg-amber-500/40 text-amber-200 text-[10px] font-extrabold px-2 py-1.5 rounded-xl flex items-center gap-1 border border-amber-400/40" title="1-Tap Copy Account Number (/acc)">
+                    <button type="button" onclick="copyRawAccountNumber()" class="bg-amber-500/25 active:bg-amber-500/40 text-amber-200 text-[10px] font-extrabold px-2 py-1.5 rounded-xl flex items-center gap-1 border border-amber-400/40" title="1-Tap Copy Account Number (7.2 /acc)">
                         <i class="fa-solid fa-building-columns text-amber-300"></i>
                         <span>/acc</span>
                     </button>
@@ -158,7 +158,7 @@
                 </div>
 
                 <div class="bg-white/10 rounded-lg py-1.5 px-2 flex flex-col justify-center">
-                    <span class="text-[9px] uppercase text-slate-300 font-semibold">1st Milestone</span>
+                    <span class="text-[9px] uppercase text-slate-300 font-semibold">1st Goal (5–10%)</span>
                     <span id="metricMilestone" class="text-xs font-extrabold text-amber-300 truncate">4 – 7 kg</span>
                 </div>
 
@@ -194,7 +194,7 @@
                 <div id="typoGuardBanner" class="hidden bg-rose-600 text-white rounded-2xl px-3.5 py-2.5 shadow-md flex items-start gap-2.5">
                     <i class="fa-solid fa-triangle-exclamation text-amber-300 text-base mt-0.5 shrink-0"></i>
                     <div class="text-[11px] leading-snug">
-                        <p class="font-extrabold uppercase tracking-wide">Biometric Typo Alert — Verify Before Replying!</p>
+                        <p class="font-extrabold uppercase tracking-wide">Biometric Typo Alert — Confirm Height/Weight (Script 1.7)!</p>
                         <p id="typoGuardText" class="text-rose-100 mt-0.5 font-medium"></p>
                     </div>
                 </div>
@@ -249,8 +249,8 @@
                         <i class="fa-solid fa-heart-pulse text-medinavy text-xs mt-0.5 shrink-0"></i>
                         <div class="text-[11px] sinhala-font leading-snug w-full">
                             <div class="flex items-center justify-between gap-1 flex-wrap">
-                                <span id="clinicalRiskTitle" class="font-extrabold text-medinavy">1st Milestone (5–10%): 4 – 7 kg</span>
-                                <span id="excessWeightLabel" class="text-[10px] font-extrabold text-medigreen bg-white px-1.5 py-0.5 rounded border border-emerald-200">Safe 0.5 kg/wk</span>
+                                <span id="clinicalRiskTitle" class="font-extrabold text-medinavy">1st Goal (5–10%): 4 – 7 kg</span>
+                                <span id="excessWeightLabel" class="text-[10px] font-extrabold text-medigreen bg-white px-1.5 py-0.5 rounded border border-emerald-200">Safe ~0.5 kg/wk</span>
                             </div>
                             <p id="clinicalRiskDesc" class="text-slate-700 mt-0.5 text-[10.5px]">Mifflin-St Jeor BMR: 1,429 kcal • TDEE: 1,715 kcal • Target: 1,350 kcal/day</p>
                         </div>
@@ -319,16 +319,16 @@
                         </div>
                     </div>
 
-                    <!-- 1-LINE HUMAN CLINICAL OBSERVATION -->
+                    <!-- 1-LINE PERSONAL DETAIL FOR DOCTOR VOICE NOTE -->
                     <div class="bg-emerald-50/70 p-2.5 rounded-xl border border-emerald-200/90 space-y-1">
                         <div class="flex items-center justify-between">
                             <label class="text-[11px] font-extrabold text-medigreen flex items-center gap-1.5">
-                                <i class="fa-solid fa-user-check"></i>
-                                1-Line Doctor Clinical Note (Anti-Bot Personalization)
+                                <i class="fa-solid fa-microphone-lines"></i>
+                                Personal Detail (Auto-Inserted in 3.1 Voice Note)
                             </label>
                             <button type="button" onclick="document.getElementById('humanClinicalNote').value=''; recalculateAll();" class="text-[10px] text-slate-400 font-bold">Clear</button>
                         </div>
-                        <input type="text" id="humanClinicalNote" oninput="recalculateAll()" placeholder="e.g. ඔයාගේ Night Shift රාජකාරි රටාව / Gastritis තත්ත්වය සැලකිල්ලට ගෙන" class="w-full px-2.5 py-2 rounded-lg border border-emerald-300 text-xs sinhala-font bg-white outline-none focus:ring-2 focus:ring-medigreen">
+                        <input type="text" id="humanClinicalNote" oninput="recalculateAll()" placeholder="e.g. Night shift රාජකාරිය / Gastritis / පොඩි දරුවෝ දෙන්නා" class="w-full px-2.5 py-2 rounded-lg border border-emerald-300 text-xs sinhala-font bg-white outline-none focus:ring-2 focus:ring-medigreen">
                     </div>
 
                     <!-- PRIMARY CLINICAL CONDITIONS -->
@@ -345,7 +345,7 @@
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-extrabold text-medinavy flex items-center gap-1.5">
                                 <i class="fa-solid fa-notes-medical text-rose-600"></i>
-                                Medical History & Medications
+                                Safety Screen & Medications
                             </label>
                             <button type="button" onclick="document.getElementById('pastMedicalInput').value=''; recalculateAll();" class="text-[10px] text-slate-400 font-bold">Clear</button>
                         </div>
@@ -354,8 +354,8 @@
                             <button type="button" onclick="appendQuickText('pastMedicalInput', 'Thyroid / Thyroxine')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Thyroid</button>
                             <button type="button" onclick="appendQuickText('pastMedicalInput', 'High Blood Pressure')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ High BP</button>
                             <button type="button" onclick="appendQuickText('pastMedicalInput', 'Breastfeeding (මව්කිරි දෙන මවක්)')" class="text-[10px] font-bold bg-pink-50 text-pink-800 border border-pink-200 px-2 py-1 rounded-lg active:scale-95">+ Breastfeeding</button>
-                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Diabetes / Metformin')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Diabetes</button>
-                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Mirena Loop / Surgery')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Surgery/IUD</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Diabetes / Insulin')" class="text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 px-2 py-1 rounded-lg active:scale-95">+ Diabetes/Insulin</button>
+                            <button type="button" onclick="appendQuickText('pastMedicalInput', 'Pregnant (DO NOT OFFER)')" class="text-[10px] font-bold bg-rose-600 text-white px-2 py-1 rounded-lg active:scale-95">+ Pregnant</button>
                         </div>
                         <input type="text" id="pastMedicalInput" oninput="recalculateAll()" placeholder="e.g. Gastritis, Thyroxine, Breastfeeding (or leave blank)" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold sinhala-font bg-slate-50/70 focus:bg-white outline-none focus:ring-2 focus:ring-medinavy">
                     </div>
@@ -389,26 +389,46 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Selected Tier</label>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Plan Tier (Nov 25)</label>
                                 <select id="packagePrice" onchange="recalculateAll()" class="w-full px-2.5 py-2.5 rounded-xl border-2 border-amber-500 bg-amber-50 text-xs font-extrabold text-amber-900 outline-none">
                                     <option value="2,900" selected>Rs. 2,900/- (14-Day Starter)</option>
-                                    <option value="5,500">Rs. 5,500/- (30-Day Monthly)</option>
-                                    <option value="14,900">Rs. 14,900/- (90-Day Full)</option>
-                                    <option value="3,500">Rs. 3,500/- (Legacy Plan)</option>
+                                    <option value="3,500">Rs. 3,500/- (30-Day Monthly)</option>
+                                    <option value="9,000">Rs. 9,000/- (90-Day Full)</option>
+                                    <option value="5,500">Rs. 5,500/- (Legacy 30d)</option>
+                                    <option value="14,900">Rs. 14,900/- (Legacy 90d)</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <!-- OBJECTION LOGGER (FIRST 100 LEADS TRACKER) -->
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Objection Logged (Track Top 3 over 100 Leads)</label>
+                            <select id="clientObjectionSelect" class="w-full px-2.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold text-slate-700 outline-none">
+                                <option value="">None / Not Logged</option>
+                                <option value="Price">Price ("ගාණ වැඩියි / Discount")</option>
+                                <option value="Trust">Trust ("ඇත්ත Doctor ද / Personal Acc?")</option>
+                                <option value="Will it work">Skepticism ("බර අඩු වෙයිද?")</option>
+                                <option value="Family">Family ("ගෙදර අයගෙන් අහන්න ඕනේ")</option>
+                                <option value="Salary/Timing">Timing ("පඩි ලැබුණාම / පස්සේ")</option>
+                                <option value="Practical">Practical ("වෙලාව නෑ / බත් / Shift")</option>
+                                <option value="Medical Safety">Medical Safety ("බෙහෙත් / රෝග")</option>
+                                <option value="Payment">Payment ("Bank app නෑ / CDM")</option>
+                            </select>
                         </div>
                     </div>
 
                     <!-- STAGE SELECTOR + SAVE + JUMP TO SCRIPTS -->
                     <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
-                        <select id="clientStatusSelect" class="px-2 py-3 rounded-xl border border-slate-300 bg-slate-50 text-[11px] font-bold text-slate-700 outline-none max-w-[120px]">
-                            <option value="New Triage">New Triage</option>
-                            <option value="Plans Sent">Plans Sent</option>
+                        <select id="clientStatusSelect" class="px-2 py-3 rounded-xl border border-slate-300 bg-slate-50 text-[11px] font-bold text-slate-700 outline-none max-w-[125px]">
+                            <option value="New Triage">New Lead</option>
+                            <option value="Screened">Screened</option>
+                            <option value="Doctor Review">Doctor Review</option>
+                            <option value="Plans Sent">Offer Sent</option>
                             <option value="Bank Sent">Bank / CDM</option>
                             <option value="Paid">Paid (Active)</option>
                             <option value="Pending">Legacy Pending</option>
-                            <option value="Archived">Archived</option>
+                            <option value="Closed">Closed</option>
+                            <option value="Opted out">Opted Out</option>
                         </select>
 
                         <button type="button" id="saveFileBtn" onclick="saveClientToDatabase()" class="flex-1 bg-medinavy active:scale-[0.98] text-white text-xs font-extrabold py-3 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition">
@@ -423,13 +443,13 @@
                     </div>
                 </div>
 
-                <!-- DOCTOR'S PERSONAL BANK ACCOUNT SETTINGS -->
+                <!-- DOCTOR'S PERSONAL BANK ACCOUNT & SLMC SETTINGS -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden">
                     <button type="button" onclick="toggleBankPanel()" class="w-full px-4 py-3 bg-slate-50 flex items-center justify-between text-left">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-building-columns text-medinavy text-sm"></i>
                             <div>
-                                <h3 class="text-xs font-extrabold text-slate-800">Doctor's Personal Bank Account</h3>
+                                <h3 class="text-xs font-extrabold text-slate-800">Doctor's Bank Account & SLMC Reg.</h3>
                                 <p id="bankSummarySubtitle" class="text-[10px] text-slate-500">Dr. D. M. D. V. L. Dissanayaka • People's Bank</p>
                             </div>
                         </div>
@@ -441,9 +461,15 @@
                             <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Account Holder Name</label>
                             <input type="text" id="bankAccName" value="Dr. D. M. D. V. L. Dissanayaka" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold">
                         </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Account Number (Verify Your Personal No.)</label>
-                            <input type="text" id="bankAccNo" value="068200280085332" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">SLMC Reg. No.</label>
+                                <input type="text" id="bankSlmcNo" value="" placeholder="e.g. 42XXX" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Account Number</label>
+                                <input type="text" id="bankAccNo" value="068200280085332" oninput="saveBankAndRefresh()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold">
+                            </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
@@ -460,60 +486,81 @@
             </section>
 
             <!-- ================================================================== -->
-            <!-- TAB 2: V3 TWO-VOICE SCRIPT STUDIO (SINHALA UNICODE + ENGLISH MIX)  -->
+            <!-- TAB 2: NOV 25 PLAYBOOK — STAGES 1 TO 9 TWO-VOICE SCRIPT STUDIO     -->
             <!-- ================================================================== -->
             <section id="tabViewScripts" class="space-y-3 hidden no-print">
 
-                <!-- TWO-VOICE SCRIPT SELECTOR -->
                 <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-200/90 space-y-3">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-extrabold text-medinavy flex items-center gap-1.5">
                             <span class="w-5 h-5 rounded-md bg-medigreen text-white text-[11px] flex items-center justify-center">2</span>
-                            V3 Clinic Script Studio (Unicode + English)
+                            Playbook V4 (Stages 1–9 • 2.9k/3.5k/9k)
                         </span>
                         <span id="activeVoiceBadge" class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-medinavy">Clinic Desk</span>
                     </div>
 
-                    <!-- GROUP A: MEDIDIET CLINIC DESK (PRE-PAYMENT & BOOKING) -->
+                    <!-- STAGE 1 & 2: CLINIC DESK INTAKE & SAFETY SCREENING -->
                     <div class="space-y-1.5">
-                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">A. MediDiet Clinic Desk (Booking & Fees)</p>
-                        <div class="grid grid-cols-3 gap-1.5">
-                            <button type="button" onclick="selectPreset('turn0')" id="btn_turn0" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700">Turn 0 Auto</button>
-                            <button type="button" onclick="selectPreset('triage1')" id="btn_triage1" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/1 Weight</button>
-                            <button type="button" onclick="selectPreset('triage2')" id="btn_triage2" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/2 PCOS</button>
-                            <button type="button" onclick="selectPreset('triage3')" id="btn_triage3" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/3 Liver/Sugar</button>
-                            <button type="button" onclick="selectPreset('plans')" id="btn_plans" class="script-pill px-2 py-2 rounded-xl text-[11px] font-extrabold border border-emerald-300 bg-emerald-50 text-medigreen">/plans Offer</button>
-                            <button type="button" onclick="selectPreset('en')" id="btn_en" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/en English</button>
-                            <button type="button" onclick="selectPreset('bank')" id="btn_bank" class="script-pill px-2 py-2 rounded-xl text-[11px] font-extrabold border border-amber-300 bg-amber-50 text-amber-900">/bank Pay</button>
-                            <button type="button" onclick="selectPreset('intake')" id="btn_intake" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/intake Paid</button>
-                            <button type="button" onclick="selectPreset('slot')" id="btn_slot" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-rose-200 bg-rose-50 text-rose-800">/slot 24h</button>
-                        </div>
-                    </div>
-
-                    <!-- GROUP B: CALM OBJECTIONS & OLD LEAD RE-ACTIVATION -->
-                    <div class="space-y-1.5 pt-2 border-t border-slate-100">
-                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">B. Calm Objections & Old-Lead Update</p>
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Stage 1–2: Desk Intake & Safety Screen</p>
                         <div class="grid grid-cols-4 gap-1.5">
-                            <button type="button" onclick="selectPreset('real')" id="btn_real" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/real SLMC</button>
-                            <button type="button" onclick="selectPreset('family')" id="btn_family" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/family</button>
-                            <button type="button" onclick="selectPreset('salary')" id="btn_salary" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/salary</button>
-                            <button type="button" onclick="selectPreset('cdm')" id="btn_cdm" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/cdm</button>
-                            <button type="button" onclick="selectPreset('price')" id="btn_price" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/price</button>
-                            <button type="button" onclick="selectPreset('work')" id="btn_work" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">/work</button>
-                            <button type="button" onclick="selectPreset('reactivate')" id="btn_reactivate" class="script-pill col-span-2 px-2 py-1.5 rounded-lg text-[10px] font-extrabold border border-indigo-200 bg-indigo-50 text-indigo-900">/reactivate Old Leads</button>
+                            <button type="button" onclick="selectPreset('turn0')" id="btn_turn0" class="script-pill px-1.5 py-2 rounded-xl text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">1.2 Turn 0</button>
+                            <button type="button" onclick="selectPreset('askprice')" id="btn_askprice" class="script-pill px-1.5 py-2 rounded-xl text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">1.4 මිල?</button>
+                            <button type="button" onclick="selectPreset('typo')" id="btn_typo" class="script-pill px-1.5 py-2 rounded-xl text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">1.7 Typo</button>
+                            <button type="button" onclick="selectPreset('screen')" id="btn_screen" class="script-pill px-1.5 py-2 rounded-xl text-[10px] font-extrabold border border-sky-300 bg-sky-50 text-sky-900">2.1 Screen</button>
+                            <button type="button" onclick="selectPreset('handover')" id="btn_handover" class="script-pill px-1.5 py-2 rounded-xl text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">2.2 Handover</button>
+                            <button type="button" onclick="selectPreset('pregnant')" id="btn_pregnant" class="script-pill px-1.5 py-2 rounded-xl text-[10px] font-bold border border-rose-200 bg-rose-50 text-rose-800">2.5 Preg</button>
+                            <button type="button" onclick="selectPreset('medhold')" id="btn_medhold" class="script-pill col-span-2 px-1.5 py-2 rounded-xl text-[10px] font-bold border border-rose-200 bg-rose-50 text-rose-800">2.6 Meds Hold (Doc Review)</button>
                         </div>
                     </div>
 
-                    <!-- GROUP C: DR. DISSANAYAKA (ACTIVE PAID PATIENTS ONLY) -->
+                    <!-- STAGE 3 & 4: DOCTOR ASSESSMENT (VOICE FIRST) -> OFFER -> PAYMENT -->
                     <div class="space-y-1.5 pt-2 border-t border-slate-100">
-                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-medigreen">C. Dr. Dissanayaka (Active Paid Patients ONLY)</p>
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-medigreen">Stage 3–4 & 7: Doctor Voice → Offer → Pay</p>
                         <div class="grid grid-cols-3 gap-1.5">
-                            <button type="button" onclick="selectPreset('deliver')" id="btn_deliver" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">/deliver PDF</button>
-                            <button type="button" onclick="selectPreset('d5')" id="btn_d5" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">/d5 Check</button>
-                            <button type="button" onclick="selectPreset('d12')" id="btn_d12" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">/d12 Upgrade</button>
-                            <button type="button" onclick="selectPreset('d25')" id="btn_d25" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">/d25 Renew</button>
-                            <button type="button" onclick="selectPreset('refund')" id="btn_refund" class="script-pill px-2 py-2 rounded-xl text-[11px] font-bold border border-rose-200 bg-rose-50 text-rose-800">/refund Safe</button>
-                            <button type="button" onclick="selectPreset('aiprompt')" id="btn_aiprompt" class="script-pill px-2 py-2 rounded-xl text-[11px] font-extrabold border border-amber-400 bg-gradient-to-r from-amber-500 to-orange-500 text-white">AI Blueprint</button>
+                            <button type="button" onclick="selectPreset('assess_wt')" id="btn_assess_wt" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">3.2 Weight+VN</button>
+                            <button type="button" onclick="selectPreset('assess_pcos')" id="btn_assess_pcos" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">3.3 PCOS+VN</button>
+                            <button type="button" onclick="selectPreset('assess_liver')" id="btn_assess_liver" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">3.4 Liver+VN</button>
+                            <button type="button" onclick="selectPreset('assess_preg')" id="btn_assess_preg" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">3.5 PostPreg</button>
+                            <button type="button" onclick="selectPreset('plans')" id="btn_plans" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-extrabold border border-emerald-400 bg-emerald-100 text-medigreen">4.1 Offer 2.9/9k</button>
+                            <button type="button" onclick="selectPreset('diff')" id="btn_diff" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-slate-200 bg-slate-50 text-slate-700">4.4 Diff/4.5</button>
+                            <button type="button" onclick="selectPreset('bank')" id="btn_bank" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-extrabold border border-amber-300 bg-amber-50 text-amber-900">7.1 /bank</button>
+                            <button type="button" onclick="selectPreset('intake')" id="btn_intake" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-slate-200 bg-slate-50 text-slate-700">7.4 /intake</button>
+                            <button type="button" onclick="selectPreset('noslip')" id="btn_noslip" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-slate-200 bg-slate-50 text-slate-700">7.6 3h Slip?</button>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 5 & 6: CALM OBJECTIONS & ETHICAL FOLLOW-UPS -->
+                    <div class="space-y-1.5 pt-2 border-t border-slate-100">
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Stage 5–6: Objections & Ethical Follow-Ups</p>
+                        <div class="grid grid-cols-4 gap-1.5">
+                            <button type="button" onclick="selectPreset('price')" id="btn_price" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.1 Price</button>
+                            <button type="button" onclick="selectPreset('work')" id="btn_work" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.5 Work?</button>
+                            <button type="button" onclick="selectPreset('real')" id="btn_real" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.7 SLMC</button>
+                            <button type="button" onclick="selectPreset('persacc')" id="btn_persacc" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.8 Acc?</button>
+                            <button type="button" onclick="selectPreset('family')" id="btn_family" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.12 Family</button>
+                            <button type="button" onclick="selectPreset('salary')" id="btn_salary" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.13 Salary</button>
+                            <button type="button" onclick="selectPreset('cdm')" id="btn_cdm" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.15 CDM</button>
+                            <button type="button" onclick="selectPreset('rice')" id="btn_rice" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-slate-200 bg-slate-50 text-slate-700">5.19 බත්?</button>
+                            <button type="button" onclick="selectPreset('fu24')" id="btn_fu24" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-sky-200 bg-sky-50 text-sky-900">6.4 24h Tip</button>
+                            <button type="button" onclick="selectPreset('fud3')" id="btn_fud3" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-sky-200 bg-sky-50 text-sky-900">6.5 Day 3</button>
+                            <button type="button" onclick="selectPreset('fud7')" id="btn_fud7" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-bold border border-rose-200 bg-rose-50 text-rose-800">6.6 Close</button>
+                            <button type="button" onclick="selectPreset('reactivate')" id="btn_reactivate" class="script-pill px-1.5 py-1.5 rounded-lg text-[10px] font-extrabold border border-indigo-200 bg-indigo-50 text-indigo-900">6.9 Old</button>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 8 & 9: ACTIVE PATIENT CARE & SAFETY REFUNDS -->
+                    <div class="space-y-1.5 pt-2 border-t border-slate-100">
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-medigreen">Stage 8–9: Paid Patient Care & Red-Flag Safety</p>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <button type="button" onclick="selectPreset('deliver')" id="btn_deliver" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">8.1 Deliver</button>
+                            <button type="button" onclick="selectPreset('d5')" id="btn_d5" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">8.4 Day 5</button>
+                            <button type="button" onclick="selectPreset('d12')" id="btn_d12" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">8.5 Day 12</button>
+                            <button type="button" onclick="selectPreset('d25')" id="btn_d25" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">8.8 Day 25</button>
+                            <button type="button" onclick="selectPreset('d45')" id="btn_d45" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">8.9 Day 45</button>
+                            <button type="button" onclick="selectPreset('d90')" id="btn_d90" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-900">8.10 Day 90</button>
+                            <button type="button" onclick="selectPreset('refund')" id="btn_refund" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-rose-200 bg-rose-50 text-rose-800">9.1 Refund</button>
+                            <button type="button" onclick="selectPreset('redflag')" id="btn_redflag" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-bold border border-rose-200 bg-rose-50 text-rose-800">9.3 1990</button>
+                            <button type="button" onclick="selectPreset('aiprompt')" id="btn_aiprompt" class="script-pill px-2 py-2 rounded-xl text-[10.5px] font-extrabold border border-amber-400 bg-gradient-to-r from-amber-500 to-orange-500 text-white">AI Blueprint</button>
                         </div>
                     </div>
                 </div>
@@ -523,7 +570,7 @@
                     <div id="outputHeaderBar" class="bg-medinavy text-white px-3.5 py-2.5 flex items-center justify-between">
                         <div class="flex items-center gap-2 min-w-0">
                             <i id="outputHeaderIcon" class="fa-brands fa-whatsapp text-base text-emerald-400 shrink-0"></i>
-                            <span id="outputHeaderTitle" class="text-xs font-extrabold tracking-wide truncate">/1 Weight Triage (Clinic Desk)</span>
+                            <span id="outputHeaderTitle" class="text-xs font-extrabold tracking-wide truncate">3.2 Weight Assessment</span>
                         </div>
                         <span id="charCounter" class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded-md text-slate-200 shrink-0">0 chars</span>
                     </div>
@@ -538,55 +585,49 @@
                         <!-- Meta Ad Pre-Filled Trigger Copy Bar (Shown on Turn 0) -->
                         <div id="adTriggerBar" class="hidden bg-indigo-50 border border-indigo-200 rounded-xl p-2.5 flex items-center justify-between gap-2">
                             <div class="min-w-0">
-                                <span class="text-[10px] font-extrabold text-indigo-950 uppercase block">Kill "PCOS Guide" Freebie Trap</span>
-                                <span class="text-[10.5px] sinhala-font text-indigo-800 block truncate">ආයුබෝවන් ඩොක්ටර්. මට MediDiet පෞද්ගලික වෛද්‍ය ආහාර සැලැස්මේ විස්තර දැනගන්න පුළුවන්ද?</span>
+                                <span class="text-[10px] font-extrabold text-indigo-950 uppercase block">1.1 Meta Ad Pre-Filled WhatsApp Text</span>
+                                <span class="text-[10.5px] sinhala-font text-indigo-800 block truncate">ආයුබෝවන්, MediDiet Clinic එක ගැන විස්තර දැනගන්න ඕනේ.</span>
                             </div>
                             <button type="button" onclick="copyMetaAdTrigger()" class="bg-indigo-700 text-white text-[10px] font-extrabold px-2.5 py-1.5 rounded-lg shrink-0">
-                                Copy Ad Text
+                                Copy 1.1
                             </button>
                         </div>
 
-                        <!-- Trust Card PNG Reminder Banner (Shown on /1, /2, /3) -->
-                        <div id="trustCardReminderBar" class="hidden bg-medinavy text-white rounded-xl p-2.5 space-y-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="text-[10.5px] leading-snug">
-                                    <span class="font-extrabold text-amber-300 block">Attach 1 Clinical Trust Card PNG</span>
-                                    <span class="text-slate-200">Send with this message, then immediately send <b class="text-white">/plans</b>.</span>
-                                </div>
-                                <button type="button" onclick="downloadTrustCardPng()" class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2.5 py-1.5 rounded-lg shrink-0 shadow">
-                                    <i class="fa-solid fa-download mr-1"></i>PNG
-                                </button>
+                        <!-- Ethical Trust Card PNG Bar (Shown on Stage 3 / 4) -->
+                        <div id="trustCardReminderBar" class="hidden bg-medinavy text-white rounded-xl p-2.5 flex items-center justify-between gap-2">
+                            <div class="text-[10.5px] leading-snug">
+                                <span class="font-extrabold text-amber-300 block">Optional: Attach Clinical Overview Card PNG</span>
+                                <span class="text-slate-200">Shows methodology, Rs. 2,900 / 9,000 &amp; 24h refund policy.</span>
                             </div>
-                            <label class="flex items-center gap-2 text-[10.5px] text-emerald-200 font-bold pt-1.5 border-t border-white/15 cursor-pointer">
-                                <input type="checkbox" id="includeBmiInTriage" onchange="renderPresetOutput()" class="rounded accent-amber-400 w-3.5 h-3.5">
-                                <span>Include Patient BMI & Target line (tick only if patient already sent Height & Weight)</span>
-                            </label>
+                            <button type="button" onclick="downloadTrustCardPng()" class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2.5 py-1.5 rounded-lg shrink-0 shadow">
+                                <i class="fa-solid fa-download mr-1"></i>PNG
+                            </button>
                         </div>
 
-                        <!-- 1-Tap Copy Account Bubble (Shown on /bank) -->
+                        <!-- 1-Tap Copy Account Bubble (Shown on 7.1 /bank) -->
                         <div id="accBubbleBar" class="hidden bg-amber-100 border border-amber-300 rounded-xl p-2.5 flex items-center justify-between gap-2">
                             <div>
-                                <span class="text-[10px] font-extrabold text-amber-950 uppercase block">Bubble 2 (/acc — Separate Copyable Number)</span>
+                                <span class="text-[10px] font-extrabold text-amber-950 uppercase block">7.2 Account Number Bubble (1-Tap Copy)</span>
                                 <span id="accBubblePreview" class="text-xs font-mono font-extrabold text-medinavy">068200280085332</span>
                             </div>
                             <button type="button" onclick="copyRawAccountNumber()" class="bg-medinavy text-white text-[10px] font-extrabold px-3 py-1.5 rounded-lg shrink-0">
-                                Copy /acc
+                                Copy 7.2
                             </button>
                         </div>
 
                         <!-- Main Message Bubble -->
                         <div id="messageBubbleWrapper" class="bg-[#dcf8c6] rounded-2xl rounded-tl-none p-3 shadow-sm border border-emerald-300/60">
-                            <textarea id="mainOutputTextarea" rows="12" oninput="updateCharCount()" class="w-full bg-transparent border-0 focus:ring-0 outline-none text-xs sinhala-font text-slate-800 resize-y"></textarea>
+                            <textarea id="mainOutputTextarea" rows="10" oninput="updateCharCount()" class="w-full bg-transparent border-0 focus:ring-0 outline-none text-xs sinhala-font text-slate-800 resize-y"></textarea>
                         </div>
 
-                        <!-- 60-Second Personal Doctor Voice Teleprompter -->
+                        <!-- Doctor Voice Note Teleprompter (3.1 Pre-Offer 30s OR 8.2 Delivery 60s) -->
                         <div id="voiceTeleprompterCard" class="hidden bg-slate-900 text-white rounded-xl p-3 border border-slate-800 space-y-1.5">
-                            <div class="flex items-center justify-between">
+                            <div class="flex items-center justify-between gap-2">
                                 <div class="flex items-center gap-1.5">
                                     <i class="fa-solid fa-microphone-lines text-amber-400 text-xs"></i>
-                                    <span class="text-[11px] font-extrabold tracking-wide text-amber-300">60-Second Personal Doctor Voice Teleprompter</span>
+                                    <span id="voiceTeleprompterTitle" class="text-[11px] font-extrabold tracking-wide text-amber-300">3.1 Doctor Voice Note (30s — Before Offer)</span>
                                 </div>
-                                <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-600 text-white">30d / 90d Tier</span>
+                                <span id="voiceTeleprompterBadge" class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-600 text-white shrink-0">EVERY PATIENT</span>
                             </div>
                             <p id="voiceTeleprompterText" class="text-[11px] sinhala-font text-slate-200 leading-relaxed italic"></p>
                             <div class="pt-1 flex justify-end">
@@ -619,9 +660,9 @@
 
                         <!-- 1-Tap Fast-Close Next Step Bar -->
                         <div id="nextStepFlowBar" class="hidden pt-1 flex items-center justify-between gap-2">
-                            <span id="nextStepHintText" class="text-[10.5px] font-bold text-slate-500 truncate">Send Bubble 2 right away:</span>
+                            <span id="nextStepHintText" class="text-[10.5px] font-bold text-slate-500 truncate">Next step in playbook:</span>
                             <button type="button" id="nextStepActionBtn" onclick="triggerNextStepPreset()" class="bg-amber-500 active:scale-95 text-slate-950 text-[11px] font-extrabold px-3 py-1.5 rounded-xl shadow-sm shrink-0 flex items-center gap-1">
-                                <span id="nextStepBtnLabel">Next: /plans</span>
+                                <span id="nextStepBtnLabel">Next: 4.1 Offer</span>
                                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </button>
                         </div>
@@ -630,19 +671,19 @@
             </section>
 
             <!-- ================================================================== -->
-            <!-- TAB 3: CLINICAL TRUST CARD PNG GENERATOR & OFFICIAL PDF STUDIO     -->
+            <!-- TAB 3: CLINICAL OVERVIEW CARD PNG & OFFICIAL PDF STUDIO            -->
             <!-- ================================================================== -->
             <section id="tabViewPdf" class="space-y-3 hidden">
 
-                <!-- 1-CLICK CLINICAL TRUST CARD PNG STUDIO -->
+                <!-- 1-CLICK CLINICAL OVERVIEW CARD PNG STUDIO (NO UNCONSENTED CLAIMS) -->
                 <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 space-y-2.5 no-print">
                     <div class="flex items-center justify-between gap-2">
                         <div>
                             <h2 class="text-xs font-extrabold text-medinavy uppercase flex items-center gap-1.5">
                                 <i class="fa-solid fa-id-card text-amber-500"></i>
-                                Clinical Trust Card PNG Studio
+                                Clinical Overview Card PNG
                             </h2>
-                            <p class="text-[10px] text-slate-500">Attach with /1, /2, /3 to build instant doctor authority</p>
+                            <p class="text-[10px] text-slate-500">Shows Dr. Dissanayaka, Safety Screening, Rs. 2,900 / 9,000 &amp; 24h Refund</p>
                         </div>
                         <button type="button" onclick="downloadTrustCardPng()" class="bg-amber-500 active:scale-95 text-slate-950 text-[10.5px] font-extrabold px-3 py-1.5 rounded-xl shadow-sm shrink-0">
                             <i class="fa-solid fa-download mr-1"></i>Download PNG
@@ -668,7 +709,7 @@
                 <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 space-y-2.5 no-print">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-xs font-extrabold text-slate-800 uppercase">Family Meal Plan & Grocery PDF Studio</h2>
+                            <h2 class="text-xs font-extrabold text-slate-800 uppercase">Family Meal Plan &amp; Grocery PDF Studio</h2>
                             <p class="text-[10px] text-slate-500">Paste AI Blueprint → Print / Save as Official A4 PDF</p>
                         </div>
                         <button type="button" onclick="loadSampleBlueprintIntoPdf()" class="text-[10px] font-extrabold bg-blue-50 text-medinavy border border-blue-200 px-2.5 py-1 rounded-lg">
@@ -700,7 +741,7 @@
                             <div>
                                 <h1 class="text-sm font-extrabold text-medinavy tracking-tight uppercase">MEDIDIET ONLINE MEDICAL CLINIC</h1>
                                 <p class="text-[10px] font-bold text-slate-600">Dr. D. M. D. V. L. Dissanayaka (MBBS) • Clinical Nutrition Unit</p>
-                                <p class="text-[9px] text-medigreen font-bold">Evidence-Based Sri Lankan Family Meal Plan & Grocery Protocol</p>
+                                <p class="text-[9px] text-medigreen font-bold">Evidence-Based Sri Lankan Family Meal Plan &amp; Grocery Protocol</p>
                             </div>
                         </div>
                         <div class="text-right shrink-0">
@@ -724,7 +765,7 @@
                                 <span id="pdfBmiCategory" class="font-extrabold text-medinavy">28.9 kg/m² (Obese Grade 1)</span>
                             </div>
                             <div>
-                                <span class="text-[9px] uppercase font-bold text-slate-400 block">Daily Target & 1st Goal</span>
+                                <span class="text-[9px] uppercase font-bold text-slate-400 block">Daily Target &amp; 1st Goal</span>
                                 <span id="pdfCalorieTarget" class="font-extrabold text-medigreen">1,350 kcal/day • 4 – 7 kg</span>
                             </div>
                         </div>
@@ -732,7 +773,7 @@
                             <div><b class="text-medinavy">Primary Focus:</b> <span id="pdfConditionFocus" class="font-semibold"></span></div>
                             <div><b class="text-rose-700">Medical History / Meds:</b> <span id="pdfMedicalHistory" class="font-semibold"></span></div>
                             <div class="bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1 text-amber-950">
-                                <b>Allergies & Diet Pattern:</b> <span id="pdfAllergyBox" class="font-bold"></span>
+                                <b>Allergies &amp; Diet Pattern:</b> <span id="pdfAllergyBox" class="font-bold"></span>
                             </div>
                         </div>
                     </div>
@@ -781,7 +822,7 @@
             </section>
 
             <!-- ================================================================== -->
-            <!-- TAB 4: EVENING CLINIC QUEUE, UNIT ECONOMICS & CLOUD DATABASE       -->
+            <!-- TAB 4: EVENING CLINIC QUEUE, OBJECTION TRACKER & CLOUD DATABASE    -->
             <!-- ================================================================== -->
             <section id="tabViewDatabase" class="space-y-3 hidden no-print">
 
@@ -791,7 +832,7 @@
                         <div>
                             <h2 class="text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5">
                                 <i class="fa-solid fa-chart-line text-amber-300"></i>
-                                Evening Clinic Analytics
+                                First 100 Leads Analytics
                             </h2>
                             <p id="shiftDetailText" class="text-[10px] text-slate-300 mt-0.5">Clinic Window: 6:00 PM – 10:00 PM</p>
                         </div>
@@ -830,7 +871,7 @@
                         </div>
                     </div>
 
-                    <!-- Phase 5 Live Stage-by-Stage Funnel Drop-Off Tracker -->
+                    <!-- Stage-by-Stage Funnel Drop-Off Tracker -->
                     <div class="bg-slate-950/35 rounded-xl p-2.5 space-y-1.5 border border-white/10">
                         <div class="flex items-center justify-between text-[10px] font-extrabold text-amber-300 uppercase tracking-wide">
                             <span>Funnel Drop-Off Tracker</span>
@@ -838,7 +879,7 @@
                         </div>
                         <div class="grid grid-cols-3 gap-1.5 text-[10px]">
                             <div class="bg-white/10 rounded-lg px-2 py-1.5">
-                                <div class="flex justify-between text-slate-200 font-bold"><span>Plans</span><span id="stagePlansPct">0%</span></div>
+                                <div class="flex justify-between text-slate-200 font-bold"><span>Offer</span><span id="stagePlansPct">0%</span></div>
                                 <div class="w-full h-1.5 bg-white/15 rounded-full mt-1 overflow-hidden"><div id="stagePlansBar" class="h-full bg-sky-400 rounded-full" style="width:0%"></div></div>
                             </div>
                             <div class="bg-white/10 rounded-lg px-2 py-1.5">
@@ -850,15 +891,18 @@
                                 <div class="w-full h-1.5 bg-white/15 rounded-full mt-1 overflow-hidden"><div id="stagePaidBar" class="h-full bg-emerald-400 rounded-full" style="width:0%"></div></div>
                             </div>
                         </div>
+                        <!-- Top Objections Logged Summary -->
+                        <div id="topObjectionsBox" class="pt-1 text-[10px] text-slate-200 flex flex-wrap gap-1 items-center"></div>
                     </div>
                 </div>
 
-                <!-- CLINIC QUEUE FILTER TABS -->
-                <div class="grid grid-cols-4 gap-1.5">
+                <!-- CLINIC QUEUE FILTER TABS (5 QUEUES) -->
+                <div class="grid grid-cols-5 gap-1">
                     <button type="button" id="qBtn_all" onclick="setQueueFilter('all')" class="py-2 px-1 rounded-xl text-[10px] font-extrabold bg-medinavy text-white shadow-sm">All</button>
-                    <button type="button" id="qBtn_slot" onclick="setQueueFilter('slot')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700">24h /slot</button>
-                    <button type="button" id="qBtn_care" onclick="setQueueFilter('care')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700">Active Paid</button>
-                    <button type="button" id="qBtn_legacy" onclick="setQueueFilter('legacy')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700">Old Leads</button>
+                    <button type="button" id="qBtn_review" onclick="setQueueFilter('review')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-rose-200 text-rose-700">Doc Rev</button>
+                    <button type="button" id="qBtn_slot" onclick="setQueueFilter('slot')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700">FollowUp</button>
+                    <button type="button" id="qBtn_care" onclick="setQueueFilter('care')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700">Paid</button>
+                    <button type="button" id="qBtn_legacy" onclick="setQueueFilter('legacy')" class="py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700">Old</button>
                 </div>
 
                 <!-- GOOGLE SHEETS CLOUD SYNC + PORTABLE BACKUP -->
@@ -903,7 +947,7 @@
                 <div class="flex items-center gap-2">
                     <div class="relative flex-1">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
-                        <input type="text" id="crmSearchInput" oninput="renderCrmCards()" placeholder="Search name, phone, Case ID, condition..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold outline-none">
+                        <input type="text" id="crmSearchInput" oninput="renderCrmCards()" placeholder="Search name, phone, Case ID, objection..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold outline-none">
                     </div>
                     <button type="button" id="clearDbBtn" onclick="safeClearAllCrmClients()" class="px-3 py-2.5 rounded-xl bg-rose-50 text-rose-600 text-xs font-bold border border-rose-200" title="2-Tap Safe Clear">
                         <i class="fa-regular fa-trash-can"></i>
@@ -930,7 +974,7 @@
 
             <button type="button" id="navBtnPdf" onclick="switchMobileTab('pdf')" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-bold transition">
                 <i class="fa-solid fa-file-pdf text-sm mb-0.5 text-amber-500"></i>
-                <span class="text-[10px]">3. Card & PDF</span>
+                <span class="text-[10px]">3. Card &amp; PDF</span>
             </button>
 
             <button type="button" id="navBtnDatabase" onclick="switchMobileTab('database')" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-bold transition">
@@ -971,7 +1015,7 @@
         ];
 
         let selectedConditionIds = ['belly'];
-        let activePreset = 'triage1';
+        let activePreset = 'assess_wt';
         let nextStepTargetPreset = 'plans';
         let activeQueueFilter = 'all';
         let currentEditingClientId = null;
@@ -999,12 +1043,14 @@
             pastMedical: '',
             foodAllergies: '',
             humanNote: '',
+            objectionTag: '',
             dietPref: 'මස්, මාළු, බිත්තර සියල්ල ගනී (Full Non-Veg)',
             price: '2,900',
             bmi: '28.9',
             category: 'Obese Grade 1',
             isLactating: false,
             milestoneRange: '4 – 7 kg',
+            milestoneHighKg: 7,
             calorieTarget: 1350,
             bmr: 1429,
             tdee: 1715
@@ -1094,13 +1140,13 @@
             const headerBadge = document.getElementById('shiftHeaderBadge');
             const detailText = document.getElementById('shiftDetailText');
             if (headerBadge) {
-                headerBadge.textContent = isLive ? 'LIVE 6–10 PM Clinic' : '6–10 PM Evening Clinic';
+                headerBadge.textContent = isLive ? 'LIVE 6–10 PM Clinic' : '2,900 / 3,500 / 9,000';
                 headerBadge.className = isLive ? 'text-emerald-300 font-extrabold' : 'text-amber-300 font-bold';
             }
             if (detailText) {
                 detailText.textContent = isLive
                     ? 'Clinic LIVE Now (6:00 PM – 10:00 PM) • Active Review Window'
-                    : 'Next Evening Clinic Window: Daily 6:00 PM – 10:00 PM';
+                    : 'Evening Clinic: 6:00 PM – 10:00 PM • Voice Batches: 1 PM & 6–10 PM';
             }
         }
 
@@ -1221,6 +1267,7 @@
                 const pastMedical = document.getElementById('pastMedicalInput').value.trim();
                 const foodAllergies = document.getElementById('foodAllergyInput').value.trim();
                 const humanNote = document.getElementById('humanClinicalNote').value.trim();
+                const objectionTag = document.getElementById('clientObjectionSelect')?.value || '';
                 const dietPref = document.getElementById('dietPreference').value;
                 const price = document.getElementById('packagePrice').value;
 
@@ -1229,10 +1276,13 @@
                 const typoText = document.getElementById('typoGuardText');
                 const typoWarnings = [];
                 if (height < 135 || height > 210) {
-                    typoWarnings.push(`Height (${height} cm) looks unusual — check if patient meant 4'11" or 5'1" instead of a typo like 4.1 / 127cm.`);
+                    typoWarnings.push(`Height (${height} cm) looks unusual — send Script 1.7 to verify before assessing.`);
                 }
                 if (weight < 35 || weight > 180) {
-                    typoWarnings.push(`Weight (${weight} kg) is outside normal adult range — verify before sending diagnosis.`);
+                    typoWarnings.push(`Weight (${weight} kg) is outside normal adult range — verify before assessing.`);
+                }
+                if (age < 18) {
+                    typoWarnings.push(`Age (${age}) is under 18 — do NOT offer online weight-loss plan (Script 2.7).`);
                 }
                 if (typoWarnings.length > 0) {
                     typoBanner.classList.remove('hidden');
@@ -1309,12 +1359,14 @@
                     pastMedical,
                     foodAllergies,
                     humanNote,
+                    objectionTag,
                     dietPref,
                     price,
                     bmi: bmiStr,
                     category,
                     isLactating,
                     milestoneRange,
+                    milestoneHighKg: high10,
                     calorieTarget: targetCalories,
                     bmr,
                     tdee
@@ -1330,7 +1382,7 @@
                 document.getElementById('metricMilestone').textContent = milestoneRange;
                 document.getElementById('metricCalories').textContent = targetCalories.toLocaleString();
                 document.getElementById('tdeeSubtext').textContent = `BMR ${bmr.toLocaleString()} • TDEE ${tdee.toLocaleString()}`;
-                document.getElementById('clinicalRiskTitle').textContent = `1st Milestone (5–10%): ${milestoneRange}`;
+                document.getElementById('clinicalRiskTitle').textContent = `1st Goal (5–10%): ${milestoneRange}`;
                 document.getElementById('clinicalRiskDesc').textContent = `Mifflin-St Jeor BMR: ${bmr.toLocaleString()} kcal • TDEE: ${tdee.toLocaleString()} kcal • Safe Target: ${targetCalories.toLocaleString()} kcal/day`;
                 document.getElementById('lactationBadge').classList.toggle('hidden', !isLactating);
 
@@ -1420,7 +1472,7 @@
             }
             if (heightCm) document.getElementById('clientHeight').value = heightCm;
 
-            // 6. Age & Weight (Handles labeled AND unlabeled numbers like 32 / 147cm / 81kg)
+            // 6. Age & Weight
             let foundAge = null;
             let foundWeight = null;
             const ageMatch = clean.match(/(?:age|wayasa|වයස|අවුරුදු)\s*[:=-]?\s*(\d{2})\b|\b(\d{2})\s*(?:yrs|years|yr|y|අවුරුදු)\b/i);
@@ -1463,23 +1515,25 @@
                 badges.push(`${foundWeight}kg`);
             }
 
-            // 7. Conditions + Auto-Route Matching Clinic Desk Triage Preset (/1, /2, /3)
+            // 7. Conditions + Auto-Route Stage 3 Assessment Script
             const conds = [];
             if (/pcos|pcod|period|හෝමෝන|ඔසප්/i.test(rawText)) conds.push('pcos');
             if (/fatty|liver|අක්මා|sgpt/i.test(rawText)) conds.push('fattyliver');
             if (/cholesterol|කොලෙස්ටරෝල්/i.test(rawText)) conds.push('cholesterol');
             if (/sugar|diabet|සීනි|දියවැඩියා/i.test(rawText)) conds.push('diabetes');
-            if (/preg|baby|බබා|දරු/i.test(rawText)) conds.push('postpreg');
+            if (/preg|baby|බබා|දරු|මව්කිරි/i.test(rawText)) conds.push('postpreg');
             if (/belly|බඩ|උදර|weight/i.test(rawText) || conds.length === 0) conds.push('belly');
             selectedConditionIds = [...new Set(conds)];
             renderConditionChips();
 
             if (selectedConditionIds.includes('pcos')) {
-                activePreset = 'triage2';
+                activePreset = 'assess_pcos';
             } else if (selectedConditionIds.some(id => ['fattyliver', 'cholesterol', 'diabetes'].includes(id))) {
-                activePreset = 'triage3';
+                activePreset = 'assess_liver';
+            } else if (selectedConditionIds.includes('postpreg')) {
+                activePreset = 'assess_preg';
             } else {
-                activePreset = 'triage1';
+                activePreset = 'assess_wt';
             }
             document.querySelectorAll('.script-pill').forEach(btn => btn.classList.remove('active'));
             const routedBtn = document.getElementById('btn_' + activePreset);
@@ -1491,7 +1545,7 @@
             if (/thyroid|thyroxine|තයිරොයිඩ්/i.test(rawText)) meds.push('Thyroid / Thyroxine');
             if (/pressure|ප්‍රෙෂර්|high\s*bp/i.test(rawText)) meds.push('High Blood Pressure');
             if (/breastfeed|feeding|මව්කිරි/i.test(rawText)) meds.push('Breastfeeding (මව්කිරි දෙන මවක්)');
-            if (/mirena|loop|surgery/i.test(rawText)) meds.push('Mirena Loop / Surgery');
+            if (/insulin|kidney|ckd|heart/i.test(rawText)) meds.push('High-Risk Meds (Doctor Review)');
             if (meds.length > 0) {
                 document.getElementById('pastMedicalInput').value = meds.join(', ');
                 badges.push(`Hx: ${meds[0]}`);
@@ -1577,7 +1631,7 @@
         }
 
         // ============================================================================
-        // BANK SETTINGS (DR. D. M. D. V. L. DISSANAYAKA PERSONAL ACCOUNT)
+        // BANK & SLMC SETTINGS (DR. D. M. D. V. L. DISSANAYAKA)
         // ============================================================================
         function toggleBankPanel() {
             document.getElementById('bankDetailsBody').classList.toggle('hidden');
@@ -1589,6 +1643,7 @@
                 try {
                     const b = JSON.parse(raw);
                     if (b.accName) document.getElementById('bankAccName').value = b.accName;
+                    if (b.slmcNo) document.getElementById('bankSlmcNo').value = b.slmcNo;
                     if (b.accNo) document.getElementById('bankAccNo').value = b.accNo;
                     if (b.bankName) document.getElementById('bankName').value = b.bankName;
                     if (b.branch) document.getElementById('bankBranch').value = b.branch;
@@ -1599,6 +1654,7 @@
         function saveBankAndRefresh() {
             const obj = {
                 accName: document.getElementById('bankAccName').value.trim(),
+                slmcNo: document.getElementById('bankSlmcNo').value.trim(),
                 accNo: document.getElementById('bankAccNo').value.trim(),
                 bankName: document.getElementById('bankName').value.trim(),
                 branch: document.getElementById('bankBranch').value.trim()
@@ -1610,29 +1666,30 @@
         function updateBankSubtitle() {
             const accName = document.getElementById('bankAccName').value.trim() || 'Dr. D. M. D. V. L. Dissanayaka';
             const bankName = document.getElementById('bankName').value.trim() || "People's Bank";
-            document.getElementById('bankSummarySubtitle').textContent = `${accName} • ${bankName}`;
+            const slmc = document.getElementById('bankSlmcNo').value.trim();
+            document.getElementById('bankSummarySubtitle').textContent = `${accName} • ${bankName}${slmc ? ' • SLMC ' + slmc : ''}`;
             document.getElementById('accBubblePreview').textContent = document.getElementById('bankAccNo').value.trim() || '068200280085332';
         }
         function copyRawAccountNumber() {
             const accNo = document.getElementById('bankAccNo').value.trim() || '068200280085332';
-            copyTextSafe(accNo, `Copied Account No: ${accNo}`);
+            copyTextSafe(accNo, `Copied 7.2 Account No: ${accNo}`);
         }
         function copyTurn0Greeting() {
             selectPreset('turn0');
-            copyTextSafe(document.getElementById('mainOutputTextarea').value, 'Turn 0 Auto-Greeting Copied!');
+            copyTextSafe(document.getElementById('mainOutputTextarea').value, '1.2 Turn 0 Auto-Greeting Copied!');
         }
         function copyMetaAdTrigger() {
-            const adText = 'ආයුබෝවන් ඩොක්ටර්. මට MediDiet පෞද්ගලික වෛද්‍ය ආහාර සැලැස්මේ විස්තර දැනගන්න පුළුවන්ද?';
-            copyTextSafe(adText, 'New Meta Ad Trigger Copied!');
+            const adText = 'ආයුබෝවන්, MediDiet Clinic එක ගැන විස්තර දැනගන්න ඕනේ.';
+            copyTextSafe(adText, '1.1 Meta Ad Pre-Filled Text Copied!');
         }
         function triggerNextStepPreset() {
             if (!nextStepTargetPreset) return;
             selectPreset(nextStepTargetPreset);
-            showToast(`Switched to /${nextStepTargetPreset} — Ready to Send!`);
+            showToast('Switched to next playbook step!');
         }
 
         // ============================================================================
-        // V3 TWO-VOICE SCRIPT ENGINE (SINHALA UNICODE + ENGLISH MIX)
+        // NOV 25 FULL WHATSAPP SCRIPT PLAYBOOK ENGINE (STAGES 1 TO 9)
         // ============================================================================
         function selectPreset(presetId) {
             activePreset = presetId;
@@ -1645,16 +1702,41 @@
         function renderPresetOutput() {
             const s = calculatedState;
             const firstName = s.rawNameOnly ? s.rawNameOnly.trim().split(/\s+/)[0] : '';
-            const greetingName = firstName ? ` ${firstName}` : '';
+            const n = firstName || 'ඔබ';
+            const spName = firstName ? ` ${firstName}` : '';
+            const commaName = firstName ? `${firstName}, ` : '';
+
             const bankName = document.getElementById('bankName').value.trim() || "People's Bank";
             const bankBranch = document.getElementById('bankBranch').value.trim() || 'Monaragala';
             const accName = document.getElementById('bankAccName').value.trim() || 'Dr. D. M. D. V. L. Dissanayaka';
+            const slmcNo = document.getElementById('bankSlmcNo').value.trim() || '[SLMC No.]';
 
-            const includeBmi = Boolean(document.getElementById('includeBmiInTriage')?.checked);
-            const humanNoteSentence = s.humanNote ? `\n\n(${s.humanNote.trim()} — ඒකත් බලලයි plan එක හදන්නේ.)` : '';
-            const biometricBlock = (includeBmi && s.height && s.weight)
-                ? `\n\nඔයාගේ Height (${s.height}cm) සහ Weight (${s.weight}kg) අනුව දැනට BMI එක ${s.bmi} (${s.category}). අපේ මුල්ම target එක මාස 2–3කින් ආරක්ෂිතව ${s.milestoneRange} අඩු කරගන්න එක.`
-                : '';
+            const planLabelMap = {
+                '2,900': '14-Day Clinical Starter',
+                '3,500': '30-Day Monthly Plan',
+                '9,000': '90-Day Transformation',
+                '5,500': '30-Day Monthly Plan',
+                '14,900': '90-Day Transformation'
+            };
+            const planName = planLabelMap[s.price] || '14-Day Clinical Starter';
+
+            // Rule of thumb from 4.4: Recommend 90-Day if goal > 8 kg or PCOS/Fatty Liver/Sugar
+            const recommend90 = s.milestoneHighKg > 8 || s.selectedIds.some(id => ['pcos', 'fattyliver', 'diabetes'].includes(id));
+            const recommendedPlanName = recommend90 ? '90-Day Transformation (රු. 9,000/-)' : '14-Day Clinical Starter (රු. 2,900/-)';
+
+            // Condition-matched 24h tip (Script 6.4)
+            let tip24h = 'රාත්‍රී කෑම 8ට කලින් ගන්න, සීනි දාපු තේ / පානවල ප්‍රමාණය අඩු කරන්න.';
+            if (s.selectedIds.includes('pcos')) {
+                tip24h = 'උදේ ආහාරයට ප්‍රෝටීන් (බිත්තර, කඩල, මුං ඇට) ඇතුළත් කරන්න, ඒකෙන් පැණි රස ආසාව අඩු වෙනවා.';
+            } else if (s.selectedIds.some(id => ['fattyliver', 'diabetes', 'cholesterol'].includes(id))) {
+                tip24h = 'සීනි දාපු පානවල ප්‍රමාණය අඩු කරන්න, බැදපු කෑම අඩු කරලා බලන්න.';
+            } else if (s.selectedIds.includes('postpreg')) {
+                tip24h = 'ප්‍රමාණවත් ජලය බොන්න, ප්‍රෝටීන් ඇතුළත් වේලක් නොවරදවා ගන්න.';
+            }
+
+            const personalDetail = s.humanNote
+                ? s.humanNote.trim()
+                : (s.pastMedical ? `ඔබේ ${s.pastMedical} තත්ත්වය` : 'ඔබේ ගෙදර කෑම රටාව');
 
             let title = '';
             let voice = 'Clinic Desk';
@@ -1662,293 +1744,407 @@
             let text = '';
             let showTrustBar = false;
             let showAccBar = false;
-            let showVoiceCard = false;
+            let voiceMode = null; // 'preoffer30' | 'deliver60' | null
             let isAiPrompt = false;
 
             switch (activePreset) {
                 case 'turn0':
-                    title = 'Turn 0 — Auto-Greeting (1-Tap Triage)';
+                    title = '1.2 Turn 0 — Instant Auto-Reply (No Price)';
                     voice = 'Clinic Desk';
-                    tip = 'WhatsApp Business Greeting Message එකට දාන්න. Rs. 2,900/- ඉඳන් පටන් ගන්නවා කියලා මුලින්ම දාන නිසා freebie-seekers ලා 6:00 PM කලින්ම filter වෙනවා.';
-                    text = `ආයුබෝවන්! MediDiet Online Clinic (Dr. D. M. D. V. L. Dissanayaka) එකෙන්.
+                    tip = 'WhatsApp Business Greeting Message එකට දාන්න. මුලින්ම වයස, උස, බර, ප්‍රශ්නය ගන්නවා (මිල යවන්නේ Stage 4 දී හෝ ඇහුවොත් පමණයි).';
+                    text = `ආයුබෝවන් 🙏 MediDiet Online Clinic එකට සාදරයෙන් පිළිගන්නවා.
 
-Doctor ගේ supervision එක යටතේ කරන අපේ Family Nutrition Program එක Rs. 2,900/- ඉඳන් පටන් ගන්නවා. (ඔයාගේ reports check කළාට පස්සේ මේ program එක ඔයාට ගැළපෙන්නේ නෑ කියලා Doctor තීරණය කළොත්, 24 hours ඇතුළත 100% refund කරනවා.)
+Dr. Dissanayaka ගේ නිර්දේශයක් සකස් කරන්න, මේ විස්තර ටික එක message එකකින් එවන්න:
+නම / වයස / උස (cm හෝ අඩි) / බර (kg) / ප්‍රධාන ප්‍රශ්නය (බර, PCOS, Fatty Liver, Sugar, Cholesterol...)
 
-ඔයාට ප්‍රධාන වශයෙන්ම help එක ඕන මොකටද? අංකය විතරක් එවන්න:
-1. Weight loss / Belly fat
-2. PCOS / Hormone issues
-3. Fatty Liver / Cholesterol / Sugar control
-
-(Evening Clinic: හැමදාම හවස 6.00 – රෑ 10.00)
 — MediDiet Clinic Desk`;
                     break;
 
-                case 'triage1':
-                    title = '/1 Weight & Belly Fat (Bubble 1)';
+                case 'askprice':
+                    title = '1.4 Lead Asks "මිල කීයද?" Upfront';
                     voice = 'Clinic Desk';
-                    showTrustBar = true;
-                    tip = 'මෙය සමඟ Clinical Trust Card PNG එක යවා, ඒ සැණින්ම /plans Bubble එක යවන්න.';
-                    text = `ස්තූතියි${greetingName}.${biometricBlock}
+                    tip = 'විස්තර දෙන්න කලින්ම මිල ඇහුවොත් Starter Rs. 2,900/- කියා විස්තර ඉල්ලන්න.';
+                    text = `ආයුබෝවන්! 14-Day Clinical Starter එක රු. 2,900/- සිට පටන් ගන්නවා. ඒත් ඔබට ඒක ගැළපෙනවාද කියලා බලන්න මුලින් නම / වයස / උස / බර / ප්‍රධාන ප්‍රශ්නය එවන්න. ගැළපෙන්නේ නැත්නම් ඔබට මුදල් ගෙවන්න වෙන්නෙ නෑ.
 
-බත් නවත්තලා බඩගින්නේ ඉඳලා weight අඩු කරගන්න ගියාට ඒක දිගටම කරන්න බෑ.
-
-Dr. Dissanayaka ඔයාගේ details සහ reports බලලා, ඔයාට විතරක් වෙනම උයන්නේ නැතුව ගෙදර හැමෝම කන බත් සහ curry වලින්ම follow කරන්න පුළුවන් Family Meal Plan එකකුයි (දවසට ~${s.calorieTarget} kcal), Weekly Grocery List එකකුයි හදලා දෙනවා.${humanNoteSentence}
 — MediDiet Clinic Desk`;
                     break;
 
-                case 'triage2':
-                    title = '/2 PCOS & Hormone Balance (Bubble 1)';
+                case 'typo':
+                    title = '1.7 Height / Weight Typo Verification';
                     voice = 'Clinic Desk';
-                    showTrustBar = true;
-                    tip = 'PCOS patients ලාට Dilini (Kandy) සැබෑ result එකත් එක්ක. Trust Card PNG සමඟ යවා ඊළඟට /plans යවන්න.';
-                    text = `ස්තූතියි${greetingName}.${biometricBlock}
+                    tip = '4.1, 127 වගේ typo එකක් ආවොත් අනුමාන නොකර තහවුරු කරගන්න.';
+                    text = `${commaName}ඔබේ උස ${s.height} cm (≈ ${Math.floor((s.height / 2.54) / 12)} අඩි ${Math.round((s.height / 2.54) % 12)} අඟල්) ද? Plan එකට ඒක වැදගත් නිසා තහවුරු කරගන්න ඕනේ.
 
-PCOS තියෙද්දී Hormones සහ Insulin අවුල් වෙන නිසා, කෑම අඩු කළාට weight අඩු නොවෙන එකයි පැණි රස කන්න හිතෙන එකයි හරිම සාමාන්‍යයි.
-
-Dr. Dissanayaka ඔයාගේ details සහ reports බලලා, ඔයාට වෙනම උයන්නේ නැතුව ගෙදර හැමෝම කන කෑම වලින්ම Hormones balance කරගන්න පුළුවන් Family Meal Plan එකකුයි, Weekly Grocery List එකකුයි හදලා දෙනවා. (Kandy වල දිලිනි (27) බඩගින්නේ ඉන්නේ නැතුව ගෙදර කෑම කාලම irregular වෙලා තිබුණ periods ටික පිළිවෙල කරගත්තා.)${humanNoteSentence}
 — MediDiet Clinic Desk`;
                     break;
 
-                case 'triage3':
-                    title = '/3 Fatty Liver / Sugar / Cholesterol';
+                case 'screen':
+                    title = '2.1 Details Confirmed → 3-Question Safety Screen';
                     voice = 'Clinic Desk';
-                    showTrustBar = true;
-                    tip = 'Metabolic patients ලාට Nadeesha (SGPT 88 -> 31) සැබෑ result එකත් එක්ක. Trust Card PNG සමඟ යවා ඊළඟට /plans යවන්න.';
-                    text = `ස්තූතියි${greetingName}.${biometricBlock}
+                    tip = 'මුදල් ගන්න කලින් ආරක්ෂාවට මේ ප්‍රශ්න 3 අනිවාර්යයෙන්ම අහන්න.';
+                    text = `ස්තූතියි${spName} 🙏 ඔබේ විස්තර ලැබුණා. File No: ${s.caseRef}.
 
-Fatty Liver, Cholesterol හෝ Sugar control කරගන්න නම් නිකන් කෑම අඩු කරලා මදි — හරි clinical nutrition balance එක ඕනේ.
+Dr. Dissanayaka ට යවන්න කලින් ආරක්ෂාවට ප්‍රශ්න 3ක් තියෙනවා:
+1. දැන් ගර්භණීද / මව්කිරි දෙනවාද?
+2. දියවැඩියාව, BP, අක්මා / වකුගඩු රෝග, thyroid වලට බෙහෙත් ගන්නවාද? (ගන්නවා නම් මොනවාද)
+3. කෑමට allergy තියෙනවාද? මස් / මාළු / බිත්තර කනවාද?
 
-Dr. Dissanayaka ඔයාගේ Blood Reports check කරලා (තවම reports නැත්නම් කරගන්න ඕන tests ටික කියලා), ගෙදර හැමෝම කන කෑම වලින්ම follow කරන්න පුළුවන් Family Meal Plan එකකුයි Weekly Grocery List එකකුයි දෙනවා. (Colombo වල නදීෂා (42) ගෙදර කෑම කාලම මාස 2.5කින් SGPT 88 ඉඳන් 31ට අඩු කරගෙන 6.5 kg බරත් අඩු කරගත්තා.)${humanNoteSentence}
 — MediDiet Clinic Desk`;
+                    break;
+
+                case 'handover':
+                    title = '2.2 Screening Clear → Hand Over to Doctor';
+                    voice = 'Clinic Desk';
+                    tip = 'Safety screen clear වුණාම Doctor ගේ same-day voice batch එක (1 PM හෝ 6–10 PM) දන්වන්න.';
+                    text = `හරි${spName}, ස්තූතියි. ඔබේ file එක Dr. Dissanayaka ට භාර දුන්නා. ඩොක්ටර් ඔබේ තත්ත්වය බලලා අද සවස 6.00 – 10.00 අතර ඔබේ මුල් ඉලක්කය ගැන voice note එකක් එවනවා.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'pregnant':
+                    title = '2.5 Pregnant — Do NOT Offer Plan';
+                    voice = 'Clinic Desk';
+                    tip = 'ගර්භණී මව්වරුන්ට Online weight-loss plan offer නොකරන්න, මුදල් නොගන්න.';
+                    text = `විස්තර එවපු එකට ස්තූතියි${spName}. ගර්භණී කාලයේ බර අඩු කිරීමේ ආහාර සැලැස්මක් Online දීම ආරක්ෂිත නැති නිසා අපි ඒක නිර්දේශ කරන්නේ නෑ. ඔබේ ප්‍රසව වෛද්‍යවරයාගෙන් උපදෙස් ගන්න. ප්‍රසූතියෙන් පස්සේ ඕනේ නම් නැවත අපිට කියන්න 🙏
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'medhold':
+                    title = '2.6 High-Risk Meds / Disease — Doctor Review First';
+                    voice = 'Clinic Desk';
+                    tip = 'Insulin, kidney/liver/heart disease හෝ බෙහෙත් කිහිපයක් තියෙනවා නම් CRM stage "Doctor Review" දාලා මිල නොයවන්න.';
+                    text = `ස්තූතියි${spName}. ඔබ කියපු ${s.pastMedical || 'බෙහෙත් / රෝග තත්ත්වය'} නිසා, Dr. Dissanayaka ඔබේ file එක මුලින් පරීක්ෂා කරලා පස්සේ තමයි plan එකක් ගැන කියන්නේ. ඩොක්ටර්ගෙන් පිළිතුරක් අද හෝ හෙට ලැබෙයි.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'assess_wt':
+                    title = '3.2 Weight & Belly Fat Assessment (With 30s VN)';
+                    voice = 'Dr. Dissanayaka';
+                    voiceMode = 'preoffer30';
+                    showTrustBar = true;
+                    tip = 'මුලින්ම පහළ 3.1 (30s) Voice Note එක record කර යවා, ඒ සමඟ මේ කෙටි text එක යවන්න. "එවන්න" කිව්වම 4.1 Offer යවන්න.';
+                    text = `${commaName}Dr. Dissanayaka ගෙන්. ඔබේ BMI ${s.bmi} (${s.category}). මුල් ඉලක්කය මාස 2–3 ඇතුළත ආරක්ෂිතව ${s.milestoneRange} (ඉලක්කයක් විතරයි).
+
+බත් නවත්වලා බඩගින්නේ ඉන්න diet වලින් බර අඩු වුණාට ආයෙත් වැඩි වෙනවා. ඒ නිසා ඔබේ උස, බර, රෝග තත්ත්වයට ගැළපෙන ප්‍රමාණවලින් (දිනකට ~${s.calorieTarget} kcal), ගෙදර උයන කෑම වලින්ම Family Meal Plan එකක් සහ Weekly Grocery List එකක් මම සකස් කරනවා.
+
+Plan එකේ විස්තර සහ මිල එවන්නද?`;
+                    break;
+
+                case 'assess_pcos':
+                    title = '3.3 PCOS Assessment (With 30s VN)';
+                    voice = 'Dr. Dissanayaka';
+                    voiceMode = 'preoffer30';
+                    showTrustBar = true;
+                    tip = 'පහළ 3.1 (30s) Voice Note එක record කර යවා, ඒ සමඟ මේ PCOS assessment text එක යවන්න.';
+                    text = `${commaName}Dr. Dissanayaka ගෙන්. PCOS වලදී insulin එකේ බලපෑම නිසා සාමාන්‍ය diet වලින් බර අඩු වෙන්නේ නැති එකත්, පැණි රස ආසාව වැඩි වෙන එකත් සාමාන්‍යයි.
+
+ඔබේ BMI ${s.bmi} (${s.category}). මුල් ඉලක්කය ${s.milestoneRange} (ඉලක්කයක් විතරයි). Low-GI ගෙදර කෑම වලින්ම, බඩගින්නේ නොසිට, ඔබේ period cycle එකටත් උදව් වෙන විදිහට Family Meal Plan එකක් මම සකස් කරනවා.
+
+Plan එකේ විස්තර සහ මිල එවන්නද?`;
+                    break;
+
+                case 'assess_liver':
+                    title = '3.4 Fatty Liver / Cholesterol / Sugar (With 30s VN)';
+                    voice = 'Dr. Dissanayaka';
+                    voiceMode = 'preoffer30';
+                    showTrustBar = true;
+                    tip = 'පහළ 3.1 (30s) Voice Note එක සමඟ යවන්න. මෑත blood reports තියෙනවා නම් ඉල්ලන්න.';
+                    text = `${commaName}Dr. Dissanayaka ගෙන්. ඔබේ BMI ${s.bmi} (${s.category}). මෑතකදී ගත්ත blood reports (FBS, Lipid Profile, SGPT) තියෙනවා නම් ඡායාරූපයක් එවන්න. නැත්නම් කරගන්න ඕනේ tests ලැයිස්තුව මම දෙන්නම්.
+
+ගෙදර උයන කෑම වලින්ම, නිවැරදි ප්‍රමාණවලින් Family Meal Plan එකක් සහ Weekly Grocery List එකක් සකස් කරනවා.
+
+Plan එකේ විස්තර සහ මිල එවන්නද?`;
+                    break;
+
+                case 'assess_preg':
+                    title = '3.5 Post-Pregnancy Assessment (With 30s VN)';
+                    voice = 'Dr. Dissanayaka';
+                    voiceMode = 'preoffer30';
+                    showTrustBar = true;
+                    tip = 'මව්කිරි දෙනවා නම් +450 kcal safety floor එක auto-apply වේ. 3.1 Voice Note සමඟ යවන්න.';
+                    text = `${commaName}Dr. Dissanayaka ගෙන්. දරුවා ඉන්න කාලයේ ශරීරයට අවශ්‍ය ශක්තිය අඩු නොකර, ආරක්ෂිත වේගයකින් බර අඩු කරගන්න විදිහට${s.isLactating ? ' (මව්කිරි දෙන කාලයටත් ගැළපෙන විදිහට)' : ''} plan එක සකස් කරනවා.
+
+ඔබේ BMI ${s.bmi}, මුල් ඉලක්කය ${s.milestoneRange} (ඉලක්කයක් විතරයි).
+
+Plan එකේ විස්තර සහ මිල එවන්නද?`;
                     break;
 
                 case 'plans':
-                    title = '/plans — 2-Option Offer + Guarantee';
+                    title = '4.1 The Offer — Starter Rs. 2,900 & 90-Day Rs. 9,000';
                     voice = 'Clinic Desk';
-                    tip = '/1, /2, හෝ /3 යැවූ සැණින් මෙය Bubble 2 ලෙස යවන්න.';
-                    text = `ඔයාට ගැළපෙන plan එක තෝරගන්න:
+                    showTrustBar = true;
+                    tip = '"Plan එකේ විස්තර එවන්න" කිව්වට පස්සේ පමණක් යවන්න. Rs. 3,500 Monthly එක offer කරන්නේ Day 12 දී (8.5).';
+                    text = `${commaName}ඔබට ගැළපෙන plan එක තෝරගන්න:
 
-1. 14-Day Starter Plan — Rs. 2,900/-
-• Data / Reports review කිරීම සහ Doctor ගේ advice
-• සති 2ක Family Meal Plan + Weekly Grocery List
-• Day 12 progress check එක
+1. 14-Day Clinical Starter: රු. 2,900/-
+Doctor ගේ සායනික ඇගයීම, සති 2ක Family Meal Plan, Weekly Grocery List, Day 12 Progress Review.
 
-2. 30-Day Monthly Plan (වැඩිම දෙනෙක් ගන්නේ මේක) — Rs. 5,500/-
-• මුළු මාසෙටම Family Meal Plan + Weekly Grocery Lists
-• Dr. Dissanayaka ගේ Personal Voice Note Review එක
-• සති 2න් 2ට plan එක adjust කිරීම + WhatsApp guidance
-(90-Day Full Program — Rs. 14,900/-)
+2. 90-Day Transformation: රු. 9,000/- (දිනකට රු. 100 ක් පමණයි)
+සති 12ක Family Meal Plans සහ Grocery Lists, Dr. Dissanayaka ගේ Personal Voice Reviews, සති 2න් 2ට plan adjustments, WhatsApp වෛද්‍ය මඟපෙන්වීම.
 
-Guarantee එක: Reports check කළාට පස්සේ මේ online program එක ඔයාට සුදුසු නෑ කියලා Doctor තීරණය කළොත්, ගෙවපු සම්පූර්ණ මුදල 24 hours ඇතුළත ආපහු දෙනවා.
+වෛද්‍යමය වගකීම: ඔබේ වාර්තා බැලුවාට පස්සේ මේ Online වැඩසටහන ඔබට සුදුසු නැතැයි ඩොක්ටර් තීරණය කළොත්, ගෙවපු මුදල පැය 24ක් ඇතුළත 100% ආපසු ලැබෙනවා.
 
-Pay කරන්න කලින් මොනවා හරි අහන්න තියෙනවා නම් අහන්න — නැත්නම් අද හවස Dr. Dissanayaka ගේ list එකට book කරගන්න කැමති මොන plan එකද?
+කැමති plan එකේ අංකය කියන්න (1 හෝ 2).
 — MediDiet Clinic Desk`;
                     break;
 
-                case 'en':
-                    title = '/en — Compact English Clinic Reply';
+                case 'diff':
+                    title = '4.4 What\'s the Difference? (+ 4.5 Monthly Note)';
                     voice = 'Clinic Desk';
-                    tip = 'ඉංග්‍රීසියෙන් message කරන patients ලා සඳහා.';
-                    text = `Thank you${greetingName}. Under Dr. D. M. D. V. L. Dissanayaka's supervision, you get a practical Sri Lankan Family Meal Plan (no separate cooking), a Weekly Grocery List, and clinical guidance based on your reports.
+                    tip = 'Goal > 8 kg හෝ PCOS/Fatty Liver/Sugar නම් 90-Day recommend කරයි; නැත්නම් Starter.';
+                    text = `Starter එකෙන් ඔබට plan එක සති 2ක් අත්හදා බලන්න පුළුවන්. 90-Day එකේදී සති 12ම ඔබේ ප්‍රගතිය අනුව plan එක අලුත් කරනවා, ඒ නිසා දිගුකාලීන ප්‍රතිඵලයටත් දිනකට පිරිවැයටත් ඒක වඩා හොඳයි.
 
-1. 14-Day Clinical Starter — Rs. 2,900
-Report/data review, 2-week family meal plan, grocery list & Day-12 check-in.
+ඔබේ ඉලක්කය ${s.milestoneRange} නිසා ඩොක්ටර් නිර්දේශ කරන්නේ ${recommendedPlanName}. ඒත් තීරණය ඔබේ. (30-Day Monthly Plan — රු. 3,500/- තියෙන්නේ Starter එක අවසන් වුණාට පස්සේ දිගටම යන අයට.)
 
-2. 30-Day Monthly Plan (Most Popular) — Rs. 5,500
-Full-month family plan, weekly grocery lists, Dr. Dissanayaka's Personal Voice Review, bi-weekly adjustments & WhatsApp guidance.
-(90-Day Full Program — Rs. 14,900)
-
-Guarantee: 100% refunded within 24 hours if the doctor decides this online program isn't suitable for your case.
-
-Let us know if you have any questions before booking—or which plan you'd like to reserve for tonight's 6:00–10:00 PM clinic list.
 — MediDiet Clinic Desk`;
                     break;
 
                 case 'bank':
-                    title = '/bank — Personal Account + /acc';
+                    title = '7.1 Payment Details + 7.2 /acc Copy Bubble';
                     voice = 'Clinic Desk';
                     showAccBar = true;
-                    tip = 'Patient plan එකක් තේරූ පසු පමණක් යවන්න. මේක යවලා පහළ "Copy /acc" ඔබා account number එක වෙනම bubble එකක් විදිහට යවන්න.';
-                    text = `හරි${greetingName}. ඔයා තෝරගත්ත Rs. ${s.price}/- plan එකට payment එක මේ account එකට දාලා slip එක මෙතනට එවන්න:
+                    tip = 'Patient 1 හෝ 2 තෝරාගත් පසු පමණක් යවන්න. ඉන්පසු 7.2 Account Number එක වෙනම bubble එකකින් යවන්න.';
+                    text = `${commaName}ඔබ තෝරාගත් ${planName} (රු. ${s.price}/-) සඳහා පහත ගිණුමට ගෙවලා slip එක මෙතනට එවන්න:
 
 Bank: ${bankName} (${bankBranch})
 Account Name: ${accName}
-Reference: ඔයාගේ නම
+Reference: ඔබේ නම
 
-(Copy කරගන්න ලේසි වෙන්න Account Number එක වෙනම message එකකින් එවන්නම්.)
-
-Slip එක ආව ගමන් Patient Intake Form එක එවලා Dr. Dissanayaka ගේ list එකට ඔයාව add කරනවා.
+(Account number එක copy කරගන්න පහසු වෙන්න වෙනම message එකක් විදිහට එවනවා.)
 — MediDiet Clinic Desk`;
                     break;
 
                 case 'intake':
-                    title = '/intake — Paid Patient Intake Form';
+                    title = '7.4 Payment Confirmed → Full Intake Form';
                     voice = 'Clinic Desk';
-                    tip = 'Slip එක confirm කළ ගමන් යවන්න.';
-                    text = `ස්තූතියි${greetingName}. Payment එක confirm කළා. (File No: ${s.caseRef})
+                    tip = 'ගිණුමට මුදල් credit වුණා කියලා තහවුරු කළාට පස්සේ පමණක් යවන්න.';
+                    text = `ස්තූතියි${spName}, ඔබේ ගෙවීම තහවුරු වුණා. File No: ${s.caseRef}.
 
-Dr. Dissanayaka ට review කරන්න මේ විස්තර ටික එවන්න:
-1. සම්පූර්ණ නම සහ වයස:
-2. Height එක සහ දැනට Weight එක:
-3. දැනට තියෙන ලෙඩ, surgeries හෝ ගන්න බෙහෙත් (PCOS, Sugar, BP, Gastritis, Thyroid, Breastfeeding වගේ):
-4. Food allergies තියෙනවද? මස් / මාළු / බිත්තර කනවද?:
-5. ළඟදී ගත්ත Blood Reports (FBS, Lipid Profile, SGPT, TSH) තියෙනවා නම් photo එවන්න (නැත්නම් කරගන්න ඕන tests ටික Doctor කියයි).
+Dr. Dissanayaka ට මේ විස්තර එවන්න:
+1. සම්පූර්ණ නම සහ වයස
+2. හෙට උදේ හිස්බඩ බර සහ උස
+3. දැනට ඇති රෝග, කරපු ශල්‍යකර්ම, ගන්න බෙහෙත්
+4. Food allergies සහ කන කෑම වර්ග
+5. මෑත blood reports (FBS, Lipid Profile, SGPT, TSH) තියෙනවා නම් ඡායාරූප
+6. ඔබේ දවසේ කාලසටහන (වැඩ, නින්ද, කෑම වේලාවන්) සහ ගෙදර කී දෙනෙක්ද කියලා
 
-මේ ටික එවලා 24 hours ඇතුළත Dr. Dissanayaka ඔයාගේ සම්පූර්ණ plan එක එවනවා.
+විස්තර ලැබී පැය 24 ක් ඇතුළත ඩොක්ටර් ඔබේ plan එක එවනවා.
 — MediDiet Clinic Desk`;
                     break;
 
-                case 'slot':
-                    title = '/slot — Single 24h Dignified Notice';
+                case 'noslip':
+                    title = '7.6 Bank Details Sent, No Slip After 3 Hours';
                     voice = 'Clinic Desk';
-                    tip = '24 hours වලින් reply නැති අයට යවන එකම reminder එක. ඊට පස්සේ STOP.';
-                    text = `ආයුබෝවන්${greetingName}. MediDiet Clinic Desk එකෙන්.
+                    tip = 'Bank details යවලා පැය 3කින් slip එක නැත්නම් කාරුණිකව විමසන්න.';
+                    text = `${commaName}ගෙවීම කළාද? කළා නම් slip එකේ ඡායාරූපයක් එවන්න. Bank app එකේ හෝ ගාණේ ගැටලුවක් තිබුණා නම් කියන්න, මම උදව් කරන්නම් 🙏
 
-අද හවස 6.00 Dr. Dissanayaka ගේ list එකේ ඔයාට තියපු slot එක හවස 5.30 වෙනකන් open තියෙනවා. අද join වෙන්න ඉන්නවා නම් කියන්න.
-
-නැත්නම් අපි ඒ slot එක waiting list එකේ ඉන්න වෙන patient කෙනෙක්ට දීලා ඔයාගේ file එක දැනට close කරනවා. පස්සේ පුළුවන් දවසක ආයේ message එකක් දාන්න. ස්තූතියි.
-— MediDiet Clinic Desk`;
-                    break;
-
-                case 'real':
-                    title = '/real — SLMC & Online Clinic Verification';
-                    voice = 'Clinic Desk';
-                    tip = '"Clinic එක කොහෙද / ඇත්ත Doctor කෙනෙක්ද?" ඇහුවම යවන්න.';
-                    text = `මේක Dr. D. M. D. V. L. Dissanayaka (MBBS — SLMC registered doctor) කරන 100% Online Medical Clinic එකක්. පෝලිම් වල ඉන්නේ නැතුව ලංකාවේ ඕනම තැනක ඉඳන් හවස 6.00 – 10.00 අතර Doctor ගේ supervision එක ගන්නයි මේක කරන්නේ. Payment එකත් දාන්නේ Doctor ගේම personal account එකටයි.
-— MediDiet Clinic Desk`;
-                    break;
-
-                case 'family':
-                    title = '/family — Ask Husband / Family';
-                    voice = 'Clinic Desk';
-                    tip = 'ගෙදර අයගෙන් අහන්න ඕන කිව්වම යවන්න.';
-                    text = `කිසිම හදිසියක් නෑ${greetingName}, ගෙදර අයත් එක්ක කතා කරලා බලන්න. මේකේ විශේෂත්වය ඔයාට වෙනම උයන්න ඕනේ නැතුව ගෙදර හැමෝටම එකට කන්න පුළුවන් එකයි. Ready වුණාම අපිට කියන්න.
-— MediDiet Clinic Desk`;
-                    break;
-
-                case 'salary':
-                    title = '/salary — Waiting for Salary / Next Week';
-                    voice = 'Clinic Desk';
-                    tip = 'පඩි ආවම / ලබන සතියේ ගන්නම් කිව්වම යවන්න.';
-                    text = `කිසිම ප්‍රශ්නයක් නෑ${greetingName}. ඔයාට පහසු දවස කියලා තියන්න — අපි එදාට ඔයාගේ file එක ආයේ open කරලා Dr. Dissanayaka ගේ list එකට දාන්නම්.
-— MediDiet Clinic Desk`;
-                    break;
-
-                case 'cdm':
-                    title = '/cdm — Tomorrow CDM Deposit';
-                    voice = 'Clinic Desk';
-                    tip = 'හෙට CDM දාන්නම් කිව්වම යවන්න.';
-                    text = `හරි${greetingName}. හෙට හවස 6.00 list එකේ ඔයාට slot එකක් තියලා තියන්නම්. හෙට deposit කළ ගමන් slip එක මෙතනට දාන්න.
 — MediDiet Clinic Desk`;
                     break;
 
                 case 'price':
-                    title = '/price — Value & Channeling Reframe';
+                    title = '5.1 Objection: "ගාණ වැඩියි"';
                     voice = 'Clinic Desk';
-                    tip = 'ගාණ වැඩියි කිව්වම යවන්න.';
-                    text = `Private hospital එකක Doctor කෙනෙක් channel කරලා meal plan එකක් ගන්න ගියොත් මීට වඩා ගොඩක් වියදම් යනවා. මුලින්ම try කරලා බලන්න ඕන නම් Rs. 2,900/- 14-Day Starter Plan එකෙන් පටන් ගන්න පුළුවන් — වෙනම supplements වලටවත් කෑම වලටවත් අමතර වියදම් නෑ.
+                    tip = 'Tab 1 හි Objection Logged = "Price" ලෙස සටහන් කරන්න.';
+                    text = `ඔබේ කතාව තේරෙනවා${spName}. Starter එක දිනකට රු. 207ක් පමණයි (රු. 2,900 ÷ 14). සාමාන්‍ය channeling එකක වියදමට වඩා වැඩි නෑ, කිසිම supplement එකක් හෝ වෙනම කෑම වියදමක් නෑ. ඒත් දැන් අමාරු නම් කියන්න, ඔබට පහසු දිනයක් සටහන් කරගන්නම්.
+
 — MediDiet Clinic Desk`;
                     break;
 
                 case 'work':
-                    title = '/work — Clinical Logic + 24h Refund';
+                    title = '5.5 Objection: "බර අඩු වෙයිද?"';
                     voice = 'Clinic Desk';
-                    tip = 'බර අඩු වෙයිද කියලා සැක කරන අයට යවන්න.';
-                    text = `මේක internet එකේ තියෙන සාමාන්‍ය diet sheet එකක් නෙවෙයි — Dr. Dissanayaka ඔයාගේ height, weight, reports සහ ගෙදර කෑම රටාව බලලා හදන clinical plan එකක්. බඩගින්නේ ඉන්නේ නැතුව ගෙදර බත් සහ curry වලින්ම හරි portions follow කරන patients ලට මුල් සති දෙකේ ඉඳන්ම හොඳ වෙනසක් දැනෙනවා. අනික ඔයාගේ condition එකට මේක ගැළපෙන්නේ නෑ කියලා පෙනුණොත් 24 hours ඇතුළත 100% refund කරනවා.
+                    tip = 'කිසිවිටෙක kg ගණනක් guarantee නොකරන්න.';
+                    text = `අවංකව කියනවා නම්${spName}, කිසිම කෙනෙකුට kg ගාණක් ඇපකර දෙන්න බෑ, ශරීරය හැමෝටම වෙනස්. ඒත් නිවැරදි ප්‍රමාණවලින්, බඩගින්නේ නොසිට ගෙදර කෑමෙන්ම කරන plan එකක් අනුගමනය කරන බොහෝ දෙනෙකුට මුල් සති වලම වෙනසක් දැනෙනවා. ඔබේ මුල් ඉලක්කය ${s.milestoneRange}. ඩොක්ටර්ට ඔබට මේක සුදුසු නැතැයි පෙනුණොත් ඔබේ මුදල ආපසු දෙනවා.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'real':
+                    title = '5.7 Objection: "ඇත්තටම Doctor කෙනෙක්ද?"';
+                    voice = 'Clinic Desk';
+                    tip = 'Tab 1 → Doctor\'s Bank Account & SLMC Reg. හි ඔබේ SLMC අංකය ඇතුළත් කරන්න.';
+                    text = `පරීක්ෂා කරගන්න එක හොඳයි${spName}. Dr. D. M. D. V. L. Dissanayaka (MBBS) ලියාපදිංචි වෛද්‍යවරයෙක්. SLMC අංකය ${slmcNo}. SLMC ලේඛනයෙන් තහවුරු කරගන්න පුළුවන්. ඔබේ වාර්තා පරීක්ෂා කරන්නේත් ඩොක්ටර් ම තමයි, ඒකයි ඔබට voice note එක ලැබුණේ.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'persacc':
+                    title = '5.8 Objection: "ඇයි පෞද්ගලික account එකට?"';
+                    voice = 'Clinic Desk';
+                    tip = 'සරලව, අවංකව පැහැදිලි කරන්න — කිසිදු බලපෑමක් නැත.';
+                    text = `ඒක හොඳ ප්‍රශ්නයක්${spName}. මේක ඩොක්ටර් තනියම පවත්වාගෙන යන සායනයක්, විශාල සමාගමක් නෙවෙයි, ඒකයි ගෙවීම ඩොක්ටර්ගේම ගිණුමට යන්නේ. ගෙවීමෙන් පස්සේ ඔබේ File No. සහ තහවුරු කිරීමේ පණිවිඩයක් ලැබෙනවා. ඔබට අපහසු නම් ගෙවන්න එපා, ඔබට සහනයක් දැනෙන විදිහට තීරණය කරන්න.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'family':
+                    title = '5.12 Objection: "ගෙදර අයගෙන් අහන්න ඕනේ"';
+                    voice = 'Clinic Desk';
+                    tip = 'පවුලේ සැමට එකට කන්න පුළුවන් බව මතක් කර දිනයක් වෙන් කරගන්න.';
+                    text = `කිසිම හදිසියක් නෑ${spName}, ගෙදර අයත් එක්ක කතා කරලා තීරණය කරන්න. මේ plan එකේදී ඔබට වෙනම උයන්න ඕනේ නෑ, ගෙදර හැමෝටම එකට කන්න පුළුවන්, ඒක ගෙදර අයටත් පහසුයි. හෙට / සති අන්තයේ මම නැවත විමසන්නම්.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'salary':
+                    title = '5.13 Objection: "පඩි ලැබුණාම / ඊළඟ සතියේ"';
+                    voice = 'Clinic Desk';
+                    tip = 'නිශ්චිත දිනයක් අසා CRM එකේ සටහන් කරගන්න.';
+                    text = `කිසිම ප්‍රශ්නයක් නෑ${spName}. ඔබට පහසු දිනය කියන්න. ඒ දවසට ඔබේ file එක නැවත open කරලා ඩොක්ටර්ගේ list එකට දාන්නම්. ඒ වෙනකම් ඔබේ විස්තර සුරක්ෂිතව තියෙනවා.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'cdm':
+                    title = '5.15 "හෙට CDM එකෙන් දාන්නම්"';
+                    voice = 'Clinic Desk';
+                    tip = 'පීඩනයක් නැතුව slip එක එවන්න කියන්න.';
+                    text = `හොඳයි${spName}. ඔබේ file එක දැනටමත් සූදානම්. ගෙවුණු සැණින් slip එක මෙතනට එවන්න, ඉක්මනින් පටන් ගන්න පුළුවන්.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'rice':
+                    title = '5.19 Objection: "බත් නැතුව බෑ"';
+                    voice = 'Clinic Desk';
+                    tip = 'බත් නවත්වන්නේ නැතිව ප්‍රමාණය සහ වර්ගය වෙනස් කරන බව පැහැදිලි කරන්න.';
+                    text = `බත් නවත්තන්න ඕනේ නෑ${spName}. වෙනස් වෙන්නේ බත් ප්‍රමාණයයි (පිඟානෙන් 1/4) වර්ගයයි (රතු කැකුළු වගේ), ඒ වගේම එළවළු සහ ප්‍රෝටීන් වැඩි කරනවා. ඒකයි බඩගින්නේ නොඉන්නේ.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'fu24':
+                    title = '6.4 Follow-Up (24h): Useful Tip, No Pressure';
+                    voice = 'Clinic Desk';
+                    tip = 'Offer එකෙන් පැය 24කට පසු condition එකට ගැළපෙන ප්‍රායෝගික tip එකක් යවන්න (Fake scarcity නැත).';
+                    text = `${commaName}ඔබේ ${s.naturalCondition} ගැන පොඩි tip එකක්: ${tip24h}
+
+Plan එක ගැන තීරණය කළාම කියන්න 🙏
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'fud3':
+                    title = '6.5 Follow-Up (Day 3): Easy Next Step';
+                    voice = 'Clinic Desk';
+                    tip = 'දින 3කින් පසු සරල 1 / 2 reply එකක් ඉල්ලන්න.';
+                    text = `${commaName}ඔබේ file එක තාම අපි ළඟ තියෙනවා. ඉදිරියට යන්න කැමති නම් "1" (Starter රු. 2,900) හෝ "2" (90-Day රු. 9,000) කියලා එවන්න, ගෙවීමේ විස්තර එවන්නම්. දැනට බැරි නම් ඒකත් කමක් නෑ, කියන්න.
+
+— MediDiet Clinic Desk`;
+                    break;
+
+                case 'fud7':
+                    title = '6.6 Follow-Up (Day 7): Dignified Close';
+                    voice = 'Clinic Desk';
+                    tip = 'මෙය යවා CRM status එක "Closed" ලෙස සටහන් කර නවත්වන්න. තවත් message නොයවන්න.';
+                    text = `${commaName}ඔබේ file එක අපි තාවකාලිකව වසනවා. ඉදිරියේදී ඕනෑම දවසක "විස්තර" කියලා message කළොත් ඔබේ file එක නැවත open කරන්නම්. ඔබට සුබ පතනවා 🙏
+
 — MediDiet Clinic Desk`;
                     break;
 
                 case 'reactivate':
-                    title = '/reactivate — Old Unconverted Leads (Zero Cringe)';
+                    title = '6.9 Old Leads Re-Activation (1 Msg Only)';
                     voice = 'Clinic Desk';
-                    tip = 'පරණ unconverted leads වලට Rs. 0 ad spend එකෙන් යවන clean clinic update එක.';
-                    text = `ආයුබෝවන්${greetingName}. MediDiet Online Clinic (Dr. D. M. D. V. L. Dissanayaka) එකෙන්.
+                    tip = 'කලින් message කළ පරණ leads වලට සෙමින් එකින් එක පමණක් යවන්න. STOP කිව්වොත් "Opted out" tag කරන්න.';
+                    text = `ආයුබෝවන්${spName}. MediDiet Online Clinic (Dr. D. M. D. V. L. Dissanayaka) වෙතින්. ඔබ කලින් අපෙන් විස්තර ඇහුවා. ${s.naturalCondition} සඳහා දැනටත් උදව්වක් ඕනේ නම් "විස්තර" කියලා reply කරන්න, ඔබේ file එක නැවත open කරන්නම්. ඕනේ නැත්නම් "STOP" කියන්න.
 
-හැමදාම හවස 6.00 – 10.00 Evening Clinic එක යටතේ, ගෙදර හැමෝටම එකට කන්න පුළුවන් Family Meal Plan එකයි Weekly Grocery List එකයි එක්ක අලුත් 14-Day Starter Plan එක (Rs. 2,900/-) දැන් open කරලා තියෙනවා. (සුදුසු නැත්නම් 24 hours ඇතුළත 100% refund.)
-
-ඔයාගේ ${s.naturalCondition} වෙනුවෙන් මේක පටන් ගන්න කැමති නම් "විස්තර" කියලා reply එකක් දාන්න.
 — MediDiet Clinic Desk`;
                     break;
 
                 case 'deliver':
-                    title = '/deliver — Plan Delivery (Dr. Dissanayaka)';
+                    title = '8.1 Plan Delivery + 8.2 Voice Note (60s)';
                     voice = 'Dr. Dissanayaka';
-                    showVoiceCard = true;
-                    tip = 'Paid patient ට PDF එකත් එක්ක යවන්න. Monthly & 90-Day අයට පහළ 60s Voice Note එකත් දාන්න.';
-                    text = `ආයුබෝවන්${greetingName}. මම Dr. Dissanayaka.
+                    voiceMode = 'deliver60';
+                    tip = 'PDF එක සමඟ යවන්න. 90-Day රෝගීන්ට පහළ 8.2 (60s) Voice Note එකත් record කර යවන්න.';
+                    text = `ආයුබෝවන්${spName}, මම Dr. Dissanayaka. ඔබේ විස්තර පරීක්ෂා කරලා සකස් කරපු Family Meal Plan එක, Weekly Grocery List එක සහ උපදෙස් PDF එක මෙහි අමුණා තියෙනවා.
 
-ඔයාගේ details ටික හොඳට බලලා හදපු Family Meal Plan එක, Weekly Grocery List එක සහ medical advice PDF එක මෙතන attach කරලා තියෙනවා.
-
-හෙට උදේ ඉඳන් පටන් ගන්න. මුල් දවස් 3දී කෑම portions වලට හුරු වෙනකන් පොඩි වෙනසක් දැනෙන එක සාමාන්‍යයි. මම දවස් 5කින් ඔයාට කොහොමද කියලා අහලා message එකක් දාන්නම්.`;
+හෙට උදේ සිට පටන් ගන්න. මුල් දින 3දී කෑම ප්‍රමාණයට හුරු වෙනකම් පොඩි වෙනසක් දැනෙන එක සාමාන්‍යයි. මම දවස් 5කින් ඔබෙන් විමසනවා.`;
                     break;
 
                 case 'd5':
-                    title = '/d5 — Day-5 Churn Rescue Check-In';
+                    title = '8.4 Day 5 Check-In (Churn Rescue)';
                     voice = 'Dr. Dissanayaka';
-                    tip = 'Day 5 ට Doctor මේ check-in එක දැම්මම silent quitting නැවතිලා Monthly upgrades වැඩි වෙනවා.';
-                    text = `ආයුබෝවන්${greetingName}, Dr. Dissanayaka.
-
-Plan එක පටන් අරන් අදට දවස් 5යි. ගෙදර අයත් එක්ක meal plan එක follow කරන්න ලේසිද? බඩගින්නක්, පැණි රස කන්න ආසාවක් හෝ මොකක් හරි අපහසුවක් තියෙනවා නම් කියන්න — අපි පොඩි adjustment එකක් කරමු.`;
+                    tip = 'බොහෝ රෝගීන් අත්හරින්නේ Day 4–6 අතරයි. මෙම check-in එකෙන් retention වැඩි වේ.';
+                    text = `ආයුබෝවන්${spName}, Dr. Dissanayaka. වැඩසටහන පටන් අරන් අදට දවස් 5යි. ගෙදර අයත් එක්ක plan එක අනුගමනය කරන්න පහසුද? බඩගින්නක්, පැණි රස ආසාවක් හෝ ප්‍රායෝගික අපහසුවක් දැනුණා නම් කියන්න, පොඩි වෙනසක් කරමු.`;
                     break;
 
                 case 'd12':
-                    title = '/d12 — Day-12 Review & Monthly Bridge';
+                    title = '8.5 Day 12 Review & Bridge (Monthly 3.5k / 90d 9k)';
                     voice = 'Dr. Dissanayaka';
-                    showVoiceCard = true;
-                    tip = 'Day 12 දී progress බලලා 30-Day Monthly (Rs. 5,500) හෝ 90-Day (Rs. 14,900) plan එකට bridge කරන්න.';
-                    text = `ආයුබෝවන්${greetingName}, Dr. Dissanayaka.
+                    tip = 'මුලින්ම බර/ඉඟටිය අහන්න. ප්‍රගතියක් ඇති විට පහළ දෙවන කොටසින් Monthly (රු. 3,500) හෝ 90-Day (රු. 9,000) bridge කරන්න.';
+                    text = `ආයුබෝවන්${spName}, Dr. Dissanayaka. ඔබේ සති 2 වැඩසටහන අවසන් වෙමින් තියෙනවා. හෙට උදේ හිස්බඩ බර (kg) සහ ඉඟටිය (අඟල්) මට එවන්න.
 
-ඔයාගේ මුල් සති 2 දැන් ඉවර වෙන්න ළඟයි. හෙට උදේ හිස්බඩ ඔයාගේ දැනට weight එක (kg) සහ ඇඟට දැනෙන වෙනස මට එවන්න.
-
-මේ දවස් 12දී ඇඟ හරි nutrition pattern එකට හුරු වේගෙන එන නිසා දිගටම supervision එක යටතේ ඉන්න එක ගොඩක් වැදගත්. ඊළඟ phase එකේ අලුත් Family Meal Plan එක, Personal Voice Review එක සහ සති 2න් 2ට plan adjustments එක්ක 30-Day Monthly Plan (Rs. 5,500/-) හෝ 90-Day Plan (Rs. 14,900/-) එකට continue වෙන්න කැමති නම් Clinic Desk එකට කියන්න.`;
+--- (ප්‍රතිඵල ආවට පස්සේ 8.5a) ---
+හොඳයි${spName}, හොඳ ආරම්භයක්. ඉදිරි අදියරට:
+• 30-Day Monthly: රු. 3,500/- (අලුත් Family Plan, Voice Review, සති 2න් 2ට plan adjustment).
+• 90-Day Transformation: රු. 9,000/- (දිනකට රු. 100 ක් — දිගුකාලීන ඉලක්කයට වඩා හොඳයි).
+කැමති එක කියන්න.`;
                     break;
 
                 case 'd25':
-                    title = '/d25 — Monthly Renewal + Referral';
+                    title = '8.8 Day 25 Monthly Renewal (Rs. 3,500/-)';
                     voice = 'Dr. Dissanayaka';
-                    tip = 'Monthly subscriber කෙනෙක්ගේ Day 25 දී renewal + referral trigger එක.';
-                    text = `ආයුබෝවන්${greetingName}, Dr. Dissanayaka.
+                    tip = 'Monthly patients ලාගේ Day 25 renewal + optional referral line.';
+                    text = `ආයුබෝවන්${spName}, Dr. Dissanayaka. ඔබේ මේ මාසයේ වැඩසටහනේ දින 25ක් අදට සම්පූර්ණයි. ඔබේ දැනට බර (kg) සහ ඇඟට දැනෙන වෙනස මට එවන්න.
 
-ඔයාගේ මේ මාසේ plan එකට අදට දවස් 25යි. මේ මාසේ ඔයාගේ දැනට weight එක (kg) සහ ඇඟට දැනෙන වෙනස මට එවන්න.
+ඔබේ ප්‍රගතිය අනුව ඊළඟ මාසයේ plan එක අලුත් කරන්න Monthly (රු. 3,500/-) දිගටම කරමුද?`;
+                    break;
 
-ඔයාගේ progress එක බලලා ඊළඟ මාසෙට calories, Family Meal Plan එක සහ Weekly Grocery List එක update කරගන්න Monthly Plan එක (Rs. 5,500/-) renew කරමුද?
+                case 'd45':
+                    title = '8.9 Day 45 Midpoint Check (90-Day Plan)';
+                    voice = 'Dr. Dissanayaka';
+                    tip = '90-Day patients ලාගේ මැද භාගයේ plan update check-in.';
+                    text = `ආයුබෝවන්${spName}, Dr. Dissanayaka. ඔබේ 90-Day වැඩසටහනේ මැද භාගයට ඇවිත්. හිස්බඩ බර (kg) සහ ඉඟටිය (අඟල්) එවන්න. ඒවා බලලා ඉතිරි සති වල plan එක අලුත් කරන්නම්.`;
+                    break;
 
-(ඔයාගේ family එකේ හෝ office එකේ මේ වගේ doctor-guided plan එකක් ඕන කෙනෙක් ඉන්නවා නම්, ඔයාගේ නම කියලා Clinic Desk එකට message කරන්න කියන්න — අපි priority දෙන්නම්.)`;
+                case 'd90':
+                    title = '8.10 Day 85–90 Completion & Consented Feedback';
+                    voice = 'Dr. Dissanayaka';
+                    tip = 'ලිඛිත අවසරය (written consent) සමඟ පමණක් testimonials භාවිතා කරන්න.';
+                    text = `ආයුබෝවන්${spName}, Dr. Dissanayaka. ඔබේ සති 12 වැඩසටහන අවසන් වෙමින් තියෙනවා. අවසාන බර (kg) සහ ඉඟටිය එවන්න.
+
+ඔබට විනාඩියක් තියෙනවා නම් ඔබේ අත්දැකීම ගැන පොඩි සටහනක් එවන්න පුළුවන්ද? (නම හෝ ඡායාරූප නැතුව වුණත් හරි). ඒක ඊළඟ රෝගීන්ට උදව්වක්. ඔබේ ලිඛිත අවසරයෙන් විතරයි පාවිච්චි කරන්නේ.`;
                     break;
 
                 case 'refund':
-                    title = '/refund — Clinical Red-Flag & 24h Refund';
+                    title = '9.1 Unsuitable After Payment → 24h Full Refund';
                     voice = 'Dr. Dissanayaka';
-                    tip = 'High-risk medical cases (pregnancy, CKD, unstable cardiac/endocrine) ආවොත් වහාම refund කරලා hospital referral දෙන්න.';
-                    text = `ආයුබෝවන්${greetingName}. මම Dr. Dissanayaka.
+                    tip = 'Online සැලැස්ම සුදුසු නැති රෝගීන්ට වහාම 100% refund කරන්න.';
+                    text = `ආයුබෝවන්${spName}, මම Dr. Dissanayaka. ඔබ එවූ විස්තර සහ සෞඛ්‍ය තත්ත්වය පෞද්ගලිකව පරීක්ෂා කළා. ඔබේ දැනට තත්ත්වයට Online ආහාර සැලැස්මකට වඩා රෝහලකදී සෘජු විශේෂඥ වෛද්‍ය පරීක්ෂාවක් යටතේ ප්‍රතිකාර ගැනීම ආරක්ෂිතයි.
 
-ඔයා එවපු details සහ health condition එක මම හොඳට check කළා. ඔයාගේ දැනට තියෙන තත්ත්වයත් එක්ක online meal plan එකකට වඩා hospital එකකදී specialist doctor කෙනෙක්ට පෙන්නලා direct treatments ගන්න එක තමයි ඔයාගේ safety එකට හොඳම.
+ඒ නිසා ඔබ ගෙවපු සම්පූර්ණ මුදල පැය 24ක් ඇතුළත ආපසු දෙනවා. කරුණාකර ඔබේ බැංකු ගිණුම් විස්තර (නම, ගිණුම් අංකය, බැංකුව) මෙතනට එවන්න. ඔබට ඉක්මන් සුවයක් පතනවා.`;
+                    break;
 
-අපේ guarantee එක අනුව ඔයා ගෙවපු සම්පූර්ණ මුදල 24 hours ඇතුළත ආපහු දෙන්න මම Clinic Desk එකට කියලා තියෙනවා. ඔයාගේ bank details ටික මෙතනට එවන්න. ඉක්මන් සුවය පතනවා.`;
+                case 'redflag':
+                    title = '9.3 Worrying Symptom During Programme (1990)';
+                    voice = 'Dr. Dissanayaka';
+                    tip = 'බරපතල රෝග ලක්ෂණ ආවොත් වහාම plan එක නවත්වා රෝහල් ගත වීමට උපදෙස් දෙන්න.';
+                    text = `${commaName}ඔබ කියපු රෝග ලක්ෂණය ගැන මම සැලකිලිමත් වෙනවා. දැනට plan එක නවත්තලා ඉක්මනින් ළඟම රෝහලකට / වෛද්‍යවරයෙකුට පෙන්වන්න. හදිසි නම් 1990 (Suwa Seriya) අමතන්න. පස්සේ මට දන්වන්න.`;
                     break;
 
                 case 'aiprompt':
                     title = 'AI Clinical Blueprint Prompt (Family + Grocery)';
                     voice = 'Internal AI Tool';
                     isAiPrompt = true;
-                    tip = 'මෙය Copy කර ChatGPT / Gemini වෙත දෙන්න. ලැබෙන උත්තරය Tab 3 (Card & PDF) වෙත Paste කර A4 PDF ලෙස Print/Save කරන්න.';
+                    tip = 'ChatGPT / Gemini වෙත දී ලැබෙන උත්තරය Tab 3 (Card & PDF) වෙත Paste කර A4 PDF ලෙස Print/Save කරන්න.';
                     text = `Act as Dr. D. M. D. V. L. Dissanayaka (MBBS), Clinical Lead at MediDiet Online Medical Clinic, Sri Lanka.
-Generate a clear, practical, evidence-based "Sri Lankan Family Meal Plan & Weekly Grocery List" (Case Ref: ${s.caseRef}) in natural, modern Spoken Sinhala Unicode mixed smoothly with everyday English medical/nutrition terms (avoid stiff formal written Sinhala like වේ/ලබා දේ/කරනු ලැබේ).
+Generate a clear, practical, evidence-based "Sri Lankan Family Meal Plan & Weekly Grocery List" (Case Ref: ${s.caseRef}) in natural Spoken Sinhala Unicode mixed smoothly with everyday English medical/nutrition terms. Never promise guaranteed kilograms.
 
 PATIENT CLINICAL PROFILE:
 - Name: ${s.rawNameOnly || 'Valued Patient'}
 - Age / Gender: ${s.age} Years / ${s.gender}
 - Biometrics: ${s.height} cm | ${s.weight} kg | Asian BMI: ${s.bmi} kg/m² (${s.category})
-- Evidence-Based 1st Target (5–10%): ${s.milestoneRange} (safe pace ~0.5 kg/week)
+- Evidence-Based 1st Goal (5–10%): ${s.milestoneRange} (safe pace ~0.5 kg/week — goal only)
 - Prescribed Daily Calorie Target: ${s.calorieTarget} kcal/day (Mifflin-St Jeor BMR: ${s.bmr} kcal | TDEE: ${s.tdee} kcal${s.isLactating ? ' | INCLUDES +450 kcal LACTATION SAFETY' : ''})
 - Primary Focus: ${s.condition}
 - Medical History / Medications: ${s.pastMedical || 'None reported'}
 - Strict Food Allergies / Exclusions: ${s.foodAllergies || 'None reported'}
 - Dietary Pattern: ${s.dietPref}
-- Doctor's Custom Clinical Note: ${s.humanNote || 'Standard household schedule'}
+- Personal Context: ${s.humanNote || 'Standard household schedule'}
 
 MANDATORY STRUCTURE (5 CLEAN SECTIONS):
-1. SECTION 1: Clinical Summary & First 14-Day Target (Calm, evidence-based, zero exaggerated claims)
+1. SECTION 1: Clinical Summary & First 14-Day Goal (Calm, evidence-based, no guarantees)
 2. SECTION 2: Sri Lankan Family Breakfast & 10:30 AM Options (4 everyday options with household cups/spoons + grams)
 3. SECTION 3: Family Rice & Curry Lunch Plate Method (No separate cooking — exact portions of Red/White Rice, Protein, Mallung, 2 Curries)
 4. SECTION 4: Evening Tea & Light Dinner Options (4 practical Sri Lankan options before 8:00 PM)
@@ -1970,21 +2166,39 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             document.getElementById('adTriggerBar').classList.toggle('hidden', activePreset !== 'turn0');
             document.getElementById('trustCardReminderBar').classList.toggle('hidden', !showTrustBar);
             document.getElementById('accBubbleBar').classList.toggle('hidden', !showAccBar);
-            document.getElementById('voiceTeleprompterCard').classList.toggle('hidden', !showVoiceCard);
 
-            // Configure 1-Tap Fast-Close Next-Step Bar
+            // Voice Teleprompter Card (3.1 30s Pre-Offer vs 8.2 60s Delivery)
+            const vnCard = document.getElementById('voiceTeleprompterCard');
+            if (voiceMode === 'preoffer30') {
+                vnCard.classList.remove('hidden');
+                document.getElementById('voiceTeleprompterTitle').textContent = '3.1 Doctor Voice Note (30s — Send BEFORE Offer)';
+                document.getElementById('voiceTeleprompterBadge').textContent = 'EVERY PATIENT';
+                document.getElementById('voiceTeleprompterText').textContent = `"ආයුබෝවන්${spName}, මම ඩොක්ටර් දිසානායක. ඔබ එවපු විස්තර බැලුවා. ඔබේ උස බර අනුව BMI එක ${s.bmi}, Asian ප්‍රමිතියට ${s.category}. ${s.naturalCondition} ගැන ඔබ කියපු දේ මට හොඳට තේරෙනවා. හොඳ ආරංචිය මේකට බඩගින්නේ ඉන්න ඕනේ නෑ. ගෙදර උයන බත් ව්‍යංජන වලින්ම, නිවැරදි ප්‍රමාණවලින් කරන්න පුළුවන්. මුල් මාස 2–3 ඇතුළත ආරක්ෂිතව ${s.milestoneRange} ක් ඉලක්කයක් විදිහට තියාගමු. ඒක ඉලක්කයක් විතරයි, හැමෝටම වෙනස්. ${personalDetail} ඒකත් සලකලා සකස් කරනවා. Plan එකේ විස්තර මගේ Clinic Desk එකෙන් දැන් එවනවා."`;
+            } else if (voiceMode === 'deliver60') {
+                vnCard.classList.remove('hidden');
+                document.getElementById('voiceTeleprompterTitle').textContent = '8.2 Delivery Voice Note (60s — 90-Day Plan)';
+                document.getElementById('voiceTeleprompterBadge').textContent = '90-DAY TIER';
+                document.getElementById('voiceTeleprompterText').textContent = `"ආයුබෝවන්${spName}, මම ඩොක්ටර් දිසානායක. ඔබේ විස්තර සහ ${personalDetail} හොඳට බලලා ඔබේ Family Meal Plan එකයි Weekly Grocery List එකයි දැන් එව්වා. මුල් ඉලක්කය මාස 2–3 ඇතුළත ආරක්ෂිතව ${s.milestoneRange}. හෙට උදේ ඉඳන් පටන් ගන්න. මුල් දවස් 3ක් හුරු වෙනකම් පොඩි වෙනසක් දැනෙන්න පුළුවන්. එක දවසක් වැරදුණා කියලා බය වෙන්න එපා, ඊළඟ වේලෙන් නැවත පටන් ගන්න. හිසේ කැක්කුම, හදවත වේගයෙන් ගැහීම, ඇඟ ඉතා දුර්වල වීම වගේ අපහසුතාවක් දැනුණොත් plan එක නවත්වලා මට දන්වන්න. මම දවස් 5කින් ඔබෙන් අහනවා."`;
+            } else {
+                vnCard.classList.add('hidden');
+            }
+
+            // Configure 1-Tap Next-Step Flow Bar
             const nextBar = document.getElementById('nextStepFlowBar');
             const nextHint = document.getElementById('nextStepHintText');
             const nextLabel = document.getElementById('nextStepBtnLabel');
             const nextFlowMap = {
-                triage1: { target: 'plans', hint: 'Attach Trust Card PNG, then send Bubble 2:', label: 'Next: /plans' },
-                triage2: { target: 'plans', hint: 'Attach Trust Card PNG, then send Bubble 2:', label: 'Next: /plans' },
-                triage3: { target: 'plans', hint: 'Attach Trust Card PNG, then send Bubble 2:', label: 'Next: /plans' },
-                plans:   { target: 'bank',  hint: 'Once patient chooses Rs. 2,900 or 5,500:', label: 'Next: /bank' },
-                en:      { target: 'bank',  hint: 'Once patient picks a plan:', label: 'Next: /bank' },
-                bank:    { target: 'intake', hint: 'Send /acc bubble above. Once slip arrives:', label: 'Paid → /intake' },
-                intake:  { target: 'aiprompt', hint: 'Intake received? Generate Family Plan:', label: 'AI Blueprint' },
-                deliver: { target: 'd5',    hint: 'Logged as Paid. Day-5 follow-up ready:', label: 'Preview /d5' }
+                turn0:        { target: 'screen',    hint: 'Once age/height/weight/goal arrive:', label: 'Next: 2.1 Screen' },
+                screen:       { target: 'handover',  hint: 'If screening is clear (no red flags):', label: 'Next: 2.2 Handover' },
+                handover:     { target: 'assess_wt', hint: 'Ready for Doctor 30s Voice + Text:', label: 'Next: 3.2 Assess' },
+                assess_wt:    { target: 'plans',     hint: 'After patient says YES to details:', label: 'Next: 4.1 Offer' },
+                assess_pcos:  { target: 'plans',     hint: 'After patient says YES to details:', label: 'Next: 4.1 Offer' },
+                assess_liver: { target: 'plans',     hint: 'After patient says YES to details:', label: 'Next: 4.1 Offer' },
+                assess_preg:  { target: 'plans',     hint: 'After patient says YES to details:', label: 'Next: 4.1 Offer' },
+                plans:        { target: 'bank',      hint: 'Once patient picks 1 (2.9k) or 2 (9k):', label: 'Next: 7.1 /bank' },
+                bank:         { target: 'intake',    hint: 'Send 7.2 /acc. After money credits:', label: 'Paid → 7.4 Intake' },
+                intake:       { target: 'aiprompt',  hint: 'Intake received? Build Family Plan:', label: 'AI Blueprint' },
+                deliver:      { target: 'd5',        hint: 'Plan delivered. Day-5 check-in:', label: 'Preview 8.4 Day 5' }
             };
             const flowStep = nextFlowMap[activePreset];
             if (flowStep && nextBar) {
@@ -1995,11 +2209,6 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             } else if (nextBar) {
                 nextStepTargetPreset = null;
                 nextBar.classList.add('hidden');
-            }
-
-            if (showVoiceCard) {
-                const detailHook = s.humanNote || (s.pastMedical ? `ඔයාගේ ${s.pastMedical} තත්ත්වයත් බලලා` : 'ඔයාගේ ගෙදර කෑම රටාවට ගැළපෙන විදිහට');
-                document.getElementById('voiceTeleprompterText').textContent = `"ආයුබෝවන්${greetingName}, මම Doctor දිසානායක. මම ඔයාගේ details ටික හොඳට බලලා ඔයාගේ Family Meal Plan එකයි Weekly Grocery List එකයි දැන් එව්වා. ඔයාගේ height එකයි weight එකයි එක්ක අපේ මුල්ම target එක මාස 2–3කින් ආරක්ෂිතව ${s.milestoneRange} අඩු කරගන්න එක. විශේෂයෙන්ම ${detailHook} තමයි මම මේක හදලා තියෙන්නේ. හෙට උදේ ඉඳන් පටන් ගන්න, මොනවා හරි clear නැති තැනක් තිබුණොත් මට message එකක් දාන්න."`;
             }
 
             const headerBar = document.getElementById('outputHeaderBar');
@@ -2028,7 +2237,7 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             copyTextSafe(document.getElementById('mainOutputTextarea').value, 'Script Copied!');
         }
         function copyVoiceScript() {
-            copyTextSafe(document.getElementById('voiceTeleprompterText').textContent, '60s Voice Script Copied!');
+            copyTextSafe(document.getElementById('voiceTeleprompterText').textContent, 'Voice Script Copied!');
         }
 
         function formatPhoneForWaMe(rawPhone) {
@@ -2044,12 +2253,15 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             const phone = formatPhoneForWaMe(document.getElementById('waPhoneInput').value);
 
             const stageMap = {
+                handover: 'Screened',
+                medhold: 'Doctor Review',
+                pregnant: 'Closed',
                 plans: 'Plans Sent',
-                en: 'Plans Sent',
                 bank: 'Bank Sent',
                 cdm: 'Bank Sent',
                 intake: 'Paid',
-                deliver: 'Paid'
+                deliver: 'Paid',
+                fud7: 'Closed'
             };
             if (stageMap[activePreset] && (calculatedState.rawNameOnly || calculatedState.phone)) {
                 document.getElementById('clientStatusSelect').value = stageMap[activePreset];
@@ -2063,7 +2275,7 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
         }
 
         // ============================================================================
-        // TAB 3: 1-CLICK CLINICAL TRUST CARD PNG GENERATOR (WITH DOCTOR PHOTO)
+        // TAB 3: ETHICAL CLINICAL OVERVIEW CARD PNG GENERATOR (NO UNCONSENTED CLAIMS)
         // ============================================================================
         function loadSavedDoctorPhoto() {
             const b64 = safeGetStorage(STORAGE_KEY_DOC_PHOTO);
@@ -2092,7 +2304,7 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
                     finalImg.onload = () => {
                         doctorPhotoImg = finalImg;
                         drawTrustCardCanvas();
-                        showToast('Doctor Photo Added to Trust Card!');
+                        showToast('Doctor Photo Added to Card!');
                     };
                     finalImg.src = compactData;
                 };
@@ -2144,9 +2356,10 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             ctx.font = '800 46px Inter, sans-serif';
             ctx.fillText('Dr. D. M. D. V. L. Dissanayaka', 68, 165);
 
+            const slmc = document.getElementById('bankSlmcNo')?.value.trim();
             ctx.fillStyle = '#93C5FD';
-            ctx.font = '600 26px Inter, sans-serif';
-            ctx.fillText('MBBS • Clinical Nutrition & Metabolic Care', 68, 208);
+            ctx.font = '600 25px Inter, sans-serif';
+            ctx.fillText(`MBBS • Clinical Nutrition & Metabolic Care${slmc ? ' • SLMC ' + slmc : ''}`, 68, 208);
 
             const cx = 920, cy = 155, r = 88;
             ctx.save();
@@ -2183,20 +2396,21 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
 
             ctx.fillStyle = '#0A365C';
             ctx.font = '800 30px Inter, sans-serif';
-            ctx.fillText('WHAT IS INCLUDED IN YOUR CLINICAL PLAN:', 104, 348);
+            ctx.fillText('HOW OUR CLINICAL NUTRITION PROTOCOL WORKS:', 104, 348);
 
             const bullets = [
-                '1. Doctor Review of Your Biometrics & Blood Reports',
+                '1. Pre-Plan Safety Screening & Doctor File Assessment',
                 '2. Sri Lankan Family Meal Plan (No Separate Cooking)',
                 '3. Weekly Household Grocery List (Exact Portions)',
-                '4. Personal Doctor Voice Review (30-Day & 90-Day Plans)'
+                '4. Ongoing Progress Check-Ins (Day 5, Day 12 & Beyond)'
             ];
             ctx.fillStyle = '#1E293B';
-            ctx.font = '600 27px Inter, sans-serif';
+            ctx.font = '600 26px Inter, sans-serif';
             bullets.forEach((b, i) => {
                 ctx.fillText(b, 104, 412 + (i * 54));
             });
 
+            // Clinical Safety & Pricing Transparency Box
             ctx.fillStyle = '#14532D';
             drawRoundedRect(ctx, 68, 650, W - 136, 210, 24);
             ctx.fill();
@@ -2205,17 +2419,17 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             ctx.stroke();
 
             ctx.fillStyle = '#86EFAC';
-            ctx.font = '800 22px Inter, sans-serif';
-            ctx.fillText('VERIFIED PATIENT OUTCOME (COLOMBO)', 104, 698);
+            ctx.font = '800 23px Inter, sans-serif';
+            ctx.fillText('EVIDENCE-BASED • NO SUPPLEMENTS • NO STARVATION', 104, 698);
 
             ctx.fillStyle = '#FFFFFF';
-            ctx.font = '600 28px Inter, sans-serif';
-            ctx.fillText('"Ate the exact same home rice & curry with my family.', 104, 748);
-            ctx.fillText('In 2.5 months my SGPT dropped from 88 to 31 & lost 6.5 kg."', 104, 788);
+            ctx.font = '700 28px Inter, sans-serif';
+            ctx.fillText('• 14-Day Clinical Starter: Rs. 2,900/-', 104, 752);
+            ctx.fillText('• 90-Day Transformation: Rs. 9,000/- (~Rs. 100/day)', 104, 798);
 
             ctx.fillStyle = '#BBF7D0';
-            ctx.font = '700 22px Inter, sans-serif';
-            ctx.fillText('— Nadeesha P. (42), Colombo', 104, 834);
+            ctx.font = '600 22px Inter, sans-serif';
+            ctx.fillText('Monthly Continuation (offered at Day 12): Rs. 3,500/-', 104, 840);
 
             ctx.fillStyle = '#F59E0B';
             drawRoundedRect(ctx, 68, 892, W - 136, 118, 20);
@@ -2224,8 +2438,8 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             ctx.fillStyle = '#0F172A';
             ctx.font = '800 27px Inter, sans-serif';
             ctx.fillText('100% 24-HOUR MEDICAL SUITABILITY REFUND GUARANTEE', 104, 944);
-            ctx.font = '700 23px Inter, sans-serif';
-            ctx.fillText('14-Day Starter Rs. 2,900  •  30-Day Monthly Rs. 5,500  •  Evening Clinic 6–10 PM', 104, 984);
+            ctx.font = '700 22px Inter, sans-serif';
+            ctx.fillText('Full refund within 24h if the doctor finds this online program unsuitable for you.', 104, 984);
         }
 
         function downloadTrustCardPng() {
@@ -2233,10 +2447,10 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             const canvas = document.getElementById('trustCardCanvas');
             if (!canvas) return;
             const link = document.createElement('a');
-            link.download = 'MediDiet_Dr_Dissanayaka_Trust_Card.png';
+            link.download = 'MediDiet_Dr_Dissanayaka_Clinical_Card.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
-            showToast('Trust Card PNG Downloaded!');
+            showToast('Clinical Overview Card PNG Downloaded!');
         }
 
         // ============================================================================
@@ -2265,9 +2479,9 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             if (!rawText) {
                 bodyEl.innerHTML = `<div class="p-3 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-slate-600 sinhala-font">
 <b class="text-medinavy block mb-1">SECTION 1: CLINICAL SUMMARY</b>
-• <b>1st Clinical Milestone (5–10%):</b> ${s.milestoneRange} (Safe pace ~0.5 kg/week).
+• <b>1st Clinical Goal (5–10%):</b> ${s.milestoneRange} (Goal only — safe pace ~0.5 kg/week).
 • <b>Daily Prescribed Energy:</b> ${s.calorieTarget} kcal/day (BMR: ${s.bmr} kcal | TDEE: ${s.tdee} kcal).
-<span class="text-[11px] text-amber-800 font-bold block mt-2">Paste AI Blueprint output above or tap "Auto-Fill Sample" to preview the full Family Meal Plan & Weekly Grocery List.</span>
+<span class="text-[11px] text-amber-800 font-bold block mt-2">Paste AI Blueprint output above or tap "Auto-Fill Sample" to preview the full Family Meal Plan &amp; Weekly Grocery List.</span>
 </div>`;
             } else {
                 const safeHtml = rawText
@@ -2282,7 +2496,7 @@ MANDATORY STRUCTURE (5 CLEAN SECTIONS):
             const s = calculatedState;
             document.getElementById('aiBlueprintPasteArea').value = `SECTION 1: CLINICAL ASSESSMENT & FIRST 14-DAY GOAL
 • ඔයාගේ ${s.naturalCondition} සඳහා ගෙදර හැමෝටම උයන බත් සහ curry වලින්ම දිනකට **${s.calorieTarget} kcal** balance වෙන විදිහට මේ Family Meal Plan එක හදලා තියෙනවා.
-• **1st Clinical Milestone (5–10%):** මුල් මාස 2–3 ඇතුළත ආරක්ෂිතව **${s.milestoneRange}** අඩු කරගැනීම.
+• **1st Clinical Goal (5–10%):** මුල් මාස 2–3 ඇතුළත ආරක්ෂිතව **${s.milestoneRange}** ඉලක්කයක් ලෙස තබාගනිමු (හැමෝටම ප්‍රතිඵල වෙනස් වේ).
 
 SECTION 2: FAMILY BREAKFAST & 10:30 AM (7:30 AM – 8:30 AM)
 • **Option 1:** තම්බපු මුං ඇට හෝ කව්පි කෝප්ප 3/4 (130g) + පොල් මේස හැඳි 1 + තම්බපු බිත්තර 1ක්.
@@ -2331,6 +2545,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
                     pastMedical: c.pastMedical || '',
                     foodAllergies: c.foodAllergies || '',
                     humanNote: c.humanNote || '',
+                    objectionTag: c.objectionTag || '',
                     paidTimestamp: Number(c.paidTimestamp || 0),
                     offerSentAt: Number(c.offerSentAt || 0),
                     stageUpdatedAt: Number(c.stageUpdatedAt || 0),
@@ -2364,6 +2579,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
         function saveClientToDatabase(silent = false) {
             const s = calculatedState;
             const status = document.getElementById('clientStatusSelect').value;
+            const objectionTag = document.getElementById('clientObjectionSelect').value;
             const clientName = s.rawNameOnly || 'Unnamed Patient';
 
             let existingIdx = currentEditingClientId
@@ -2396,6 +2612,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
                 pastMedical: s.pastMedical || '',
                 foodAllergies: s.foodAllergies || '',
                 humanNote: s.humanNote || '',
+                objectionTag,
                 dietPref: s.dietPref,
                 price: s.price,
                 bmi: s.bmi,
@@ -2434,8 +2651,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
             document.getElementById('pastMedicalInput').value = '';
             document.getElementById('foodAllergyInput').value = '';
             document.getElementById('humanClinicalNote').value = '';
-            const bmiToggle = document.getElementById('includeBmiInTriage');
-            if (bmiToggle) bmiToggle.checked = false;
+            document.getElementById('clientObjectionSelect').value = '';
             clearSmartPaste();
             selectedConditionIds = ['belly'];
             renderConditionChips();
@@ -2463,8 +2679,9 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
             document.getElementById('pastMedicalInput').value = c.pastMedical || '';
             document.getElementById('foodAllergyInput').value = c.foodAllergies || '';
             document.getElementById('humanClinicalNote').value = c.humanNote || '';
-            document.getElementById('packagePrice').value = ['2,900', '5,500', '14,900', '3,500'].includes(String(c.price)) ? String(c.price) : '2,900';
-            document.getElementById('clientStatusSelect').value = ['New Triage', 'Plans Sent', 'Bank Sent', 'Paid', 'Pending', 'Archived'].includes(c.status) ? c.status : 'Pending';
+            document.getElementById('clientObjectionSelect').value = c.objectionTag || '';
+            document.getElementById('packagePrice').value = ['2,900', '3,500', '9,000', '5,500', '14,900'].includes(String(c.price)) ? String(c.price) : '2,900';
+            document.getElementById('clientStatusSelect').value = ['New Triage', 'Screened', 'Doctor Review', 'Plans Sent', 'Bank Sent', 'Paid', 'Pending', 'Closed', 'Opted out'].includes(c.status) ? c.status : 'Pending';
             selectedConditionIds = Array.isArray(c.selectedIds) && c.selectedIds.length ? [...c.selectedIds] : ['belly'];
             renderConditionChips();
             updateEditingModeUI();
@@ -2517,13 +2734,15 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
 
         function setQueueFilter(filter) {
             activeQueueFilter = filter;
-            ['all', 'slot', 'care', 'legacy'].forEach(f => {
+            ['all', 'review', 'slot', 'care', 'legacy'].forEach(f => {
                 const btn = document.getElementById('qBtn_' + f);
                 if (!btn) return;
                 if (f === filter) {
                     btn.className = 'py-2 px-1 rounded-xl text-[10px] font-extrabold bg-medinavy text-white shadow-sm';
                 } else {
-                    btn.className = 'py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700';
+                    btn.className = f === 'review'
+                        ? 'py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-rose-200 text-rose-700'
+                        : 'py-2 px-1 rounded-xl text-[10px] font-bold bg-white border border-slate-200 text-slate-700';
                 }
             });
             renderCrmCards();
@@ -2568,16 +2787,31 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
             document.getElementById('stagePaidBar').style.width = `${paidPct}%`;
             document.getElementById('statBankToPaid').textContent = `Bank→Paid: ${bankToPaid}%`;
 
+            // Top Objections Summary
+            const objBox = document.getElementById('topObjectionsBox');
+            if (objBox) {
+                const counts = {};
+                crmClients.forEach(c => {
+                    if (c.objectionTag) counts[c.objectionTag] = (counts[c.objectionTag] || 0) + 1;
+                });
+                const top3 = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 3);
+                objBox.innerHTML = top3.length
+                    ? `<span class="text-slate-400 font-bold">Top Objections:</span> ` + top3.map(([k, v]) => `<span class="bg-white/15 px-1.5 py-0.5 rounded font-bold text-amber-200">${k}: ${v}</span>`).join('')
+                    : `<span class="text-slate-400">Tag objections on Tab 1 to track your Top 3 over 100 leads.</span>`;
+            }
+
             const filtered = crmClients.filter(c => {
                 const matchesSearch = (c.name || '').toLowerCase().includes(query)
                     || (c.caseRef || '').toLowerCase().includes(query)
                     || (c.phone || '').includes(query)
-                    || (c.condition || '').toLowerCase().includes(query);
+                    || (c.condition || '').toLowerCase().includes(query)
+                    || (c.objectionTag || '').toLowerCase().includes(query);
                 if (!matchesSearch) return false;
 
+                if (activeQueueFilter === 'review') return c.status === 'Doctor Review';
                 if (activeQueueFilter === 'slot') return c.status === 'Plans Sent' || c.status === 'Bank Sent';
                 if (activeQueueFilter === 'care') return c.status === 'Paid';
-                if (activeQueueFilter === 'legacy') return c.status === 'Pending' || c.status === 'Archived';
+                if (activeQueueFilter === 'legacy') return c.status === 'Pending' || c.status === 'Closed' || c.status === 'Archived';
                 return true;
             });
 
@@ -2588,31 +2822,46 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
 
             container.innerHTML = filtered.map(c => {
                 let actionPill = '';
-                if (c.status === 'Paid') {
+                if (c.status === 'Doctor Review') {
+                    actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'medhold')" class="w-full py-1.5 px-2.5 rounded-xl bg-rose-600 text-white text-[10.5px] font-extrabold flex items-center justify-between"><span>Safety Hold — Doctor Review Required</span><span>Review File →</span></button>`;
+                } else if (c.status === 'Paid') {
                     const days = c.paidTimestamp ? Math.floor((now - c.paidTimestamp) / 86400000) : 0;
-                    if (days >= 24) {
-                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd25')" class="w-full py-1.5 px-2.5 rounded-xl bg-medigreen text-white text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — Monthly Renewal Due</span><span>Send /d25 →</span></button>`;
+                    if (days >= 85) {
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd90')" class="w-full py-1.5 px-2.5 rounded-xl bg-medinavy text-amber-300 text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — 90-Day Completion</span><span>Send 8.10 →</span></button>`;
+                    } else if (days >= 44 && String(c.price) === '9,000') {
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd45')" class="w-full py-1.5 px-2.5 rounded-xl bg-indigo-600 text-white text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — 90-Day Midpoint</span><span>Send 8.9 →</span></button>`;
+                    } else if (days >= 24) {
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd25')" class="w-full py-1.5 px-2.5 rounded-xl bg-medigreen text-white text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — Monthly Renewal (Rs. 3,500)</span><span>Send 8.8 →</span></button>`;
                     } else if (days >= 11) {
-                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd12')" class="w-full py-1.5 px-2.5 rounded-xl bg-amber-500 text-slate-950 text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — Clinical Review & Upgrade</span><span>Send /d12 →</span></button>`;
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd12')" class="w-full py-1.5 px-2.5 rounded-xl bg-amber-500 text-slate-950 text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — Review &amp; Bridge</span><span>Send 8.5 →</span></button>`;
                     } else if (days >= 4) {
-                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd5')" class="w-full py-1.5 px-2.5 rounded-xl bg-sky-600 text-white text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — Churn Rescue Check-In</span><span>Send /d5 →</span></button>`;
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'd5')" class="w-full py-1.5 px-2.5 rounded-xl bg-sky-600 text-white text-[10.5px] font-extrabold flex items-center justify-between"><span>Day ${days} — Churn Rescue Check-In</span><span>Send 8.4 →</span></button>`;
                     } else {
-                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'deliver')" class="w-full py-1.5 px-2.5 rounded-xl bg-emerald-50 text-medigreen border border-emerald-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>Active Patient (Day ${days})</span><span>/deliver PDF →</span></button>`;
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'deliver')" class="w-full py-1.5 px-2.5 rounded-xl bg-emerald-50 text-medigreen border border-emerald-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>Active Patient (Day ${days})</span><span>8.1 Deliver PDF →</span></button>`;
                     }
                 } else if (c.status === 'Plans Sent' || c.status === 'Bank Sent') {
                     const hrs = c.offerSentAt ? Math.floor((now - c.offerSentAt) / 3600000) : 24;
-                    actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'slot')" class="w-full py-1.5 px-2.5 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>${c.status} (${hrs}h ago)</span><span>Send 24h /slot →</span></button>`;
+                    if (hrs >= 168) {
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'fud7')" class="w-full py-1.5 px-2.5 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>Day 7+ (${hrs}h) — Dignified Close</span><span>Send 6.6 →</span></button>`;
+                    } else if (hrs >= 72) {
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'fud3')" class="w-full py-1.5 px-2.5 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>Day 3 (${hrs}h) — Easy 1/2 Choice</span><span>Send 6.5 →</span></button>`;
+                    } else {
+                        actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'fu24')" class="w-full py-1.5 px-2.5 rounded-xl bg-sky-50 text-sky-900 border border-sky-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>${c.status} (${hrs}h ago) — Helpful Tip</span><span>Send 6.4 →</span></button>`;
+                    }
                 } else if (c.status === 'Pending') {
-                    actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'reactivate')" class="w-full py-1.5 px-2.5 rounded-xl bg-indigo-50 text-indigo-900 border border-indigo-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>Legacy Lead (Rs. 0 Ad Spend)</span><span>Send /reactivate →</span></button>`;
+                    actionPill = `<button onclick="reloadClientFromCrm('${c.id}', 'reactivate')" class="w-full py-1.5 px-2.5 rounded-xl bg-indigo-50 text-indigo-900 border border-indigo-200 text-[10.5px] font-extrabold flex items-center justify-between"><span>Old Lead (1 Message Only)</span><span>Send 6.9 →</span></button>`;
                 }
 
                 const statusColors = {
                     'Paid': 'bg-emerald-100 text-medigreen border-emerald-300',
+                    'Doctor Review': 'bg-rose-100 text-rose-800 border-rose-300',
+                    'Screened': 'bg-sky-100 text-sky-900 border-sky-300',
                     'Plans Sent': 'bg-blue-100 text-medinavy border-blue-300',
                     'Bank Sent': 'bg-amber-100 text-amber-900 border-amber-300',
                     'Pending': 'bg-indigo-100 text-indigo-900 border-indigo-300',
                     'New Triage': 'bg-slate-100 text-slate-700 border-slate-300',
-                    'Archived': 'bg-slate-100 text-slate-400 border-slate-200'
+                    'Closed': 'bg-slate-100 text-slate-400 border-slate-200',
+                    'Opted out': 'bg-rose-50 text-rose-400 border-rose-200'
                 };
 
                 return `
@@ -2622,6 +2871,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     <span class="text-[10px] font-mono font-extrabold bg-blue-50 text-medinavy border border-blue-200 px-1.5 py-0.5 rounded">${c.caseRef}</span>
                                     <h4 class="font-extrabold text-slate-800 text-sm truncate">${c.name}</h4>
+                                    ${c.objectionTag ? `<span class="text-[9px] font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded">${c.objectionTag}</span>` : ''}
                                 </div>
                                 <p class="text-[10px] text-slate-400 font-medium mt-0.5">${c.height}cm • ${c.weight}kg • BMI ${c.bmi} • Rs. ${c.price}/- ${c.phone ? '• ' + c.phone : ''}</p>
                             </div>
@@ -2630,7 +2880,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
                         ${actionPill}
                         <div class="grid grid-cols-4 gap-1.5 pt-1">
                             <button onclick="reloadClientFromCrm('${c.id}')" class="py-1.5 rounded-lg bg-slate-100 text-slate-800 text-[11px] font-bold">Edit</button>
-                            <button onclick="reloadClientFromCrm('${c.id}', 'triage1')" class="py-1.5 rounded-lg bg-medinavy text-white text-[11px] font-bold">Scripts</button>
+                            <button onclick="reloadClientFromCrm('${c.id}', 'assess_wt')" class="py-1.5 rounded-lg bg-medinavy text-white text-[11px] font-bold">Scripts</button>
                             <button onclick="reloadClientFromCrm('${c.id}'); switchMobileTab('pdf');" class="py-1.5 rounded-lg bg-amber-500 text-slate-950 text-[11px] font-extrabold">PDF</button>
                             <button onclick="deleteCrmClient('${c.id}')" class="py-1.5 rounded-lg bg-rose-50 text-rose-600 text-[11px] font-bold">Del</button>
                         </div>
@@ -2701,7 +2951,8 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
                                 ...remote,
                                 offerSentAt: local.offerSentAt || remote.offerSentAt || 0,
                                 stageUpdatedAt: local.stageUpdatedAt || remote.stageUpdatedAt || 0,
-                                humanNote: local.humanNote || remote.humanNote || ''
+                                humanNote: local.humanNote || remote.humanNote || '',
+                                objectionTag: local.objectionTag || remote.objectionTag || ''
                             };
                         }
                         return remote;
@@ -2747,11 +2998,11 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
         }
 
         function exportJsonDatabase() {
-            const blob = new Blob([JSON.stringify({ brand: 'MediDiet Online Clinic V3', exportedAt: new Date().toISOString(), clients: crmClients }, null, 2)], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify({ brand: 'MediDiet Online Clinic V4', exportedAt: new Date().toISOString(), clients: crmClients }, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `medidiet_clinic_v3_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `medidiet_clinic_v4_${new Date().toISOString().slice(0,10)}.json`;
             a.click();
             URL.revokeObjectURL(url);
             showToast('Exported .JSON backup!');
@@ -2764,7 +3015,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `medidiet_clinic_v3_${new Date().toISOString().slice(0,10)}.sqlite`;
+            a.download = `medidiet_clinic_v4_${new Date().toISOString().slice(0,10)}.sqlite`;
             a.click();
             URL.revokeObjectURL(url);
             showToast('Exported .SQLite backup!');
@@ -2802,7 +3053,7 @@ SECTION 5: WEEKLY HOUSEHOLD GROCERY LIST
             initSqliteDatabase();
             updateShiftBadge();
             loadSavedDoctorPhoto();
-            selectPreset('triage1');
+            selectPreset('assess_wt');
             recalculateAll();
         };
     </script>
